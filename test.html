@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>ASCII bytecode - tests</title>
+		<script src="machine.js"></script>
+		<script type="module">
+			import { expect } from 'https://cdn.jsdelivr.net/npm/chai@5.1.1/+esm';
+			
+			let out = Machine.execute('O', 1);
+
+			expect(out).to.deep.equal([0]);
+		</script>
+	</head>
+</html>
