@@ -16,6 +16,46 @@ class Machine{
 		0 /*NUL*/: (machine)=>{
 			machine.#IP = 0;
 		},
+		48 /*0*/: (machine)=>{
+			machine.#ACC *= 10;
+			++machine.#IP;
+		},
+		49 /*1*/: (machine)=>{
+			machine.#ACC = machine.#ACC * 10 + 1;
+			++machine.#IP;
+		},
+		50 /*2*/: (machine)=>{
+			machine.#ACC = machine.#ACC * 10 + 2;
+			++machine.#IP;
+		},
+		51 /*3*/: (machine)=>{
+			machine.#ACC = machine.#ACC * 10 + 3;
+			++machine.#IP;
+		},
+		52 /*4*/: (machine)=>{
+			machine.#ACC = machine.#ACC * 10 + 4;
+			++machine.#IP;
+		},
+		53 /*5*/: (machine)=>{
+			machine.#ACC = machine.#ACC * 10 + 5;
+			++machine.#IP;
+		},
+		54 /*6*/: (machine)=>{
+			machine.#ACC = machine.#ACC * 10 + 6;
+			++machine.#IP;
+		},
+		55 /*7*/: (machine)=>{
+			machine.#ACC = machine.#ACC * 10 + 7;
+			++machine.#IP;
+		},
+		56 /*8*/: (machine)=>{
+			machine.#ACC = machine.#ACC * 10 + 8;
+			++machine.#IP;
+		},
+		57 /*9*/: (machine)=>{
+			machine.#ACC = machine.#ACC * 10 + 9;
+			++machine.#IP;
+		},
 		43 /*+*/: (machine)=>{
 			machine.#ACC += machine.#A;
 			++machine.#IP;
