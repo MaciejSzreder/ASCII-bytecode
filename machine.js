@@ -16,6 +16,10 @@ class Machine{
 		0 /*NUL*/: (machine)=>{
 			machine.#IP = 0;
 		},
+		43 /*+*/: (machine)=>{
+			machine.#ACC += machine.#A;
+			++machine.#IP;
+		},
 		65 /*A*/: (machine)=>{
 			machine.#A = machine.#ACC;
 			++machine.#IP;
