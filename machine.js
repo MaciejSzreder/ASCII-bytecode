@@ -13,6 +13,9 @@ class Machine{
 	}
 
 	static instructions={
+		0 /*NUL*/: (machine)=>{
+			machine.#IP = 0;
+		},
 		105 /*i*/: (machine)=>{
 			let input = machine.#inputCallback();
 			if(input !== null && input !== undefined){
