@@ -79,6 +79,10 @@ class Machine{
 			machine.#outputCallback(machine.#ACC);
 			++machine.#IP;
 		},
+		122 /*z*/: (machine)=>{
+			machine.#ACC = 0;
+			++machine.#IP;
+		},
 	}
 
 	#memory = new Uint8Array(256);
