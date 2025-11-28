@@ -16,6 +16,14 @@ class Machine{
 		0 /*NUL*/: (machine)=>{
 			machine.#IP = 0;
 		},
+		65 /*A*/: (machine)=>{
+			machine.#A = machine.#ACC;
+			++machine.#IP;
+		},
+		97 /*a*/: (machine)=>{
+			machine.#ACC = machine.#A;
+			++machine.#IP;
+		},
 		105 /*i*/: (machine)=>{
 			let input = machine.#inputCallback();
 			if(input !== null && input !== undefined){
@@ -34,6 +42,7 @@ class Machine{
 	#inputCallback = ()=>null;
 	#IP = 0;
 	#ACC = 0;
+	#A = 0;
 
 	load(code)
 	{
