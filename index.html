@@ -9,7 +9,13 @@
 		<p>The main idea is to use ASCII code points as bytecode. </p>
 		<h1>Interface</h1>
 		<p>No interface. Open console in your browser (probably Ctrl+Shift+I).</p>
-		<p>Use <code>Machine.execute("code",steps)</code> static method to execute <code>steps</code> steps for <code>code</code> and receive the output as <code>Array</code>.</p>
+		<p>Use <code>Machine.execute("code", steps, [inputs])</code> static method to execute <code>steps</code> steps for <code>code</code> with <code>inputs</code> values and receive the output as <code>Array</code>.</p>
 		<p>Create <code>new Machine</code> and use <code>Machine.load("code")</code> method to load code in to memory, <code>Machine.output(()=>action)</code> to catch output (default is console.log), at least call <code>Machine.run(steps)</code> to execute <code>steps</code> steps.</p>
+		<h1>Instructions</h1>
+		<table>
+			<tr><th>ASCII code point</th><th>ASCII character</th><th>description</th></tr>
+			<tr><td>105</td><td>i</td><td>reads a byte input and store it in the accumulator</td></tr>
+			<tr><td>111</td><td>o</td><td>write to output a byte in the accumulator</td></tr>
+		</table>
 	</body>
 </html>

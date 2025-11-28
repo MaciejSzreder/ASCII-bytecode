@@ -6,9 +6,16 @@
 		<script type="module">
 			import { expect } from 'https://cdn.jsdelivr.net/npm/chai@5.1.1/+esm';
 			
-			let out = Machine.execute('O', 1);
+			function testExecutionOutput(code, steps, input, expectedOutput)
+			{
+				let out = Machine.execute(code, steps, input);
 
-			expect(out).to.deep.equal([0]);
+				expect(out).to.deep.equal(expectedOutput)
+			}
+
+			testExecutionOutput('o', 1, [], [0]);
+
+			testExecutionOutput('io', 2, [10], [10]);
 		</script>
 	</head>
 </html>

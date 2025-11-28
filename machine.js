@@ -1,18 +1,36 @@
 class Machine{
-	static execute(code, steps)
+	static execute(code, steps, input=[])
 	{
 		let machine = new Machine;
 		machine.load(code);
 		let output = [];
 		machine.output((data) => output.push(data))
+		machine.input(()=>input.shift())
 
 		machine.run(steps);
 
 		return output;
 	}
 
+	static instructions={
+		105 /*i*/: (machine)=>{
+			let input = machine.#inputCallback();
+			if(input !== null && input !== undefined){
+				machine.#ACC = input;
+				++machine.#IP;
+			}
+		},
+		111 /*o*/: (machine)=>{
+			machine.#outputCallback(machine.#ACC);
+			++machine.#IP;
+		},
+	}
+
 	#memory = new Uint8Array(256);
 	#outputCallback = console.log;
+	#inputCallback = ()=>null;
+	#IP = 0;
+	#ACC = 0;
 
 	load(code)
 	{
@@ -24,6 +42,11 @@ class Machine{
 		this.#outputCallback = callback;
 	}
 
+	input(callback)
+	{
+		this.#inputCallback = callback;
+	}
+
 	run(steps)
 	{
 		for(let step=0; step<steps; ++step){
@@ -32,8 +55,6 @@ class Machine{
 	}
 
 	step(){
-		if(this.#memory[0] === 79){ // 'O'
-			this.#outputCallback(0);
-		}
+		Machine.instructions[this.#memory[this.#IP]](this)
 	}
 }
