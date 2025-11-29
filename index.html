@@ -9,8 +9,8 @@
 		<p>The main idea is to use ASCII code points as bytecode. </p>
 		<h1>Interface</h1>
 		<p>No interface. Open console in your browser (probably Ctrl+Shift+I).</p>
-		<p>Use <code>Machine.execute("code", steps, [inputs])</code> static method to execute <code>steps</code> steps for <code>code</code> with <code>inputs</code> values and receive the output as <code>Array</code>.</p>
-		<p>Create <code>new Machine</code> and use <code>Machine.load("code")</code> method to load code in to memory, <code>Machine.output(()=>action)</code> to catch output (default is console.log), at least call <code>Machine.run(steps)</code> to execute <code>steps</code> steps.</p>
+		<p>Use <code>Machine.execute("code", steps, [[inputs]])</code> static method to execute <code>steps</code> steps for <code>code</code> with <code>inputs</code> values and receive the output as <code>Array&lt;Array&lt;number&gt;&gt;</code>.</p>
+		<p>Create <code>new Machine</code> and use <code>Machine.load("code")</code> method to load code in to memory, <code>Machine.output((value)=>action)</code> to catch output (default is console.log), <code>Machine.inputs([()=>value])</code> to enter input data (<code>null</code> and <code>undefined</code> means no data yet available), at least call <code>Machine.run(steps)</code> to execute <code>steps</code> steps.</p>
 		<h1>Instructions</h1>
 		<table>
 			<tr><th>ASCII code point</th><th>ASCII character</th><th>description</th></tr>
@@ -27,9 +27,11 @@
 			<tr><td>56</td><td>8</td><td>increases tenfold accumulator value and by 8; append 8 into decimal accumulator value</td></tr>
 			<tr><td>57</td><td>9</td><td>increases tenfold accumulator value and by 9; append 9 into decimal accumulator value</td></tr>
 			<tr><td>65</td><td>A</td><td>copies accumulator value into register A</td></tr>
+			<tr><td>72</td><td>H</td><td>copies accumulator value into input/output index register</td></tr>
 			<tr><td>97</td><td>a</td><td>copies register A value into accumulator</td></tr>
-			<tr><td>105</td><td>i</td><td>reads a byte input and store it in the accumulator</td></tr>
-			<tr><td>111</td><td>o</td><td>write to output a byte in the accumulator</td></tr>
+			<tr><td>104</td><td>h</td><td>copies input/output index register value into accumulator</td></tr>
+			<tr><td>105</td><td>i</td><td>reads a value of input pointed by input/output register and store it in the accumulator</td></tr>
+			<tr><td>111</td><td>o</td><td>write accumulator value to output pointed by input/output register </td></tr>
 			<tr><td>122</td><td>z</td><td>sets accumulator register to 0</td></tr>
 		</table>
 	</body>

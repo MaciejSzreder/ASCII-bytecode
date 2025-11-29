@@ -1,11 +1,19 @@
 class Machine{
-	static execute(code, steps, input=[])
+	static execute(code, steps, inputs=[])
 	{
 		let machine = new Machine;
 		machine.load(code);
 		let output = [];
-		machine.output((data) => output.push(data))
-		machine.input(()=>input.shift())
+		machine.outputs(new Proxy({},{
+			get(target, field, reciver){
+				let idx = Number(field)
+				if(output[idx]===undefined){
+					output[idx] = [];
+				}
+				return (data) => output[idx].push(data);
+			}
+		}));
+		machine.inputs(inputs.map((input)=>()=>input.shift()))
 
 		machine.run(steps);
 
@@ -64,19 +72,27 @@ class Machine{
 			machine.#A = machine.#ACC;
 			++machine.#IP;
 		},
+		72 /*H*/: (machine)=>{
+			machine.#IOI = machine.#ACC;
+			++machine.#IP;
+		},
 		97 /*a*/: (machine)=>{
 			machine.#ACC = machine.#A;
 			++machine.#IP;
 		},
+		104 /*h*/: (machine)=>{
+			machine.#ACC = machine.#IOI;
+			++machine.#IP;
+		},
 		105 /*i*/: (machine)=>{
-			let input = machine.#inputCallback();
+			let input = (machine.#inputCallbacks[machine.#IOI]||(()=>null))();
 			if(input !== null && input !== undefined){
 				machine.#ACC = input;
 				++machine.#IP;
 			}
 		},
 		111 /*o*/: (machine)=>{
-			machine.#outputCallback(machine.#ACC);
+			(machine.#outputCallbacks[machine.#IOI]||(()=>{}))(machine.#ACC);
 			++machine.#IP;
 		},
 		122 /*z*/: (machine)=>{
@@ -86,10 +102,11 @@ class Machine{
 	}
 
 	#memory = new Uint8Array(256);
-	#outputCallback = console.log;
-	#inputCallback = ()=>null;
+	#outputCallbacks = console.log;
+	#inputCallbacks = [];
 	#IP = 0;
 	#ACC = 0;
+	#IOI = 0;
 	#A = 0;
 
 	load(code)
@@ -97,14 +114,14 @@ class Machine{
 		this.#memory.set([...code].map((char)=>char.charCodeAt()));
 	}
 
-	output(callback)
+	outputs(callbacks)
 	{
-		this.#outputCallback = callback;
+		this.#outputCallbacks = callbacks;
 	}
 
-	input(callback)
+	inputs(callbacks)
 	{
-		this.#inputCallback = callback;
+		this.#inputCallbacks = callbacks;
 	}
 
 	run(steps)
