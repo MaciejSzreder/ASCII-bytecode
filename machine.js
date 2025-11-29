@@ -24,6 +24,14 @@ class Machine{
 		0 /*NUL*/: (machine)=>{
 			machine.#IP = 0;
 		},
+		43 /*+*/: (machine)=>{
+			machine.#ACC += machine.#A;
+			++machine.#IP;
+		},
+		45 /*-*/: (machine)=>{
+			machine.#ACC -= machine.#A;
+			++machine.#IP;
+		},
 		48 /*0*/: (machine)=>{
 			machine.#ACC *= 10;
 			++machine.#IP;
@@ -62,10 +70,6 @@ class Machine{
 		},
 		57 /*9*/: (machine)=>{
 			machine.#ACC = machine.#ACC * 10 + 9;
-			++machine.#IP;
-		},
-		43 /*+*/: (machine)=>{
-			machine.#ACC += machine.#A;
 			++machine.#IP;
 		},
 		65 /*A*/: (machine)=>{
