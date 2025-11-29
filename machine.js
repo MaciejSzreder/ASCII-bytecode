@@ -72,6 +72,18 @@ class Machine{
 			machine.#ACC = machine.#ACC * 10 + 9;
 			++machine.#IP;
 		},
+		60 /*<*/: (machine)=>{
+			machine.#ACC = machine.#ACC < machine.#A ? 1 : 0;
+			++machine.#IP;
+		},
+		61 /*=*/: (machine)=>{
+			machine.#ACC = machine.#ACC == machine.#A ? 1 : 0;
+			++machine.#IP;
+		},
+		62 /*>*/: (machine)=>{
+			machine.#ACC = machine.#ACC > machine.#A ? 1 : 0;
+			++machine.#IP;
+		},
 		65 /*A*/: (machine)=>{
 			machine.#A = machine.#ACC;
 			++machine.#IP;

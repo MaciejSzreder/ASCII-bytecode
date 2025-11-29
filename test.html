@@ -40,6 +40,9 @@
 			testExecutionOutput('z1Ai-o', 35, [[0, 1, 2, 3, 4]], [[-1, 0, 1, 2, 3]]);
 			// TIS-100: Differential Converter
 			testExecutionOutput('1HiAzHi-oAz1Hz-oz', 90, [[1,2,3,4,5],[5,4,3,2,1]], [[-4,-2,0,2,4],[4,2,0,-2,-4]])
+			
+			// TIS-100: Signal Comparator
+			testExecutionOutput('iAz<oz1Hz=oz2Hz>ozH', 140, [[1,0,-1,2,-2,3,-3]], [[1,0,0,1,0,1,0],[0,1,0,0,0,0,0],[0,0,1,0,1,0,1]])
 		</script>
 	</head>
 </html>
