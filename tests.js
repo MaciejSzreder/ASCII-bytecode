@@ -44,9 +44,6 @@ describe('registers', ()=>{
 });
 
 describe('arithmetic', ()=>{
-	it('TIS-100: Signal Amplifier', ()=>{
-		testExecutionOutput('iA+o', 25, [[0, 1, 2, 3, 4]], [[0, 2, 4, 6, 8]]);
-	});
 	it('add one', ()=>{
 		testExecutionOutput('iAz1+o', 35, [[0, 1, 2, 3, 4]], [[1, 2, 3, 4, 5]]);
 	});
@@ -74,12 +71,6 @@ describe('arithmetic', ()=>{
 	it('less than 1', ()=>{
 		testExecutionOutput('z1Ai<o', 49, [[1,0,-1,2,-2,3,-3]], [[0,1,1,0,1,0,1]]);
 	});
-	it('TIS-100: Differential Converter',()=>{
-		testExecutionOutput('1HiAzHi-oAz1Hz-oz', 90, [[1,2,3,4,5],[5,4,3,2,1]], [[-4,-2,0,2,4],[4,2,0,-2,-4]])
-	});
-	it('TIS-100: Signal Comparator', ()=>{
-		testExecutionOutput('iAz<oz1Hz=oz2Hz>ozH', 140, [[1,0,-1,2,-2,3,-3]], [[1,0,0,1,0,1,0],[0,1,0,0,0,0,0],[0,0,1,0,1,0,1]]);
-	});
 });
 
 describe('integer literals', ()=>{
@@ -92,5 +83,23 @@ describe('integer literals', ()=>{
 	});
 	it('z clears', ()=>{
 		testExecutionOutput('190zo', 5, [], [[0]]);
+	});
+});
+
+describe('TIS-100',()=>{
+	it('Self-Test Diagnostic',()=>{
+		testExecutionOutput('ioz1HiozH', 50, [[0, 1, 2, 3, 4],[5, 6, 7, 8, 9]], [[0, 1, 2, 3, 4],[5, 6, 7, 8, 9]]);//'iohAz1-H'
+	})
+	it('Self-Test Diagnostic',()=>{
+		testExecutionOutput('iohA=-H', 80, [[0, 1, 2, 3, 4],[5, 6, 7, 8, 9]], [[0, 1, 2, 3, 4],[5, 6, 7, 8, 9]]);//''
+	})
+	it('Signal Amplifier', ()=>{
+		testExecutionOutput('iA+o', 25, [[0, 1, 2, 3, 4]], [[0, 2, 4, 6, 8]]);
+	});
+	it('Differential Converter',()=>{
+		testExecutionOutput('1HiAzHi-oAz1Hz-oz', 90, [[1,2,3,4,5],[5,4,3,2,1]], [[-4,-2,0,2,4],[4,2,0,-2,-4]])
+	});
+	it('Signal Comparator', ()=>{
+		testExecutionOutput('iAz<oz1Hz=oz2Hz>ozH', 140, [[1,0,-1,2,-2,3,-3]], [[1,0,0,1,0,1,0],[0,1,0,0,0,0,0],[0,0,1,0,1,0,1]]);
 	});
 });
