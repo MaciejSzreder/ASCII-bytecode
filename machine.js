@@ -33,6 +33,10 @@ class Machine{
 		32 /* */: (machine)=>{
 			++machine.#IP;
 		},
+		42 /***/: (machine)=>{
+			machine.#ACC *= machine.#A;
+			++machine.#IP;
+		},
 		43 /*+*/: (machine)=>{
 			machine.#ACC += machine.#A;
 			++machine.#IP;
