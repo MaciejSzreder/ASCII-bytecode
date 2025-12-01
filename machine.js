@@ -97,12 +97,20 @@ class Machine{
 			machine.#A = machine.#ACC;
 			++machine.#IP;
 		},
+		66 /*B*/: (machine)=>{
+			machine.#B = machine.#ACC;
+			++machine.#IP;
+		},
 		72 /*H*/: (machine)=>{
 			machine.#IOI = machine.#ACC;
 			++machine.#IP;
 		},
 		97 /*a*/: (machine)=>{
 			machine.#ACC = machine.#A;
+			++machine.#IP;
+		},
+		98 /*b*/: (machine)=>{
+			machine.#ACC = machine.#B;
 			++machine.#IP;
 		},
 		104 /*h*/: (machine)=>{
@@ -133,6 +141,7 @@ class Machine{
 	#ACC = 0;
 	#IOI = 0;
 	#A = 0;
+	#B = 0;
 
 	load(code)
 	{
