@@ -86,6 +86,18 @@ describe('integer literals', ()=>{
 	});
 });
 
+describe('formatting', ()=>{
+	it('code can contain spaces', ()=>{
+		testExecutionOutput('i o', 20, [[0, 1, 2, 3, 4]], [[0, 1, 2, 3, 4]])
+	})
+	it('code can contain tabulation', ()=>{
+		testExecutionOutput('i\to', 20, [[0, 1, 2, 3, 4]], [[0, 1, 2, 3, 4]])
+	})
+	it('code can contain new line (LF)', ()=>{
+		testExecutionOutput('i\no', 20, [[0, 1, 2, 3, 4]], [[0, 1, 2, 3, 4]])
+	})
+})
+
 describe('TIS-100',()=>{
 	it('Self-Test Diagnostic',()=>{
 		testExecutionOutput('ioz1HiozH', 50, [[0, 1, 2, 3, 4],[5, 6, 7, 8, 9]], [[0, 1, 2, 3, 4],[5, 6, 7, 8, 9]]);//'iohAz1-H'

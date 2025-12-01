@@ -24,6 +24,15 @@ class Machine{
 		0 /*NUL*/: (machine)=>{
 			machine.#IP = 0;
 		},
+		9 /*HT*/: (machine)=>{
+			++machine.#IP;
+		},
+		10 /*LF*/: (machine)=>{
+			++machine.#IP;
+		},
+		32 /* */: (machine)=>{
+			++machine.#IP;
+		},
 		43 /*+*/: (machine)=>{
 			machine.#ACC += machine.#A;
 			++machine.#IP;
