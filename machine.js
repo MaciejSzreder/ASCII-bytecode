@@ -170,6 +170,10 @@ class Machine{
 	}
 
 	step(){
-		Machine.instructions[this.#memory[this.#IP]](this)
+		let instruction = Machine.instructions[this.#memory[this.#IP]];
+		if(!instruction){
+			throw Error('Unknown instruction "' + String.fromCharCode(this.#memory[this.#IP]) + '"=' + this.#memory[this.#IP] + ' at ' + this.#IP + ' in ' + String.fromCharCode(...this.#memory));
+		}
+		instruction(this)
 	}
 }
