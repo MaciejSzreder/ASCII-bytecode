@@ -123,4 +123,20 @@ describe('TIS-100',()=>{
 	it('Signal Comparator', ()=>{
 		testExecutionOutput('iAz<oz1Hz=oz2Hz>ozH', 140, [[1,0,-1,2,-2,3,-3]], [[1,0,0,1,0,1,0],[0,1,0,0,0,0,0],[0,0,1,0,1,0,1]]);
 	});
+	it('Signal Multiplexer', ()=>{
+		testExecutionOutput(`
+			z1HiB
+			<Az1-A
+			zHi*H
+			zAb>Az1-A
+			hBz2H
+			i*A
+			zH
+			b+o
+			`,
+			252,
+			[[2,2,2],[1,0,-1],[3,3,3]],
+			[[2,5,3]]
+		);
+	});
 });
