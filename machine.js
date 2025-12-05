@@ -105,7 +105,7 @@ class Machine{
 			machine.#B = machine.#ACC;
 			++machine.#IP;
 		},
-		72 /*H*/: (machine)=>{
+		80 /*P*/: (machine)=>{
 			machine.#IOI = machine.#ACC;
 			++machine.#IP;
 		},
@@ -117,10 +117,6 @@ class Machine{
 			machine.#ACC = machine.#B;
 			++machine.#IP;
 		},
-		104 /*h*/: (machine)=>{
-			machine.#ACC = machine.#IOI;
-			++machine.#IP;
-		},
 		105 /*i*/: (machine)=>{
 			let input = (machine.#inputCallbacks[machine.#IOI]||(()=>null))();
 			if(input !== null && input !== undefined){
@@ -130,6 +126,10 @@ class Machine{
 		},
 		111 /*o*/: (machine)=>{
 			(machine.#outputCallbacks[machine.#IOI]||(()=>{}))(machine.#ACC);
+			++machine.#IP;
+		},
+		112 /*p*/: (machine)=>{
+			machine.#ACC = machine.#IOI;
 			++machine.#IP;
 		},
 		122 /*z*/: (machine)=>{

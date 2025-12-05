@@ -20,11 +20,11 @@ describe('IO', ()=>{
 	it('io pass input to output', function() {
 		testExecutionOutput('io', 2, [[10]], [[10]]);
 	});
-	it('H register allows to change input ', ()=>{
-		testExecutionOutput('ioz1HiAzHao', 60, [[0,2,4,6,8],[1,3,5,7,9]], [[0,1,2,3,4,5,6,7,8,9]]);
+	it('P register allows to change input ', ()=>{
+		testExecutionOutput('ioz1PiAzPao', 60, [[0,2,4,6,8],[1,3,5,7,9]], [[0,1,2,3,4,5,6,7,8,9]]);
 	});
-	it('H register allows to change output ', ()=>{
-		testExecutionOutput('ioiAz1HaozH', 60, [[0,1,2,3,4,5,6,7,8,9]], [[0,2,4,6,8],[1,3,5,7,9]]);
+	it('P register allows to change output ', ()=>{
+		testExecutionOutput('ioiAz1PaozP', 60, [[0,1,2,3,4,5,6,7,8,9]], [[0,2,4,6,8],[1,3,5,7,9]]);
 	});
 });
 
@@ -41,8 +41,8 @@ describe('registers', ()=>{
 	it('register B allows for input swapping order',()=>{
 		testExecutionOutput('iBiobo', 14, [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
 	});
-	it('pass 1 through registers H, A, B', ()=>{
-		testExecutionOutput('1HzhAzHaBzbo', 12, [], [[1]]);
+	it('pass 1 through registers P, A, B', ()=>{
+		testExecutionOutput('1PzpAzPaBzbo', 12, [], [[1]]);
 	});
 });
 
@@ -109,29 +109,29 @@ describe('formatting', ()=>{
 
 describe('TIS-100',()=>{
 	it('Self-Test Diagnostic',()=>{
-		testExecutionOutput('ioz1HiozH', 50, [[0, 1, 2, 3, 4],[5, 6, 7, 8, 9]], [[0, 1, 2, 3, 4],[5, 6, 7, 8, 9]]);//'iohAz1-H'
+		testExecutionOutput('ioz1PiozP', 50, [[0, 1, 2, 3, 4],[5, 6, 7, 8, 9]], [[0, 1, 2, 3, 4],[5, 6, 7, 8, 9]]);
 	})
 	it('Self-Test Diagnostic',()=>{
-		testExecutionOutput('iohA=-H', 80, [[0, 1, 2, 3, 4],[5, 6, 7, 8, 9]], [[0, 1, 2, 3, 4],[5, 6, 7, 8, 9]]);//''
+		testExecutionOutput('iopA=-P', 80, [[0, 1, 2, 3, 4],[5, 6, 7, 8, 9]], [[0, 1, 2, 3, 4],[5, 6, 7, 8, 9]]);
 	})
 	it('Signal Amplifier', ()=>{
 		testExecutionOutput('iA+o', 25, [[0, 1, 2, 3, 4]], [[0, 2, 4, 6, 8]]);
 	});
 	it('Differential Converter',()=>{
-		testExecutionOutput('1HiAzHi-oAz1Hz-oz', 90, [[1,2,3,4,5],[5,4,3,2,1]], [[-4,-2,0,2,4],[4,2,0,-2,-4]])
+		testExecutionOutput('1PiAzPi-oAz1Pz-oz', 90, [[1,2,3,4,5],[5,4,3,2,1]], [[-4,-2,0,2,4],[4,2,0,-2,-4]])
 	});
 	it('Signal Comparator', ()=>{
-		testExecutionOutput('iAz<oz1Hz=oz2Hz>ozH', 140, [[1,0,-1,2,-2,3,-3]], [[1,0,0,1,0,1,0],[0,1,0,0,0,0,0],[0,0,1,0,1,0,1]]);
+		testExecutionOutput('iAz<oz1Pz=oz2Pz>ozP', 140, [[1,0,-1,2,-2,3,-3]], [[1,0,0,1,0,1,0],[0,1,0,0,0,0,0],[0,0,1,0,1,0,1]]);
 	});
 	it('Signal Multiplexer', ()=>{
 		testExecutionOutput(`
-			z1HiB
+			z1PiB
 			<Az1-A
-			zHi*H
+			zPi*P
 			zAb>Az1-A
-			hBz2H
+			pBz2P
 			i*A
-			zH
+			zP
 			b+o
 			`,
 			252,
