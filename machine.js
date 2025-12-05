@@ -85,6 +85,10 @@ class Machine{
 			machine.#ACC = machine.#ACC * 10 + 9;
 			++machine.#IP;
 		},
+		59 /*;*/: (machine)=>{
+			machine.#comment = true;
+			++machine.#IP;
+		},
 		60 /*<*/: (machine)=>{
 			machine.#ACC = machine.#ACC < machine.#A ? 1 : 0;
 			++machine.#IP;
@@ -146,6 +150,7 @@ class Machine{
 	#IOI = 0;
 	#A = 0;
 	#B = 0;
+	#comment = false;
 
 	load(code)
 	{
@@ -170,10 +175,18 @@ class Machine{
 	}
 
 	step(){
-		let instruction = Machine.instructions[this.#memory[this.#IP]];
-		if(!instruction){
-			throw Error('Unknown instruction "' + String.fromCharCode(this.#memory[this.#IP]) + '"=' + this.#memory[this.#IP] + ' at ' + this.#IP + ' in ' + String.fromCharCode(...this.#memory));
+		let codebyte = this.#memory[this.#IP];
+		if(this.#comment){
+			if(codebyte === 10 /*LF*/){
+				this.#comment = false;
+			}
+			++this.#IP;
+		}else{
+			let instruction = Machine.instructions[codebyte];
+			if(!instruction){
+				throw Error('Unknown instruction "' + String.fromCharCode(this.#memory[this.#IP]) + '"=' + this.#memory[this.#IP] + ' at ' + this.#IP + ' in ' + String.fromCharCode(...this.#memory));
+			}
+			instruction(this)
 		}
-		instruction(this)
 	}
 }

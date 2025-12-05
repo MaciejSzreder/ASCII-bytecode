@@ -105,6 +105,12 @@ describe('formatting', ()=>{
 	it('code can contain new line (LF)', ()=>{
 		testExecutionOutput('i\no', 20, [[0, 1, 2, 3, 4]], [[0, 1, 2, 3, 4]])
 	})
+	it('; ignores commands', ()=>{
+		testExecutionOutput('io;o', 25, [[0, 1, 2, 3, 4]], [[0]])
+	})
+	it('new line (LF) ends ignoring commands', ()=>{
+		testExecutionOutput('i;A+\no', 40, [[0, 1, 2, 3, 4]], [[0, 1, 2, 3, 4]])
+	})
 })
 
 describe('TIS-100',()=>{
@@ -125,16 +131,16 @@ describe('TIS-100',()=>{
 	});
 	it('Signal Multiplexer', ()=>{
 		testExecutionOutput(`
-			z1PiB
-			<Az1-A
-			zPi*P
-			zAb>Az1-A
-			pBz2P
-			i*A
-			zP
-			b+o
+			z1PiB; B=selector
+			<Az1-A; A=selector>=0
+			zPi*P; P=(selector>=0)*first
+			zAb>Az1-A; A=selector<=0
+			pB; B=(selector>=0)*first
+			z2Pi*A; A=(selector<=0)*second
+			zP; first output
+			b+o; (selector>=0)*first+(selector<=0)*second
 			`,
-			252,
+			900,
 			[[2,2,2],[1,0,-1],[3,3,3]],
 			[[2,5,3]]
 		);
