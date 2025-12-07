@@ -109,6 +109,10 @@ class Machine{
 			machine.#B = machine.#ACC;
 			++machine.#IP;
 		},
+		77 /*M*/: (machine)=>{
+			machine.#ACC = Math.max(machine.#ACC, machine.#A);
+			++machine.#IP;
+		},
 		80 /*P*/: (machine)=>{
 			machine.#IOI = machine.#ACC;
 			++machine.#IP;
@@ -127,6 +131,10 @@ class Machine{
 				machine.#ACC = input;
 				++machine.#IP;
 			}
+		},
+		109 /*m*/: (machine)=>{
+			machine.#ACC = Math.min(machine.#ACC, machine.#A);
+			++machine.#IP;
 		},
 		111 /*o*/: (machine)=>{
 			(machine.#outputCallbacks[machine.#IOI]||(()=>{}))(machine.#ACC);

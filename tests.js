@@ -62,6 +62,12 @@ describe('arithmetic', ()=>{
 	it('multiply by 2', ()=>{
 		testExecutionOutput('z2Ai*o', 35, [[0, 1, 2, 3, 4]], [[0, 2, 4, 6, 8]]);
 	})
+	it('selects smaller', ()=>{
+		testExecutionOutput('iAimo', 60, [[0,1, -1,0, 2,1, 1,2, -1,-2, -2,-1, -1,1, 1,-1, 1,1, -1,-1]], [[0, -1, 1, 1, -2, -2, -1, -1, 1, -1]])
+	})
+	it('selects greater', ()=>{
+		testExecutionOutput('iAiMo', 60, [[0,1, -1,0, 2,1, 1,2, -1,-2, -2,-1, -1,1, 1,-1, 1,1, -1,-1]], [[1, 0, 2, 2, -1, -1, 1, 1, 1, -1]])
+	})
 	it('greater than 0', ()=>{
 		testExecutionOutput('i>o', 28, [[1,0,-1,2,-2,3,-3]], [[1,0,0,1,0,1,0]]);
 	});
@@ -145,4 +151,17 @@ describe('TIS-100',()=>{
 			[[2,5,3]]
 		);
 	});
+	it('Sequence Generator', ()=>{
+		testExecutionOutput(`
+			1PiA; A=first
+			zPiB; B=second
+			mo; output min(first,second)
+			bMo; output max(first,second)
+			zo; sequence end
+			`,
+			786,
+			[[10,40,50,60,90,100],[20,30,50,70,80,100]],
+			[[10,20,0,30,40,0,50,50,0,60,70,0,80,90,0,100,100,0]]
+		)
+	})
 });
