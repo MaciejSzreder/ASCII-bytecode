@@ -22,142 +22,144 @@ class Machine{
 
 	static instructions={
 		0 /*NUL*/: (machine)=>{
-			machine.#IP = 0;
+			machine.#registers[3]/*J*/ = 0;
 		},
 		9 /*HT*/: (machine)=>{
-			++machine.#IP;
+			++machine.#registers[3]/*J*/;
 		},
 		10 /*LF*/: (machine)=>{
-			++machine.#IP;
+			++machine.#registers[3]/*J*/;
 		},
 		32 /* */: (machine)=>{
-			++machine.#IP;
+			++machine.#registers[3]/*J*/;
 		},
 		42 /***/: (machine)=>{
-			machine.#ACC *= machine.#A;
-			++machine.#IP;
+			machine.#registers[0]/*ACC*/ *= machine.#registers[1]/*A*/;
+			++machine.#registers[3]/*J*/;
 		},
 		43 /*+*/: (machine)=>{
-			machine.#ACC += machine.#A;
-			++machine.#IP;
+			machine.#registers[0]/*ACC*/ += machine.#registers[1]/*A*/;
+			++machine.#registers[3]/*J*/;
 		},
 		45 /*-*/: (machine)=>{
-			machine.#ACC -= machine.#A;
-			++machine.#IP;
+			machine.#registers[0]/*ACC*/ -= machine.#registers[1]/*A*/;
+			++machine.#registers[3]/*J*/;
 		},
 		48 /*0*/: (machine)=>{
-			machine.#ACC *= 10;
-			++machine.#IP;
+			machine.#registers[0]/*ACC*/ *= 10;
+			++machine.#registers[3]/*J*/;
 		},
 		49 /*1*/: (machine)=>{
-			machine.#ACC = machine.#ACC * 10 + 1;
-			++machine.#IP;
+			machine.#registers[0]/*ACC*/ = machine.#registers[0]/*ACC*/ * 10 + 1;
+			++machine.#registers[3]/*J*/;
 		},
 		50 /*2*/: (machine)=>{
-			machine.#ACC = machine.#ACC * 10 + 2;
-			++machine.#IP;
+			machine.#registers[0]/*ACC*/ = machine.#registers[0]/*ACC*/ * 10 + 2;
+			++machine.#registers[3]/*J*/;
 		},
 		51 /*3*/: (machine)=>{
-			machine.#ACC = machine.#ACC * 10 + 3;
-			++machine.#IP;
+			machine.#registers[0]/*ACC*/ = machine.#registers[0]/*ACC*/ * 10 + 3;
+			++machine.#registers[3]/*J*/;
 		},
 		52 /*4*/: (machine)=>{
-			machine.#ACC = machine.#ACC * 10 + 4;
-			++machine.#IP;
+			machine.#registers[0]/*ACC*/ = machine.#registers[0]/*ACC*/ * 10 + 4;
+			++machine.#registers[3]/*J*/;
 		},
 		53 /*5*/: (machine)=>{
-			machine.#ACC = machine.#ACC * 10 + 5;
-			++machine.#IP;
+			machine.#registers[0]/*ACC*/ = machine.#registers[0]/*ACC*/ * 10 + 5;
+			++machine.#registers[3]/*J*/;
 		},
 		54 /*6*/: (machine)=>{
-			machine.#ACC = machine.#ACC * 10 + 6;
-			++machine.#IP;
+			machine.#registers[0]/*ACC*/ = machine.#registers[0]/*ACC*/ * 10 + 6;
+			++machine.#registers[3]/*J*/;
 		},
 		55 /*7*/: (machine)=>{
-			machine.#ACC = machine.#ACC * 10 + 7;
-			++machine.#IP;
+			machine.#registers[0]/*ACC*/ = machine.#registers[0]/*ACC*/ * 10 + 7;
+			++machine.#registers[3]/*J*/;
 		},
 		56 /*8*/: (machine)=>{
-			machine.#ACC = machine.#ACC * 10 + 8;
-			++machine.#IP;
+			machine.#registers[0]/*ACC*/ = machine.#registers[0]/*ACC*/ * 10 + 8;
+			++machine.#registers[3]/*J*/;
 		},
 		57 /*9*/: (machine)=>{
-			machine.#ACC = machine.#ACC * 10 + 9;
-			++machine.#IP;
+			machine.#registers[0]/*ACC*/ = machine.#registers[0]/*ACC*/ * 10 + 9;
+			++machine.#registers[3]/*J*/;
 		},
 		59 /*;*/: (machine)=>{
 			machine.#comment = true;
-			++machine.#IP;
+			++machine.#registers[3]/*J*/;
 		},
 		60 /*<*/: (machine)=>{
-			machine.#ACC = machine.#ACC < machine.#A ? 1 : 0;
-			++machine.#IP;
+			machine.#registers[0]/*ACC*/ = machine.#registers[0]/*ACC*/ < machine.#registers[1]/*A*/ ? 1 : 0;
+			++machine.#registers[3]/*J*/;
 		},
 		61 /*=*/: (machine)=>{
-			machine.#ACC = machine.#ACC == machine.#A ? 1 : 0;
-			++machine.#IP;
+			machine.#registers[0]/*ACC*/ = machine.#registers[0]/*ACC*/ == machine.#registers[1]/*A*/ ? 1 : 0;
+			++machine.#registers[3]/*J*/;
 		},
 		62 /*>*/: (machine)=>{
-			machine.#ACC = machine.#ACC > machine.#A ? 1 : 0;
-			++machine.#IP;
+			machine.#registers[0]/*ACC*/ = machine.#registers[0]/*ACC*/ > machine.#registers[1]/*A*/ ? 1 : 0;
+			++machine.#registers[3]/*J*/;
 		},
 		65 /*A*/: (machine)=>{
-			machine.#A = machine.#ACC;
-			++machine.#IP;
+			machine.#registers[1]/*A*/ = machine.#registers[0]/*ACC*/;
+			++machine.#registers[3]/*J*/;
 		},
 		66 /*B*/: (machine)=>{
-			machine.#B = machine.#ACC;
-			++machine.#IP;
+			machine.#registers[2]/*B*/ = machine.#registers[0]/*ACC*/;
+			++machine.#registers[3]/*J*/;
 		},
 		77 /*M*/: (machine)=>{
-			machine.#ACC = Math.max(machine.#ACC, machine.#A);
-			++machine.#IP;
+			machine.#registers[0]/*ACC*/ = Math.max(machine.#registers[0]/*ACC*/, machine.#registers[1]/*A*/);
+			++machine.#registers[3]/*J*/;
 		},
 		80 /*P*/: (machine)=>{
-			machine.#IOI = machine.#ACC;
-			++machine.#IP;
+			machine.#registers[4]/*P*/ = machine.#registers[0]/*ACC*/;
+			++machine.#registers[3]/*J*/;
 		},
 		97 /*a*/: (machine)=>{
-			machine.#ACC = machine.#A;
-			++machine.#IP;
+			machine.#registers[0]/*ACC*/ = machine.#registers[1]/*A*/;
+			++machine.#registers[3]/*J*/;
 		},
 		98 /*b*/: (machine)=>{
-			machine.#ACC = machine.#B;
-			++machine.#IP;
+			machine.#registers[0]/*ACC*/ = machine.#registers[2]/*B*/;
+			++machine.#registers[3]/*J*/;
 		},
 		105 /*i*/: (machine)=>{
-			let input = (machine.#inputCallbacks[machine.#IOI]||(()=>null))();
+			let input = (machine.#inputCallbacks[machine.#registers[4]/*P*/]||(()=>null))();
 			if(input !== null && input !== undefined){
-				machine.#ACC = input;
-				++machine.#IP;
+				machine.#registers[0]/*ACC*/ = input;
+				++machine.#registers[3]/*J*/;
 			}
 		},
 		109 /*m*/: (machine)=>{
-			machine.#ACC = Math.min(machine.#ACC, machine.#A);
-			++machine.#IP;
+			machine.#registers[0]/*ACC*/ = Math.min(machine.#registers[0]/*ACC*/, machine.#registers[1]/*A*/);
+			++machine.#registers[3]/*J*/;
 		},
 		111 /*o*/: (machine)=>{
-			(machine.#outputCallbacks[machine.#IOI]||(()=>{}))(machine.#ACC);
-			++machine.#IP;
+			(machine.#outputCallbacks[machine.#registers[4]/*P*/]||(()=>{}))(machine.#registers[0]/*ACC*/);
+			++machine.#registers[3]/*J*/;
 		},
 		112 /*p*/: (machine)=>{
-			machine.#ACC = machine.#IOI;
-			++machine.#IP;
+			machine.#registers[0]/*ACC*/ = machine.#registers[4]/*P*/;
+			++machine.#registers[3]/*J*/;
 		},
 		122 /*z*/: (machine)=>{
-			machine.#ACC = 0;
-			++machine.#IP;
+			machine.#registers[0]/*ACC*/ = 0;
+			++machine.#registers[3]/*J*/;
 		},
 	}
 
-	#memory = new Uint8Array(256);
+	#memory = new Uint8Array(1<<16);
 	#outputCallbacks = console.log;
 	#inputCallbacks = [];
-	#IP = 0;
-	#ACC = 0;
-	#IOI = 0;
-	#A = 0;
-	#B = 0;
+	#registers = new Int16Array(5);/*
+		0	ACC
+		1	A
+		2	B
+		3	J
+		4	P
+	*/
 	#comment = false;
 
 	load(code)
@@ -183,16 +185,16 @@ class Machine{
 	}
 
 	step(){
-		let codebyte = this.#memory[this.#IP];
+		let codebyte = this.#memory[this.#registers[3]/*J*/ % this.#memory.length];
 		if(this.#comment){
 			if(codebyte === 10 /*LF*/){
 				this.#comment = false;
 			}
-			++this.#IP;
+			++this.#registers[3]/*J*/;
 		}else{
 			let instruction = Machine.instructions[codebyte];
 			if(!instruction){
-				throw Error('Unknown instruction "' + String.fromCharCode(this.#memory[this.#IP]) + '"=' + this.#memory[this.#IP] + ' at ' + this.#IP + ' in ' + String.fromCharCode(...this.#memory));
+				throw Error('Unknown instruction "' + String.fromCharCode(this.#memory[this.#registers[3]/*J*/]) + '"=' + this.#memory[this.#registers[3]/*J*/] + ' at ' + this.#registers[3]/*J*/ + ' in ' + String.fromCharCode(...this.#memory));
 			}
 			instruction(this)
 		}

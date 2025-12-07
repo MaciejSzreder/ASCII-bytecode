@@ -38,8 +38,17 @@ describe('registers', ()=>{
 	it('register A allows for input swapping order',()=>{
 		testExecutionOutput('iAioao', 14, [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
 	});
+	it('writting to register A modifies only register A ',()=>{
+		testExecutionOutput('5Abopoao', 10, [], [[0, 0, 5]]);
+	});
 	it('register B allows for input swapping order',()=>{
 		testExecutionOutput('iBiobo', 14, [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
+	});
+	it('writting to register B modifies only register B ',()=>{
+		testExecutionOutput('5Baopobo', 10, [], [[0, 0, 5]]);
+	});
+	it('writting to register P modifies only register P ',()=>{
+		testExecutionOutput('5Paobopo', 10, [], [undefined, undefined, undefined, undefined, undefined, [0, 0, 5]]);
 	});
 	it('pass 1 through registers P, A, B', ()=>{
 		testExecutionOutput('1PzpAzPaBzbo', 12, [], [[1]]);
