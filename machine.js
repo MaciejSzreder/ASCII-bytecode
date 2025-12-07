@@ -33,7 +33,7 @@ class Machine{
 				return (data) => output[idx].push(data);
 			}
 		}));
-		let outOfInput = false;console.log(inputs);
+		let outOfInput = false;
 		machine.inputs(inputs.map((input)=>()=>{
 			outOfInput = input.length==0;
 			return input.shift();
@@ -42,6 +42,33 @@ class Machine{
 		do{
 			machine.step();
 		}while(!outOfInput);
+
+		return output;
+	}
+
+	static executeForSinglePass(code, inputs=[])
+	{
+		let machine = new Machine;
+		machine.load(code);
+		let output = [];
+		machine.outputs(new Proxy({},{
+			get(target, field, reciver){
+				let idx = Number(field)
+				if(output[idx]===undefined){
+					output[idx] = [];
+				}
+				return (data) => output[idx].push(data);
+			}
+		}));
+		let outOfInput = false;
+		machine.inputs(inputs.map((input)=>()=>{
+			outOfInput = input.length==0;
+			return input.shift();
+		}));
+
+		do{
+			machine.step();
+		}while(machine.#registers[3]/*J*/ !== 0);
 
 		return output;
 	}

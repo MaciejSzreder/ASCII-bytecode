@@ -14,18 +14,25 @@ function testExecutionOutputForInput(code, input, expectedOutput)
 	expect(out).to.deep.equal(expectedOutput)
 }
 
+function testExecutionOutputForSinglePass(code, input, expectedOutput)
+{
+	let out = Machine.executeForSinglePass(code, input);
+
+	expect(out).to.deep.equal(expectedOutput)
+}
+
 describe('IO', ()=>{
 	it('o command outputs', function() {
-		testExecutionOutput('o', 1, [], [[0]]);
+		testExecutionOutputForSinglePass('o', [], [[0]]);
 	});
 	it('o command outputs accumulator value', function() {
-		testExecutionOutput('5o', 2, [], [[5]]);
+		testExecutionOutputForSinglePass('5o', [], [[5]]);
 	});
 	it('i command do not outputs', function() {
-		testExecutionOutput('i', 1, [], []);
+		testExecutionOutputForSinglePass('i', [], []);
 	});
 	it('io pass input to output', function() {
-		testExecutionOutput('io', 2, [[10]], [[10]]);
+		testExecutionOutputForSinglePass('io', [[10]], [[10]]);
 	});
 	it('P register allows to change input ', ()=>{
 		testExecutionOutputForInput('ioz1PiAzPao', [[0,2,4,6,8],[1,3,5,7,9]], [[0,1,2,3,4,5,6,7,8,9]]);
@@ -46,19 +53,19 @@ describe('registers', ()=>{
 		testExecutionOutputForInput('iAioao', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
 	});
 	it('writting to register A modifies only register A ',()=>{
-		testExecutionOutput('5Abopoao', 10, [], [[0, 0, 5]]);
+		testExecutionOutputForSinglePass('5Abopoao', [], [[0, 0, 5]]);
 	});
 	it('register B allows for input swapping order',()=>{
 		testExecutionOutputForInput('iBiobo', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
 	});
 	it('writting to register B modifies only register B ',()=>{
-		testExecutionOutput('5Baopobo', 10, [], [[0, 0, 5]]);
+		testExecutionOutputForSinglePass('5Baopobo', [], [[0, 0, 5]]);
 	});
 	it('writting to register P modifies only register P ',()=>{
-		testExecutionOutput('5Paobopo', 10, [], [undefined, undefined, undefined, undefined, undefined, [0, 0, 5]]);
+		testExecutionOutputForSinglePass('5Paobopo', [], [undefined, undefined, undefined, undefined, undefined, [0, 0, 5]]);
 	});
 	it('pass 1 through registers P, A, B', ()=>{
-		testExecutionOutput('1PzpAzPaBzbo', 12, [], [[1]]);
+		testExecutionOutputForSinglePass('1PzpAzPaBzbo', [], [[1]]);
 	});
 });
 
@@ -106,14 +113,14 @@ describe('arithmetic', ()=>{
 
 describe('integer literals', ()=>{
 	it('decimal digits appends', ()=>{
-		testExecutionOutput('123o', 4, [], [[123]]);
-		testExecutionOutput('214o', 4, [], [[214]]);
-		testExecutionOutput('156o', 4, [], [[156]]);
-		testExecutionOutput('178o', 4, [], [[178]]);
-		testExecutionOutput('190o', 4, [], [[190]]);
+		testExecutionOutputForSinglePass('123o', [], [[123]]);
+		testExecutionOutputForSinglePass('214o', [], [[214]]);
+		testExecutionOutputForSinglePass('156o', [], [[156]]);
+		testExecutionOutputForSinglePass('178o', [], [[178]]);
+		testExecutionOutputForSinglePass('190o', [], [[190]]);
 	});
 	it('z clears', ()=>{
-		testExecutionOutput('190zo', 5, [], [[0]]);
+		testExecutionOutputForSinglePass('190zo', [], [[0]]);
 	});
 });
 
@@ -128,7 +135,7 @@ describe('formatting', ()=>{
 		testExecutionOutputForInput('i\no', [[0, 1, 2, 3, 4]], [[0, 1, 2, 3, 4]])
 	})
 	it('; ignores commands', ()=>{
-		testExecutionOutput('io;o', 25, [[0, 1, 2, 3, 4]], [[0]])
+		testExecutionOutputForSinglePass('io;o', [[1]], [[1]])
 	})
 	it('new line (LF) ends ignoring commands', ()=>{
 		testExecutionOutputForInput('i;A+\no', [[0, 1, 2, 3, 4]], [[0, 1, 2, 3, 4]])
