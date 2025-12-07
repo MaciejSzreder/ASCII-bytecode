@@ -19,6 +19,32 @@ class Machine{
 
 		return output;
 	}
+	static executeForInput(code, inputs=[])
+	{
+		let machine = new Machine;
+		machine.load(code);
+		let output = [];
+		machine.outputs(new Proxy({},{
+			get(target, field, reciver){
+				let idx = Number(field)
+				if(output[idx]===undefined){
+					output[idx] = [];
+				}
+				return (data) => output[idx].push(data);
+			}
+		}));
+		let outOfInput = false;console.log(inputs);
+		machine.inputs(inputs.map((input)=>()=>{
+			outOfInput = input.length==0;
+			return input.shift();
+		}));
+
+		do{
+			machine.step();
+		}while(!outOfInput);
+
+		return output;
+	}
 
 	static instructions={
 		0 /*NUL*/: (machine)=>{
