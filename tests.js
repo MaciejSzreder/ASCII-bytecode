@@ -53,19 +53,25 @@ describe('registers', ()=>{
 		testExecutionOutputForInput('iAioao', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
 	});
 	it('writting to register A modifies only register A ',()=>{
-		testExecutionOutputForSinglePass('5Abopoao', [], [[0, 0, 5]]);
+		testExecutionOutputForSinglePass('5Abocopoao', [], [[0, 0, 0, 5]]);
 	});
 	it('register B allows for input swapping order',()=>{
 		testExecutionOutputForInput('iBiobo', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
 	});
 	it('writting to register B modifies only register B ',()=>{
-		testExecutionOutputForSinglePass('5Baopobo', [], [[0, 0, 5]]);
+		testExecutionOutputForSinglePass('5Baocopobo', [], [[0, 0, 0, 5]]);
+	});
+	it('register C allows for input swapping order',()=>{
+		testExecutionOutputForInput('iCioco', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
+	});
+	it('writting to register C modifies only register B ',()=>{
+		testExecutionOutputForSinglePass('5Caobopoco', [], [[0, 0, 0, 5]]);
 	});
 	it('writting to register P modifies only register P ',()=>{
-		testExecutionOutputForSinglePass('5Paobopo', [], [undefined, undefined, undefined, undefined, undefined, [0, 0, 5]]);
+		testExecutionOutputForSinglePass('5Paobocopo', [], [undefined, undefined, undefined, undefined, undefined, [0, 0, 0, 5]]);
 	});
-	it('pass 1 through registers P, A, B', ()=>{
-		testExecutionOutputForSinglePass('1PzpAzPaBzbo', [], [[1]]);
+	it('pass 1 through registers P, A, B, C', ()=>{
+		testExecutionOutputForSinglePass('1PzpAzPaBzbCzco', [], [[1]]);
 	});
 });
 

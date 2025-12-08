@@ -162,6 +162,10 @@ class Machine{
 			machine.#registers[2]/*B*/ = machine.#registers[0]/*ACC*/;
 			++machine.#registers[3]/*J*/;
 		},
+		67 /*C*/: (machine)=>{
+			machine.#registers[5]/*C*/ = machine.#registers[0]/*ACC*/;
+			++machine.#registers[3]/*J*/;
+		},
 		77 /*M*/: (machine)=>{
 			machine.#registers[0]/*ACC*/ = Math.max(machine.#registers[0]/*ACC*/, machine.#registers[1]/*A*/);
 			++machine.#registers[3]/*J*/;
@@ -176,6 +180,10 @@ class Machine{
 		},
 		98 /*b*/: (machine)=>{
 			machine.#registers[0]/*ACC*/ = machine.#registers[2]/*B*/;
+			++machine.#registers[3]/*J*/;
+		},
+		99 /*c*/: (machine)=>{
+			machine.#registers[0]/*ACC*/ = machine.#registers[5]/*C*/;
 			++machine.#registers[3]/*J*/;
 		},
 		105 /*i*/: (machine)=>{
@@ -206,12 +214,13 @@ class Machine{
 	#memory = new Uint8Array(1<<16);
 	#outputCallbacks = console.log;
 	#inputCallbacks = [];
-	#registers = new Int16Array(5);/*
+	#registers = new Int16Array(6);/*
 		0	ACC
 		1	A
 		2	B
 		3	J
 		4	P
+		5	C
 	*/
 	#comment = false;
 
