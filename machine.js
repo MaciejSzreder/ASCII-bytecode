@@ -166,6 +166,10 @@ class Machine{
 			machine.#registers[5]/*C*/ = machine.#registers[0]/*ACC*/;
 			++machine.#registers[3]/*J*/;
 		},
+		68 /*D*/: (machine)=>{
+			machine.#registers[6]/*D*/ = machine.#registers[0]/*ACC*/;
+			++machine.#registers[3]/*J*/;
+		},
 		74 /*J*/: (machine)=>{
 			machine.#registers[3]/*ACC*/ = machine.#registers[0]/*ACC*/;
 		},
@@ -187,6 +191,10 @@ class Machine{
 		},
 		99 /*c*/: (machine)=>{
 			machine.#registers[0]/*ACC*/ = machine.#registers[5]/*C*/;
+			++machine.#registers[3]/*J*/;
+		},
+		100 /*d*/: (machine)=>{
+			machine.#registers[0]/*ACC*/ = machine.#registers[6]/*D*/;
 			++machine.#registers[3]/*J*/;
 		},
 		105 /*i*/: (machine)=>{
@@ -221,13 +229,14 @@ class Machine{
 	#memory = new Uint8Array(1<<16);
 	#outputCallbacks = console.log;
 	#inputCallbacks = [];
-	#registers = new Int16Array(6);/*
+	#registers = new Int16Array(7);/*
 		0	ACC
 		1	A
 		2	B
 		3	J
 		4	P
 		5	C
+		6   D
 	*/
 	#comment = false;
 
