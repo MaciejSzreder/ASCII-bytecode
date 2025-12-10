@@ -166,6 +166,9 @@ class Machine{
 			machine.#registers[5]/*C*/ = machine.#registers[0]/*ACC*/;
 			++machine.#registers[3]/*J*/;
 		},
+		74 /*J*/: (machine)=>{
+			machine.#registers[3]/*ACC*/ = machine.#registers[0]/*ACC*/;
+		},
 		77 /*M*/: (machine)=>{
 			machine.#registers[0]/*ACC*/ = Math.max(machine.#registers[0]/*ACC*/, machine.#registers[1]/*A*/);
 			++machine.#registers[3]/*J*/;
@@ -192,6 +195,10 @@ class Machine{
 				machine.#registers[0]/*ACC*/ = input;
 				++machine.#registers[3]/*J*/;
 			}
+		},
+		106 /*j*/: (machine)=>{
+			machine.#registers[0]/*ACC*/ = machine.#registers[3]/*J*/;
+			++machine.#registers[3]/*J*/;
 		},
 		109 /*m*/: (machine)=>{
 			machine.#registers[0]/*ACC*/ = Math.min(machine.#registers[0]/*ACC*/, machine.#registers[1]/*A*/);

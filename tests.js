@@ -42,33 +42,42 @@ describe('IO', ()=>{
 	});
 });
 
-describe('repeating', ()=>{
-	it('io is cat', ()=>{
+describe('jumps', ()=>{
+	it('code ends rolls', ()=>{
 		testExecutionOutputForInput('io', [[0, 1, 2, 3, 4]], [[0, 1, 2, 3, 4]]);
 	});
+	it('setting J register jumps', ()=>{
+		testExecutionOutputForSinglePass('z11Jo1o1o1oz1o', [], [[1]])
+	})
 });
 
 describe('registers', ()=>{
 	it('register A allows for input swapping order',()=>{
 		testExecutionOutputForInput('iAioao', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
 	});
-	it('writting to register A modifies only register A ',()=>{
+	it('writting to register A modifies only register A',()=>{
 		testExecutionOutputForSinglePass('5Abocopoao', [], [[0, 0, 0, 5]]);
 	});
 	it('register B allows for input swapping order',()=>{
 		testExecutionOutputForInput('iBiobo', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
 	});
-	it('writting to register B modifies only register B ',()=>{
+	it('writting to register B modifies only register B',()=>{
 		testExecutionOutputForSinglePass('5Baocopobo', [], [[0, 0, 0, 5]]);
 	});
 	it('register C allows for input swapping order',()=>{
 		testExecutionOutputForInput('iCioco', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
 	});
-	it('writting to register C modifies only register B ',()=>{
+	it('writting to register C modifies only register B',()=>{
 		testExecutionOutputForSinglePass('5Caobopoco', [], [[0, 0, 0, 5]]);
 	});
-	it('writting to register P modifies only register P ',()=>{
+	it('writting to register P modifies only register P',()=>{
 		testExecutionOutputForSinglePass('5Paobocopo', [], [undefined, undefined, undefined, undefined, undefined, [0, 0, 0, 5]]);
+	});
+	it('writting to register J modifies only register J',()=>{
+		testExecutionOutputForSinglePass('2Jaobocopojo', [], [[0, 0, 0, 0, 10]]);
+	});
+	it('register J stores current instruction address',()=>{
+		testExecutionOutputForSinglePass('     jo', [], [[5]]);
 	});
 	it('pass 1 through registers P, A, B, C', ()=>{
 		testExecutionOutputForSinglePass('1PzpAzPaBzbCzco', [], [[1]]);
@@ -192,3 +201,18 @@ describe('TIS-100',()=>{
 		)
 	})
 });
+
+describe('other', ()=>{
+	it('fibonacci', ()=>{
+		testExecutionOutput(`
+			o1B
+				b
+				+Bo
+				+Ao
+			z7J
+			`, 285,
+			[],
+			[[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181]]
+		)
+	})
+})
