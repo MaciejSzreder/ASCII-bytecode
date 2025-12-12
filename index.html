@@ -6,52 +6,50 @@
 	</head>
 	<body>
 		<h1>ASCII bytecode - prototype</h1>
-		<p>The main idea is to use ASCII code points as bytecode. </p>
+		<p>The main idea is to use ASCII code points as bytecode.</p>
 		<h1>Interface</h1>
-		<p>No interface. Open console in your browser (probably Ctrl+Shift+I).</p>
-		<p>Use <code>Machine.execute("code", steps, [[inputs]])</code> static method to execute <code>steps</code> steps for <code>code</code> with <code>inputs</code> values and receive the output as <code>Array&lt;Array&lt;number&gt;&gt;</code>.</p>
-		<p>Create <code>new Machine</code> and use <code>Machine.load("code")</code> method to load code in to memory, <code>Machine.output((value)=>action)</code> to catch output (default is console.log), <code>Machine.inputs([()=>value])</code> to enter input data (<code>null</code> and <code>undefined</code> means no data yet available), at least call <code>Machine.run(steps)</code> to execute <code>steps</code> steps.</p>
+		<p>No GUI - open console in your browser (probably Ctrl+Shift+I).</p>
 		<h1>Instructions</h1>
 		<table>
-			<tr><th>ASCII code point</th><th>ASCII character/Unicode Control Picture</th><th>description</th></tr>
-			<tr><td>0</td><td>&#x2400;</td><td>jumps to code begin; sets instruction pointer to 0</td></tr>
-			<tr><td>9</td><td>&#x2409;</td><td>no operation; use to code formatting</td></tr>
-			<tr><td>10</td><td>&#x240A;</td><td>set machine in execution mode; use to code formatting</td></tr>
-			<tr><td>32</td><td>&#x2420;</td><td>no operation; use to code formatting</td></tr>
-			<tr><td>42</td><td>*</td><td>increases accumulator value by register A value times</td></tr>
-			<tr><td>43</td><td>+</td><td>increases accumulator value by register A value</td></tr>
-			<tr><td>45</td><td>-</td><td>decreases accumulator value by register A value</td></tr>
-			<tr><td>48</td><td>0</td><td>increases tenfold accumulator value; append 0 into decimal accumulator value</td></tr>
-			<tr><td>49</td><td>1</td><td>increases tenfold accumulator value and by 1; append 1 into decimal accumulator value</td></tr>
-			<tr><td>50</td><td>2</td><td>increases tenfold accumulator value and by 2; append 2 into decimal accumulator value</td></tr>
-			<tr><td>51</td><td>3</td><td>increases tenfold accumulator value and by 3; append 3 into decimal accumulator value</td></tr>
-			<tr><td>52</td><td>4</td><td>increases tenfold accumulator value and by 4; append 4 into decimal accumulator value</td></tr>
-			<tr><td>53</td><td>5</td><td>increases tenfold accumulator value and by 5; append 5 into decimal accumulator value</td></tr>
-			<tr><td>54</td><td>6</td><td>increases tenfold accumulator value and by 6; append 6 into decimal accumulator value</td></tr>
-			<tr><td>55</td><td>7</td><td>increases tenfold accumulator value and by 7; append 7 into decimal accumulator value</td></tr>
-			<tr><td>56</td><td>8</td><td>increases tenfold accumulator value and by 8; append 8 into decimal accumulator value</td></tr>
-			<tr><td>57</td><td>9</td><td>increases tenfold accumulator value and by 9; append 9 into decimal accumulator value</td></tr>
-			<tr><td>59</td><td>;</td><td>set machine in comment mode: ignores all instruction until new line (␊); use for commenting</td></tr>
-			<tr><td>60</td><td>&lt;</td><td>if accumulator value is less than register A value, sets accumulator to 0, otherwise to 1</td></tr>
-			<tr><td>61</td><td>=</td><td>if accumulator value is equal to register A value, sets accumulator to 0, otherwise to 1</td></tr>
-			<tr><td>62</td><td>&gt;</td><td>if accumulator value is greater than register A value, sets accumulator to 0, otherwise to 1</td></tr>
-			<tr><td>65</td><td>A</td><td>copies accumulator value into register A</td></tr>
-			<tr><td>66</td><td>B</td><td>copies accumulator value into register B</td></tr>
-			<tr><td>67</td><td>C</td><td>copies accumulator value into register C</td></tr>
-			<tr><td>68</td><td>D</td><td>copies accumulator value into register D</td></tr>
-			<tr><td>74</td><td>J</td><td>copies accumulator value into register J (instruction pointer)</td></tr>
-			<tr><td>77</td><td>M</td><td>copies register A value into accumulator, if register A stores greater value than accumulator</td></tr>
-			<tr><td>80</td><td>P</td><td>copies accumulator value into input/output <u>p</u>ort index register</td></tr>
-			<tr><td>97</td><td>a</td><td>copies register A value into accumulator</td></tr>
-			<tr><td>98</td><td>b</td><td>copies register B value into accumulator</td></tr>
-			<tr><td>99</td><td>c</td><td>copies register C value into accumulator</td></tr>
-			<tr><td>100</td><td>d</td><td>copies register D value into accumulator</td></tr>
-			<tr><td>105</td><td>i</td><td>reads a value of input pointed by input/output register and store it in the accumulator</td></tr>
-			<tr><td>106</td><td>j</td><td>copies register J (instruction pointer) value into accumulator</td></tr>
-			<tr><td>109</td><td>m</td><td>copies register A value into accumulator, if register A stores smaller value than accumulator</td></tr>
-			<tr><td>111</td><td>o</td><td>write accumulator value to output pointed by input/output register </td></tr>
-			<tr><td>112</td><td>p</td><td>copies input/output index register <u>p</u>ort value into accumulator</td></tr>
-			<tr><td>122</td><td>z</td><td>sets accumulator register to 0</td></tr>
+			<tr><th>ASCII code point</th><th>ASCII character/Unicode Control Picture</th><th>description</th><th>comments</th></tr>
+			<tr><td>0</td><td>&#x2400;</td><td>sets instruction pointer register to 0</td><td>loops code</td></tr>
+			<tr><td>9</td><td>&#x2409;</td><td>no operation</td><td>use for code formatting</td></tr>
+			<tr><td>10</td><td>&#x240A;</td><td>exits comment mode</td><td>use for code formatting</td></tr>
+			<tr><td>32</td><td>&#x2420;</td><td>no operation</td><td>use for code formatting</td></tr>
+			<tr><td>42</td><td>*</td><td>multiplies accumulator by register A value</td><td>accumulator*=A</td></tr>
+			<tr><td>43</td><td>+</td><td>increases accumulator by register A value</td><td>accumulator+=A</td></tr>
+			<tr><td>45</td><td>-</td><td>decreases accumulator by register A value</td><td>accumulator-=A</td></tr>
+			<tr><td>48</td><td>0</td><td>appends 0 into decimal accumulator value</td><td>accumulator=accumulator*10</td></tr>
+			<tr><td>49</td><td>1</td><td>appends 1 into decimal accumulator value</td><td>accumulator=accumulator*10+1</td></tr>
+			<tr><td>50</td><td>2</td><td>appends 2 into decimal accumulator value</td><td>accumulator=accumulator*10+2</td></tr>
+			<tr><td>51</td><td>3</td><td>appends 3 into decimal accumulator value</td><td>accumulator=accumulator*10+3</td></tr>
+			<tr><td>52</td><td>4</td><td>appends 4 into decimal accumulator value</td><td>accumulator=accumulator*10+4</td></tr>
+			<tr><td>53</td><td>5</td><td>appends 5 into decimal accumulator value</td><td>accumulator=accumulator*10+5</td></tr>
+			<tr><td>54</td><td>6</td><td>appends 6 into decimal accumulator value</td><td>accumulator=accumulator*10+6</td></tr>
+			<tr><td>55</td><td>7</td><td>appends 7 into decimal accumulator value</td><td>accumulator=accumulator*10+7</td></tr>
+			<tr><td>56</td><td>8</td><td>appends 8 into decimal accumulator value</td><td>accumulator=accumulator*10+8</td></tr>
+			<tr><td>57</td><td>9</td><td>appends 9 into decimal accumulator value</td><td>accumulator=accumulator*10+9</td></tr>
+			<tr><td>59</td><td>;</td><td>enters comment mode: ignores instructions until new line (LF)</td><td>use for commenting</td></tr>
+			<tr><td>60</td><td>&lt;</td><td>if accumulator value is less than register A value, sets accumulator to 1, otherwise to 0</td><td>accumulator=accumulator&lt;A</td></tr>
+			<tr><td>61</td><td>=</td><td>if accumulator value is equal to register A value, sets accumulator to 1, otherwise to 0</td><td>accumulator=accumulator==A</td></tr>
+			<tr><td>62</td><td>&gt;</td><td>if accumulator value is greater than register A value, sets accumulator to 1, otherwise to 0</td><td>accumulator=accumulator&gt;A</td></tr>
+			<tr><td>65</td><td>A</td><td>copies accumulator value into register A</td><td>A=accumulator</td></tr>
+			<tr><td>66</td><td>B</td><td>copies accumulator value into register B</td><td>B=accumulator</td></tr>
+			<tr><td>67</td><td>C</td><td>copies accumulator value into register C</td><td>C=accumulator</td></tr>
+			<tr><td>68</td><td>D</td><td>copies accumulator value into register D</td><td>D=accumulator</td></tr>
+			<tr><td>74</td><td>J</td><td>copies accumulator value into instruction pointer register</td><td>use for <u>j</u>umps</td></tr>
+			<tr><td>77</td><td>M</td><td>copies <u>m</u>ax value of register A and accumulator into accumulator</td><td>accumulator=max(accumulator,A)</td></tr>
+			<tr><td>80</td><td>P</td><td>copies accumulator value into <u>p</u>ort index register</td><td>use for I/O service</td></tr>
+			<tr><td>97</td><td>a</td><td>copies register A value into accumulator</td><td>accumulator=A</td></tr>
+			<tr><td>98</td><td>b</td><td>copies register B value into accumulator</td><td>accumulator=B</td></tr>
+			<tr><td>99</td><td>c</td><td>copies register C value into accumulator</td><td>accumulator=C</td></tr>
+			<tr><td>100</td><td>d</td><td>copies register D value into accumulator</td><td>accumulator=D</td></tr>
+			<tr><td>105</td><td>i</td><td>reads a value of <u>i</u>nput pointed by port register and stores it in the accumulator</td><td>accumulator=IO[P]</td></tr>
+			<tr><td>106</td><td>j</td><td>copies instruction pointer register value into accumulator</td><td>use for <u>j</u>umps</td></tr>
+			<tr><td>109</td><td>m</td><td>copies <u>m</u>in value of register A and accumulator into accumulator</td><td>accumulator=min(accumulator,A)</td></tr>
+			<tr><td>111</td><td>o</td><td>write accumulator value to <u>o</u>utput pointed by port register</td><td>IO[P]=accumulator</td></tr>
+			<tr><td>112</td><td>p</td><td>copies <u>p</u>ort register value into accumulator</td><td>accumulator=P</td></tr>
+			<tr><td>122</td><td>z</td><td>sets accumulator register to <u>z</u>ero</td><td>accumulator=0</td></tr>
 		</table>
 	</body>
 </html>

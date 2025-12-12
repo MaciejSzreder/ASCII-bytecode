@@ -25,7 +25,7 @@ class Machine{
 		machine.load(code);
 		let output = [];
 		machine.outputs(new Proxy({},{
-			get(target, field, reciver){
+			get(target, field, receiver){
 				let idx = Number(field)
 				if(output[idx]===undefined){
 					output[idx] = [];
@@ -171,7 +171,7 @@ class Machine{
 			++machine.#registers[3]/*J*/;
 		},
 		74 /*J*/: (machine)=>{
-			machine.#registers[3]/*ACC*/ = machine.#registers[0]/*ACC*/;
+			machine.#registers[3]/*J*/ = machine.#registers[0]/*ACC*/;
 		},
 		77 /*M*/: (machine)=>{
 			machine.#registers[0]/*ACC*/ = Math.max(machine.#registers[0]/*ACC*/, machine.#registers[1]/*A*/);
@@ -272,7 +272,7 @@ class Machine{
 		}else{
 			let instruction = Machine.instructions[codebyte];
 			if(!instruction){
-				throw Error('Unknown instruction "' + String.fromCharCode(this.#memory[this.#registers[3]/*J*/]) + '"=' + this.#memory[this.#registers[3]/*J*/] + ' at ' + this.#registers[3]/*J*/ + ' in ' + String.fromCharCode(...this.#memory));
+				throw Error('Unknown instruction "' + String.fromCharCode(this.#memory[this.#registers[3]/*J*/]) + '" (code ' + this.#memory[this.#registers[3]/*J*/] + ') at address ' + this.#registers[3]/*J*/ + ' in ' + String.fromCharCode(...this.#memory) + '.');
 			}
 			instruction(this)
 		}
