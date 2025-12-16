@@ -132,6 +132,15 @@ describe('arithmetic', ()=>{
 	});
 });
 
+describe('bitwise', ()=>{
+	it('and', ()=>{
+		testExecutionOutputForInput('iAz1Pi&AzPao',[[0b0, 0b11111111, 0b10101001], [0b11111111, 0b0, 0b10011010]], [[0b0, 0b0, 0b10001000]])
+	});
+	it('number parity (and)', ()=>{
+		testExecutionOutputForInput('iAz1&o',[[10, 21, 0, 1, 6, 8]], [[0, 1, 0, 1, 0, 0]])
+	});
+});
+
 describe('integer literals', ()=>{
 	it('decimal digits append', ()=>{
 		testExecutionOutputForSinglePass('123o', [], [[123]]);
