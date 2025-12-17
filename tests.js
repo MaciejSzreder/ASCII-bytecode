@@ -149,6 +149,11 @@ describe('integer literals', ()=>{
 		testExecutionOutputForSinglePass('178o', [], [[178]]);
 		testExecutionOutputForSinglePass('190o', [], [[190]]);
 	});
+	it('binary digits append', ()=>{
+		testExecutionOutputForSinglePass('IOIOIOIOo', [], [[0b10101010]]);
+		testExecutionOutputForSinglePass('OIOIOIOIo', [], [[0b01010101]]);
+		testExecutionOutputForSinglePass('IOIOIOIo', [], [[0b1010101]]);
+	});
 	it('z clears', ()=>{
 		testExecutionOutputForSinglePass('190zo', [], [[0]]);
 	});
@@ -228,6 +233,17 @@ describe('other', ()=>{
 			`, 285,
 			[],
 			[[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181]]
+		)
+	});
+	it('negabinary to binary', ()=>{
+		testExecutionOutputForInput(`
+			iA
+			zOIOIOIOI&B ;positive bits
+			zIOIOIOIO&A  ;negative bits
+			b-o         ;joins positive nad negative bits
+			`,
+			[[0b1, 0b10, 0b11, 0b1111, 0b11111, 0b110001]],
+			[[1, -2, -1, -5, 11, -15]]
 		)
 	})
 })

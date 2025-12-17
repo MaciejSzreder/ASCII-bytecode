@@ -174,11 +174,19 @@ class Machine{
 			machine.#registers[6]/*D*/ = machine.#registers[0]/*ACC*/;
 			++machine.#registers[3]/*J*/;
 		},
+		73 /*I*/: (machine)=>{
+			machine.#registers[0]/*ACC*/ = machine.#registers[0]/*ACC*/ * 2 + 1;
+			++machine.#registers[3]/*J*/;
+		},
 		74 /*J*/: (machine)=>{
 			machine.#registers[3]/*J*/ = machine.#registers[0]/*ACC*/;
 		},
 		77 /*M*/: (machine)=>{
 			machine.#registers[0]/*ACC*/ = Math.max(machine.#registers[0]/*ACC*/, machine.#registers[1]/*A*/);
+			++machine.#registers[3]/*J*/;
+		},
+		79 /*O*/: (machine)=>{
+			machine.#registers[0]/*ACC*/ = machine.#registers[0]/*ACC*/ * 2;
 			++machine.#registers[3]/*J*/;
 		},
 		80 /*P*/: (machine)=>{
