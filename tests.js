@@ -106,6 +106,18 @@ describe('arithmetic', ()=>{
 	it('multiply by 2', ()=>{
 		testExecutionOutputForInput('z2Ai*o', [[0, 1, 2, 3, 4]], [[0, 2, 4, 6, 8]]);
 	})
+	it('self modulo zeroes', ()=>{
+		testExecutionOutputForInput('iA%o', [[0, 1, 2, 3, 4]], [[0, 0, 0, 0, 0]]);
+	})
+	it('modulo by 2', ()=>{
+		testExecutionOutputForInput('z2Ai%o', [[-4, -3, -2, -1, 0, 1, 2, 3, 4]], [[0, 1, 0, 1, 0, 1, 0, 1, 0]]);
+	})
+	it('modulo by -2', ()=>{
+		testExecutionOutputForInput('z2Az-Ai%o', [[-4, -3, -2, -1, 0, 1, 2, 3, 4]], [[0, -1, 0, -1, 0, -1, 0, -1, 0]]);
+	})
+	it('modulo by 0', ()=>{
+		testExecutionOutputForInput('i%o', [[-4, -3, -2, -1, 0, 1, 2, 3, 4]], [[0, 0, 0, 0, 0, 0, 0, 0, 0]]);
+	})
 	it('selects smaller', ()=>{
 		testExecutionOutputForInput('iAimo', [[0,1, -1,0, 2,1, 1,2, -1,-2, -2,-1, -1,1, 1,-1, 1,1, -1,-1]], [[0, -1, 1, 1, -2, -2, -1, -1, 1, -1]])
 	})
@@ -219,7 +231,7 @@ describe('TIS-100',()=>{
 			[[10,40,50,60,90,100],[20,30,50,70,80,100]],
 			[[10,20,0,30,40,0,50,50,0,60,70,0,80,90,0,100,100,0]]
 		)
-	})
+	});
 });
 
 describe('other', ()=>{

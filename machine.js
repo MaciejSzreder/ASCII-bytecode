@@ -86,6 +86,10 @@ class Machine{
 		32 /* */: (machine)=>{
 			++machine.#registers[3]/*J*/;
 		},
+		37 /*%*/: (machine)=>{
+			machine.#registers[0]/*ACC*/ = ((machine.#registers[0]/*ACC*/%machine.#registers[1]/*A*/)+machine.#registers[1]/*A*/)%machine.#registers[1]/*A*/;
+			++machine.#registers[3]/*J*/;
+		},
 		38 /*&*/: (machine)=>{
 			machine.#registers[0]/*ACC*/ &= machine.#registers[1]/*A*/;
 			++machine.#registers[3]/*J*/;
