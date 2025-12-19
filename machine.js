@@ -1,3 +1,20 @@
+class Core{
+	registers
+	comment = false
+
+	memory
+	inputCallbacks
+	outputCallbacks
+
+	constructor(registers, memory, inputCallbacks, outputCallbacks)
+	{
+		this.registers = new Int16Array(registers || 7);
+		this.memory = memory || new Uint8Array(1<<16);
+		this.inputCallbacks = inputCallbacks || [];
+		this.outputCallbacks = outputCallbacks || console.log;
+	}
+}
+
 class Machine{
 	static execute(code, steps, inputs=[])
 	{
@@ -68,211 +85,199 @@ class Machine{
 
 		do{
 			machine.step();
-		}while(machine.#registers[3]/*J*/ !== 0);
+		}while(machine.core.registers[3]/*J*/ !== 0);
 
 		return output;
 	}
 
 	static instructions={
-		0 /*NUL*/: (machine)=>{
-			machine.#registers[3]/*J*/ = 0;
+		0 /*NUL*/: (core)=>{
+			core.registers[3]/*J*/ = 0;
 		},
-		9 /*HT*/: (machine)=>{
-			++machine.#registers[3]/*J*/;
+		9 /*HT*/: (core)=>{
+			++core.registers[3]/*J*/;
 		},
-		10 /*LF*/: (machine)=>{
-			++machine.#registers[3]/*J*/;
+		10 /*LF*/: (core)=>{
+			++core.registers[3]/*J*/;
 		},
-		32 /* */: (machine)=>{
-			++machine.#registers[3]/*J*/;
+		32 /* */: (core)=>{
+			++core.registers[3]/*J*/;
 		},
-		37 /*%*/: (machine)=>{
-			machine.#registers[0]/*ACC*/ = ((machine.#registers[0]/*ACC*/%machine.#registers[1]/*A*/)+machine.#registers[1]/*A*/)%machine.#registers[1]/*A*/;
-			++machine.#registers[3]/*J*/;
+		37 /*%*/: (core)=>{
+			core.registers[0]/*ACC*/ = ((core.registers[0]/*ACC*/%core.registers[1]/*A*/)+core.registers[1]/*A*/)%core.registers[1]/*A*/;
+			++core.registers[3]/*J*/;
 		},
-		38 /*&*/: (machine)=>{
-			machine.#registers[0]/*ACC*/ &= machine.#registers[1]/*A*/;
-			++machine.#registers[3]/*J*/;
+		38 /*&*/: (core)=>{
+			core.registers[0]/*ACC*/ &= core.registers[1]/*A*/;
+			++core.registers[3]/*J*/;
 		},
-		42 /***/: (machine)=>{
-			machine.#registers[0]/*ACC*/ *= machine.#registers[1]/*A*/;
-			++machine.#registers[3]/*J*/;
+		42 /***/: (core)=>{
+			core.registers[0]/*ACC*/ *= core.registers[1]/*A*/;
+			++core.registers[3]/*J*/;
 		},
-		43 /*+*/: (machine)=>{
-			machine.#registers[0]/*ACC*/ += machine.#registers[1]/*A*/;
-			++machine.#registers[3]/*J*/;
+		43 /*+*/: (core)=>{
+			core.registers[0]/*ACC*/ += core.registers[1]/*A*/;
+			++core.registers[3]/*J*/;
 		},
-		45 /*-*/: (machine)=>{
-			machine.#registers[0]/*ACC*/ -= machine.#registers[1]/*A*/;
-			++machine.#registers[3]/*J*/;
+		45 /*-*/: (core)=>{
+			core.registers[0]/*ACC*/ -= core.registers[1]/*A*/;
+			++core.registers[3]/*J*/;
 		},
-		48 /*0*/: (machine)=>{
-			machine.#registers[0]/*ACC*/ *= 10;
-			++machine.#registers[3]/*J*/;
+		48 /*0*/: (core)=>{
+			core.registers[0]/*ACC*/ *= 10;
+			++core.registers[3]/*J*/;
 		},
-		49 /*1*/: (machine)=>{
-			machine.#registers[0]/*ACC*/ = machine.#registers[0]/*ACC*/ * 10 + 1;
-			++machine.#registers[3]/*J*/;
+		49 /*1*/: (core)=>{
+			core.registers[0]/*ACC*/ = core.registers[0]/*ACC*/ * 10 + 1;
+			++core.registers[3]/*J*/;
 		},
-		50 /*2*/: (machine)=>{
-			machine.#registers[0]/*ACC*/ = machine.#registers[0]/*ACC*/ * 10 + 2;
-			++machine.#registers[3]/*J*/;
+		50 /*2*/: (core)=>{
+			core.registers[0]/*ACC*/ = core.registers[0]/*ACC*/ * 10 + 2;
+			++core.registers[3]/*J*/;
 		},
-		51 /*3*/: (machine)=>{
-			machine.#registers[0]/*ACC*/ = machine.#registers[0]/*ACC*/ * 10 + 3;
-			++machine.#registers[3]/*J*/;
+		51 /*3*/: (core)=>{
+			core.registers[0]/*ACC*/ = core.registers[0]/*ACC*/ * 10 + 3;
+			++core.registers[3]/*J*/;
 		},
-		52 /*4*/: (machine)=>{
-			machine.#registers[0]/*ACC*/ = machine.#registers[0]/*ACC*/ * 10 + 4;
-			++machine.#registers[3]/*J*/;
+		52 /*4*/: (core)=>{
+			core.registers[0]/*ACC*/ = core.registers[0]/*ACC*/ * 10 + 4;
+			++core.registers[3]/*J*/;
 		},
-		53 /*5*/: (machine)=>{
-			machine.#registers[0]/*ACC*/ = machine.#registers[0]/*ACC*/ * 10 + 5;
-			++machine.#registers[3]/*J*/;
+		53 /*5*/: (core)=>{
+			core.registers[0]/*ACC*/ = core.registers[0]/*ACC*/ * 10 + 5;
+			++core.registers[3]/*J*/;
 		},
-		54 /*6*/: (machine)=>{
-			machine.#registers[0]/*ACC*/ = machine.#registers[0]/*ACC*/ * 10 + 6;
-			++machine.#registers[3]/*J*/;
+		54 /*6*/: (core)=>{
+			core.registers[0]/*ACC*/ = core.registers[0]/*ACC*/ * 10 + 6;
+			++core.registers[3]/*J*/;
 		},
-		55 /*7*/: (machine)=>{
-			machine.#registers[0]/*ACC*/ = machine.#registers[0]/*ACC*/ * 10 + 7;
-			++machine.#registers[3]/*J*/;
+		55 /*7*/: (core)=>{
+			core.registers[0]/*ACC*/ = core.registers[0]/*ACC*/ * 10 + 7;
+			++core.registers[3]/*J*/;
 		},
-		56 /*8*/: (machine)=>{
-			machine.#registers[0]/*ACC*/ = machine.#registers[0]/*ACC*/ * 10 + 8;
-			++machine.#registers[3]/*J*/;
+		56 /*8*/: (core)=>{
+			core.registers[0]/*ACC*/ = core.registers[0]/*ACC*/ * 10 + 8;
+			++core.registers[3]/*J*/;
 		},
-		57 /*9*/: (machine)=>{
-			machine.#registers[0]/*ACC*/ = machine.#registers[0]/*ACC*/ * 10 + 9;
-			++machine.#registers[3]/*J*/;
+		57 /*9*/: (core)=>{
+			core.registers[0]/*ACC*/ = core.registers[0]/*ACC*/ * 10 + 9;
+			++core.registers[3]/*J*/;
 		},
-		59 /*;*/: (machine)=>{
-			machine.#comment = true;
-			++machine.#registers[3]/*J*/;
+		59 /*;*/: (core)=>{
+			core.comment = true;
+			++core.registers[3]/*J*/;
 		},
-		60 /*<*/: (machine)=>{
-			machine.#registers[0]/*ACC*/ = machine.#registers[0]/*ACC*/ < machine.#registers[1]/*A*/ ? 1 : 0;
-			++machine.#registers[3]/*J*/;
+		60 /*<*/: (core)=>{
+			core.registers[0]/*ACC*/ = core.registers[0]/*ACC*/ < core.registers[1]/*A*/ ? 1 : 0;
+			++core.registers[3]/*J*/;
 		},
-		61 /*=*/: (machine)=>{
-			machine.#registers[0]/*ACC*/ = machine.#registers[0]/*ACC*/ == machine.#registers[1]/*A*/ ? 1 : 0;
-			++machine.#registers[3]/*J*/;
+		61 /*=*/: (core)=>{
+			core.registers[0]/*ACC*/ = core.registers[0]/*ACC*/ == core.registers[1]/*A*/ ? 1 : 0;
+			++core.registers[3]/*J*/;
 		},
-		62 /*>*/: (machine)=>{
-			machine.#registers[0]/*ACC*/ = machine.#registers[0]/*ACC*/ > machine.#registers[1]/*A*/ ? 1 : 0;
-			++machine.#registers[3]/*J*/;
+		62 /*>*/: (core)=>{
+			core.registers[0]/*ACC*/ = core.registers[0]/*ACC*/ > core.registers[1]/*A*/ ? 1 : 0;
+			++core.registers[3]/*J*/;
 		},
-		65 /*A*/: (machine)=>{
-			machine.#registers[1]/*A*/ = machine.#registers[0]/*ACC*/;
-			++machine.#registers[3]/*J*/;
+		65 /*A*/: (core)=>{
+			core.registers[1]/*A*/ = core.registers[0]/*ACC*/;
+			++core.registers[3]/*J*/;
 		},
-		66 /*B*/: (machine)=>{
-			machine.#registers[2]/*B*/ = machine.#registers[0]/*ACC*/;
-			++machine.#registers[3]/*J*/;
+		66 /*B*/: (core)=>{
+			core.registers[2]/*B*/ = core.registers[0]/*ACC*/;
+			++core.registers[3]/*J*/;
 		},
-		67 /*C*/: (machine)=>{
-			machine.#registers[5]/*C*/ = machine.#registers[0]/*ACC*/;
-			++machine.#registers[3]/*J*/;
+		67 /*C*/: (core)=>{
+			core.registers[5]/*C*/ = core.registers[0]/*ACC*/;
+			++core.registers[3]/*J*/;
 		},
-		68 /*D*/: (machine)=>{
-			machine.#registers[6]/*D*/ = machine.#registers[0]/*ACC*/;
-			++machine.#registers[3]/*J*/;
+		68 /*D*/: (core)=>{
+			core.registers[6]/*D*/ = core.registers[0]/*ACC*/;
+			++core.registers[3]/*J*/;
 		},
-		73 /*I*/: (machine)=>{
-			machine.#registers[0]/*ACC*/ = machine.#registers[0]/*ACC*/ * 2 + 1;
-			++machine.#registers[3]/*J*/;
+		73 /*I*/: (core)=>{
+			core.registers[0]/*ACC*/ = core.registers[0]/*ACC*/ * 2 + 1;
+			++core.registers[3]/*J*/;
 		},
-		74 /*J*/: (machine)=>{
-			machine.#registers[3]/*J*/ = machine.#registers[0]/*ACC*/;
+		74 /*J*/: (core)=>{
+			core.registers[3]/*J*/ = core.registers[0]/*ACC*/;
 		},
-		77 /*M*/: (machine)=>{
-			machine.#registers[0]/*ACC*/ = Math.max(machine.#registers[0]/*ACC*/, machine.#registers[1]/*A*/);
-			++machine.#registers[3]/*J*/;
+		77 /*M*/: (core)=>{
+			core.registers[0]/*ACC*/ = Math.max(core.registers[0]/*ACC*/, core.registers[1]/*A*/);
+			++core.registers[3]/*J*/;
 		},
-		79 /*O*/: (machine)=>{
-			machine.#registers[0]/*ACC*/ = machine.#registers[0]/*ACC*/ * 2;
-			++machine.#registers[3]/*J*/;
+		79 /*O*/: (core)=>{
+			core.registers[0]/*ACC*/ = core.registers[0]/*ACC*/ * 2;
+			++core.registers[3]/*J*/;
 		},
-		80 /*P*/: (machine)=>{
-			machine.#registers[4]/*P*/ = machine.#registers[0]/*ACC*/;
-			++machine.#registers[3]/*J*/;
+		80 /*P*/: (core)=>{
+			core.registers[4]/*P*/ = core.registers[0]/*ACC*/;
+			++core.registers[3]/*J*/;
 		},
-		97 /*a*/: (machine)=>{
-			machine.#registers[0]/*ACC*/ = machine.#registers[1]/*A*/;
-			++machine.#registers[3]/*J*/;
+		97 /*a*/: (core)=>{
+			core.registers[0]/*ACC*/ = core.registers[1]/*A*/;
+			++core.registers[3]/*J*/;
 		},
-		98 /*b*/: (machine)=>{
-			machine.#registers[0]/*ACC*/ = machine.#registers[2]/*B*/;
-			++machine.#registers[3]/*J*/;
+		98 /*b*/: (core)=>{
+			core.registers[0]/*ACC*/ = core.registers[2]/*B*/;
+			++core.registers[3]/*J*/;
 		},
-		99 /*c*/: (machine)=>{
-			machine.#registers[0]/*ACC*/ = machine.#registers[5]/*C*/;
-			++machine.#registers[3]/*J*/;
+		99 /*c*/: (core)=>{
+			core.registers[0]/*ACC*/ = core.registers[5]/*C*/;
+			++core.registers[3]/*J*/;
 		},
-		100 /*d*/: (machine)=>{
-			machine.#registers[0]/*ACC*/ = machine.#registers[6]/*D*/;
-			++machine.#registers[3]/*J*/;
+		100 /*d*/: (core)=>{
+			core.registers[0]/*ACC*/ = core.registers[6]/*D*/;
+			++core.registers[3]/*J*/;
 		},
-		105 /*i*/: (machine)=>{
-			let input = (machine.#inputCallbacks[machine.#registers[4]/*P*/]||(()=>null))();
+		105 /*i*/: (core)=>{
+			let input = (core.inputCallbacks[core.registers[4]/*P*/]||(()=>null))();
 			if(input !== null && input !== undefined){
-				machine.#registers[0]/*ACC*/ = input;
-				++machine.#registers[3]/*J*/;
+				core.registers[0]/*ACC*/ = input;
+				++core.registers[3]/*J*/;
 			}
 		},
-		106 /*j*/: (machine)=>{
-			machine.#registers[0]/*ACC*/ = machine.#registers[3]/*J*/;
-			++machine.#registers[3]/*J*/;
+		106 /*j*/: (core)=>{
+			core.registers[0]/*ACC*/ = core.registers[3]/*J*/;
+			++core.registers[3]/*J*/;
 		},
-		109 /*m*/: (machine)=>{
-			machine.#registers[0]/*ACC*/ = Math.min(machine.#registers[0]/*ACC*/, machine.#registers[1]/*A*/);
-			++machine.#registers[3]/*J*/;
+		109 /*m*/: (core)=>{
+			core.registers[0]/*ACC*/ = Math.min(core.registers[0]/*ACC*/, core.registers[1]/*A*/);
+			++core.registers[3]/*J*/;
 		},
-		111 /*o*/: (machine)=>{
-			(machine.#outputCallbacks[machine.#registers[4]/*P*/]||(()=>{}))(machine.#registers[0]/*ACC*/);
-			++machine.#registers[3]/*J*/;
+		111 /*o*/: (core)=>{
+			(core.outputCallbacks[core.registers[4]/*P*/]||(()=>{}))(core.registers[0]/*ACC*/);
+			++core.registers[3]/*J*/;
 		},
-		112 /*p*/: (machine)=>{
-			machine.#registers[0]/*ACC*/ = machine.#registers[4]/*P*/;
-			++machine.#registers[3]/*J*/;
+		112 /*p*/: (core)=>{
+			core.registers[0]/*ACC*/ = core.registers[4]/*P*/;
+			++core.registers[3]/*J*/;
 		},
-		122 /*z*/: (machine)=>{
-			machine.#registers[0]/*ACC*/ = 0;
-			++machine.#registers[3]/*J*/;
+		122 /*z*/: (core)=>{
+			core.registers[0]/*ACC*/ = 0;
+			++core.registers[3]/*J*/;
 		},
-		124 /*|*/: (machine)=>{
-			machine.#registers[0]/*ACC*/ |= machine.#registers[1]/*A*/;
-			++machine.#registers[3]/*J*/;
+		124 /*|*/: (core)=>{
+			core.registers[0]/*ACC*/ |= core.registers[1]/*A*/;
+			++core.registers[3]/*J*/;
 		},
 	}
 
-	#memory = new Uint8Array(1<<16);
-	#outputCallbacks = console.log;
-	#inputCallbacks = [];
-	#registers = new Int16Array(7);/*
-		0	ACC
-		1	A
-		2	B
-		3	J
-		4	P
-		5	C
-		6   D
-	*/
-	#comment = false;
+	core = new Core;
 
 	load(code)
 	{
-		this.#memory.set([...code].map((char)=>char.charCodeAt()));
+		this.core.memory.set([...code].map((char)=>char.charCodeAt()));
 	}
 
 	outputs(callbacks)
 	{
-		this.#outputCallbacks = callbacks;
+		this.core.outputCallbacks = callbacks;
 	}
 
 	inputs(callbacks)
 	{
-		this.#inputCallbacks = callbacks;
+		this.core.inputCallbacks = callbacks;
 	}
 
 	run(steps)
@@ -283,18 +288,18 @@ class Machine{
 	}
 
 	step(){
-		let codebyte = this.#memory[this.#registers[3]/*J*/ % this.#memory.length];
-		if(this.#comment){
+		let codebyte = this.core.memory[this.core.registers[3]/*J*/ % this.core.memory.length];
+		if(this.core.comment){
 			if(codebyte === 10 /*LF*/){
-				this.#comment = false;
+				this.core.comment = false;
 			}
-			++this.#registers[3]/*J*/;
+			++this.core.registers[3]/*J*/;
 		}else{
 			let instruction = Machine.instructions[codebyte];
 			if(!instruction){
-				throw Error('Unknown instruction "' + String.fromCharCode(this.#memory[this.#registers[3]/*J*/]) + '" (code ' + this.#memory[this.#registers[3]/*J*/] + ') at address ' + this.#registers[3]/*J*/ + ' in ' + String.fromCharCode(...this.#memory) + '.');
+				throw Error('Unknown instruction "' + String.fromCharCode(this.core.memory[this.core.registers[3]/*J*/]) + '" (code ' + this.core.memory[this.core.registers[3]/*J*/] + ') at address ' + this.core.registers[3]/*J*/ + ' in ' + String.fromCharCode(...this.core.memory) + '.');
 			}
-			instruction(this)
+			instruction(this.core)
 		}
 	}
 }
