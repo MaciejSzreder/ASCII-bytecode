@@ -240,6 +240,10 @@ class Machine{
 			machine.#registers[0]/*ACC*/ = 0;
 			++machine.#registers[3]/*J*/;
 		},
+		124 /*|*/: (machine)=>{
+			machine.#registers[0]/*ACC*/ |= machine.#registers[1]/*A*/;
+			++machine.#registers[3]/*J*/;
+		},
 	}
 
 	#memory = new Uint8Array(1<<16);

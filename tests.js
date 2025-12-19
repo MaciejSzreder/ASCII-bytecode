@@ -151,6 +151,12 @@ describe('bitwise', ()=>{
 	it('number parity (and)', ()=>{
 		testExecutionOutputForInput('iAz1&o',[[10, 21, 0, 1, 6, 8]], [[0, 1, 0, 1, 0, 0]])
 	});
+	it('or', ()=>{
+		testExecutionOutputForInput('iAz1Pi|AzPao',[[0b0, 0b11111111, 0b10101001], [0b11111111, 0b0, 0b10011010]], [[0b11111111, 0b11111111, 0b10111011]])
+	});
+	it('make odd', ()=>{
+		testExecutionOutputForInput('iAz1|o',[[10, 21, 0, 1, 6, 8]], [[11, 21, 1, 1, 7, 9]])
+	});
 });
 
 describe('integer literals', ()=>{
