@@ -2,17 +2,16 @@ class Core{
 	registers
 	comment = false
 
-	memory
-	inputCallbacks
-	outputCallbacks
-
-	constructor(registers, memory, inputCallbacks, outputCallbacks)
+	constructor(registers)
 	{
 		this.registers = new Int16Array(registers || 7);
-		this.memory = memory || new Uint8Array(1<<16);
-		this.inputCallbacks = inputCallbacks || [];
-		this.outputCallbacks = outputCallbacks || console.log;
 	}
+}
+
+class Resources{
+	memory = new Uint8Array(1<<16);
+	inputCallbacks = [];
+	outputCallbacks = console.log;
 }
 
 class Machine{
@@ -230,8 +229,8 @@ class Machine{
 			core.registers[0]/*ACC*/ = core.registers[6]/*D*/;
 			++core.registers[3]/*J*/;
 		},
-		105 /*i*/: (core)=>{
-			let input = (core.inputCallbacks[core.registers[4]/*P*/]||(()=>null))();
+		105 /*i*/: (core, resources)=>{
+			let input = (resources.inputCallbacks[core.registers[4]/*P*/]||(()=>null))();
 			if(input !== null && input !== undefined){
 				core.registers[0]/*ACC*/ = input;
 				++core.registers[3]/*J*/;
@@ -245,8 +244,8 @@ class Machine{
 			core.registers[0]/*ACC*/ = Math.min(core.registers[0]/*ACC*/, core.registers[1]/*A*/);
 			++core.registers[3]/*J*/;
 		},
-		111 /*o*/: (core)=>{
-			(core.outputCallbacks[core.registers[4]/*P*/]||(()=>{}))(core.registers[0]/*ACC*/);
+		111 /*o*/: (core, resources)=>{
+			(resources.outputCallbacks[core.registers[4]/*P*/]||(()=>{}))(core.registers[0]/*ACC*/);
 			++core.registers[3]/*J*/;
 		},
 		112 /*p*/: (core)=>{
@@ -264,20 +263,21 @@ class Machine{
 	}
 
 	core = new Core;
+	resources = new Resources;
 
 	load(code)
 	{
-		this.core.memory.set([...code].map((char)=>char.charCodeAt()));
+		this.resources.memory.set([...code].map((char)=>char.charCodeAt()));
 	}
 
 	outputs(callbacks)
 	{
-		this.core.outputCallbacks = callbacks;
+		this.resources.outputCallbacks = callbacks;
 	}
 
 	inputs(callbacks)
 	{
-		this.core.inputCallbacks = callbacks;
+		this.resources.inputCallbacks = callbacks;
 	}
 
 	run(steps)
@@ -288,7 +288,7 @@ class Machine{
 	}
 
 	step(){
-		let codebyte = this.core.memory[this.core.registers[3]/*J*/ % this.core.memory.length];
+		let codebyte = this.resources.memory[this.core.registers[3]/*J*/ % this.resources.memory.length];
 		if(this.core.comment){
 			if(codebyte === 10 /*LF*/){
 				this.core.comment = false;
@@ -297,9 +297,9 @@ class Machine{
 		}else{
 			let instruction = Machine.instructions[codebyte];
 			if(!instruction){
-				throw Error('Unknown instruction "' + String.fromCharCode(this.core.memory[this.core.registers[3]/*J*/]) + '" (code ' + this.core.memory[this.core.registers[3]/*J*/] + ') at address ' + this.core.registers[3]/*J*/ + ' in ' + String.fromCharCode(...this.core.memory) + '.');
+				throw Error('Unknown instruction "' + String.fromCharCode(this.resources.memory[this.core.registers[3]/*J*/]) + '" (code ' + this.resources.memory[this.core.registers[3]/*J*/] + ') at address ' + this.core.registers[3]/*J*/ + ' in ' + String.fromCharCode(...this.resources.memory) + '.');
 			}
-			instruction(this.core)
+			instruction(this.core, this.resources)
 		}
 	}
 }
