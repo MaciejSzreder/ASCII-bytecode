@@ -160,6 +160,12 @@ describe('bitwise', ()=>{
 	it('make odd', ()=>{
 		testExecutionOutputForInput('iAz1|o',[[10, 21, 0, 1, 6, 8]], [[11, 21, 1, 1, 7, 9]])
 	});
+	it('xor', ()=>{
+		testExecutionOutputForInput('iAz1Pi^AzPao',[[0b0, 0b11111111, 0b10101001], [0b11111111, 0b0, 0b10011010]], [[0b11111111, 0b11111111, 0b00110011]])
+	});
+	it('parity bit', ()=>{
+		testExecutionOutputForInput('iAOOOOB^AOO^AO^AzIOOOOOOO&Az<o',[[0b0, 0b1, 0b10, 0b100, 0b1000, 0b10000, 0b100000, 0b1000000, 0b10000000, 0b10101010, 0b10001001]], [[0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1]])
+	});
 });
 
 describe('integer literals', ()=>{

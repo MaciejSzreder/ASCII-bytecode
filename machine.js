@@ -222,6 +222,10 @@ class Machine{
 			core.registers[0]/*ACC*/ = core.registers[1]/*A*/;
 			++core.registers[3]/*J*/;
 		},
+		94 /*^*/: (core)=>{
+			core.registers[0]/*ACC*/ ^= core.registers[1]/*A*/;
+			++core.registers[3]/*J*/;
+		},
 		98 /*b*/: (core)=>{
 			core.registers[0]/*ACC*/ = core.registers[2]/*B*/;
 			++core.registers[3]/*J*/;
