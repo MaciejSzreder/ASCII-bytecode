@@ -244,6 +244,20 @@ describe('TIS-100',()=>{
 			[[10,20,0,30,40,0,50,50,0,60,70,0,80,90,0,100,100,0]]
 		)
 	});
+	it('Sequence Counter',()=>{
+		testExecutionOutputForInput(`
+			zBzC; sum=0, count=0
+				iAb+B; sum+=input
+				z<Ac+C; count+=input>0
+			z29*Dz1-Az109*Ad+J; if input>0
+			bo
+			z1Pco
+			zP
+			`,
+			[[1,2,3,4,5,0, 1,2,0, 1,0, 0, 77,34,32,98,45,76,0]],
+			[[15, 3, 1, 0, 362], [5, 2, 1, 0, 6]]
+		);
+	});
 });
 
 describe('other', ()=>{
