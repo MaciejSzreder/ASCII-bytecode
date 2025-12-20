@@ -48,6 +48,9 @@ describe('jumps', ()=>{
 	});
 	it('setting J register jumps', ()=>{
 		testExecutionOutputForSinglePass('z11Jo1o1o1oz1o', [], [[1]])
+	});
+	it('forking jumps', ()=>{
+		testExecutionOutput('z11YjJo1o1oz1ojJ',99 , [], [[1]])
 	})
 });
 
@@ -201,6 +204,9 @@ describe('TIS-100',()=>{
 	})
 	it('Self-Test Diagnostic',()=>{
 		testExecutionOutputForInput('iopA=-P', [[0, 1, 2, 3, 4],[5, 6, 7, 8, 9]], [[0, 1, 2, 3, 4],[5, 6, 7, 8, 9]]);
+	})
+	it('Self-Test Diagnostic',()=>{
+		testExecutionOutput('7Yioz2Jz1Pioz10J', 1000, [[0, 1, 2],[5, 6, 7, 8, 9]], [[0, 1, 2],[5, 6, 7, 8, 9]]);
 	})
 	it('Signal Amplifier', ()=>{
 		testExecutionOutputForInput('iA+o', [[0, 1, 2, 3, 4]], [[0, 2, 4, 6, 8]]);
