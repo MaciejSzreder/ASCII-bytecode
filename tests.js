@@ -258,6 +258,19 @@ describe('TIS-100',()=>{
 			[[15, 3, 1, 0, 362], [5, 2, 1, 0, 6]]
 		);
 	});
+	it('Signal Edge Detector', ()=>{
+		testExecutionOutputForInput(`
+			iC;      C=current
+			-A;      A= current - previous
+			z9<D;    D= 9 < current - previous
+			z-Az9<A; 9 < previous - current
+			d+o;     |previous - current| > 9
+			cA;      previous<-current
+			`,
+			[[0, 5, 100, 10, 20, 10, 1, 10]],
+			[[0, 0, 1, 1, 1, 1, 0, 0]]
+		);
+	});
 });
 
 describe('other', ()=>{
