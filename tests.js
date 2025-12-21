@@ -277,6 +277,29 @@ describe('TIS-100',()=>{
 			[[0, 0, 1, 1, 1, 1, 0, 0]]
 		);
 	});
+	it('Input Handler', ()=>{
+		testExecutionOutputForInput(`
+			iOA;            A=first
+			z1Pi|OA;        A=first second
+			z2Pi|OA;        A=first second third
+			z3Pi|AC;        C=first second third fourth
+			b^DA;           D=current ^ previous
+			cB;             previous<-current
+			zIOOO=C;        C=(first changed)? 1 : 0
+			zIOOAd=OAc+C;   C+=(second changed)? 2 : 0
+			zIOAd=Az3*Ac+C; C+=(third changed)? 3 : 0
+			zIAd=OOAc+C;    C+=(fourth changed)? 4 : 0
+			zPco
+			`,[
+				[0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0],
+				[0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0],
+				[0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0],
+				[0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0]
+			],[
+				[0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 0]
+			]
+		)
+	});
 });
 
 describe('other', ()=>{
