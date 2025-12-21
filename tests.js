@@ -300,6 +300,17 @@ describe('TIS-100',()=>{
 			]
 		)
 	});
+	it('Signal Pattern Detector', ()=>{
+		testExecutionOutputForInput(`
+			i=A;     is match
+			bO|A;    append match
+			zIII&BA; keep only 3 last matches
+			zIII=o;  is full match
+			zA`,
+			[[2, 0,0,0, 1, 2, 0, 3, 0,0, 4, 0,0,0,0,0,0, 1, 0,0,0]],
+			[[0, 0,0,1, 0, 0, 0, 0, 0,0, 0, 0,0,1,1,1,1, 0, 0,0,1]]
+		)
+	});
 });
 
 describe('other', ()=>{
