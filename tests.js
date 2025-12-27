@@ -79,6 +79,18 @@ describe('jumps', ()=>{
 	it('{} does not repeat code for zeroed accumulator', ()=>{
 		testExecutionOutputForSinglePass('{o}',[],[[0]]);
 	});
+	it('{} can be nested', ()=>{
+		testExecutionOutputForSinglePass('1Az3B{oz3{o-}b-B}',[],[[3, 3,2,1, 2, 3,2,1, 1, 3,2,1]]);
+	});
+	it('{} can be nested', ()=>{
+		testExecutionOutputForSinglePass('1Az4B{o{zo}b-B}',[],[[4, 0, 3, 0, 2, 0, 1, 0]]);
+	});
+	it('{} can be nested', ()=>{
+		testExecutionOutputForSinglePass('{o1Az4{o-}z}',[],[[0, 4, 3, 2, 1]]);
+	});
+	it('{} can be nested', ()=>{
+		testExecutionOutputForSinglePass('{o{o}}',[],[[0, 0]]);
+	});
 	it('forking jumps', ()=>{
 		testExecutionOutput('z11YjJo1o1oz1ojJ',99 , [], [[1]])
 	})

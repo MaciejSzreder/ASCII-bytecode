@@ -293,6 +293,7 @@ class Machine{
 		125 /*}*/: (core)=>{
 			if(core.registers[0]/*ACC*/ !== 0){
 				core.state = 5/*repeat backtrack*/
+				core.nest = 1;
 				--core.registers[3]/*J*/;
 				return;
 			}
@@ -367,9 +368,14 @@ class Machine{
 			break;
 		case 5/*repeat backtrack*/:
 			if(codebyte === 123/*{*/){
-				core.state = 1/*execution*/;
-				++core.registers[3]/*J*/;
-				break;
+				--core.nest;
+				if(core.nest === 0){
+					core.state = 1/*execution*/;
+					++core.registers[3]/*J*/;
+					break;
+				}
+			}else if(codebyte === 125/*}*/){
+				++core.nest;
 			}
 			--core.registers[3]/*J*/;
 			break;
