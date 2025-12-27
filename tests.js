@@ -56,10 +56,10 @@ describe('jumps', ()=>{
 		testExecutionOutputForSinglePass('1[o]',[],[[1]]);
 	});
 	it('comments in [] can contain ]', ()=>{
-		testExecutionOutputForSinglePass('[o;o]o\no]',[],[]);
+		testExecutionOutputForSinglePass('[o;o]o;o]',[],[]);
 	});
 	it('comments in [] can contain ]', ()=>{
-		testExecutionOutputForSinglePass('1[o;o]o\no]',[],[[1, 1]]);
+		testExecutionOutputForSinglePass('1[o;o]o;o]',[],[[1, 1]]);
 	});
 	it('[] can be nested', ()=>{
 		testExecutionOutputForSinglePass('[o[o]o]',[],[]);
@@ -242,7 +242,7 @@ describe('formatting', ()=>{
 		testExecutionOutputForSinglePass('io;o', [[1]], [[1]])
 	})
 	it('new line (LF) exits comment mode', ()=>{
-		testExecutionOutputForInput('i;A+\no', [[0, 1, 2, 3, 4]], [[0, 1, 2, 3, 4]])
+		testExecutionOutputForInput('i;A+;o', [[0, 1, 2, 3, 4]], [[0, 1, 2, 3, 4]])
 	})
 })
 
@@ -267,14 +267,14 @@ describe('TIS-100',()=>{
 	});
 	it('Signal Multiplexer', ()=>{
 		testExecutionOutputForInput(`
-			z1PiB; B=selector
-			<Az1-A; A=selector>=0
-			zPi*P; P=(selector>=0)*first
-			zAb>Az1-A; A=selector<=0
-			pB; B=(selector>=0)*first
-			z2Pi*A; A=(selector<=0)*second
-			zP; first output
-			b+o; (selector>=0)*first+(selector<=0)*second
+			z1PiB; B=selector;
+			<Az1-A; A=selector>=0;
+			zPi*P; P=(selector>=0)*first;
+			zAb>Az1-A; A=selector<=0;
+			pB; B=(selector>=0)*first;
+			z2Pi*A; A=(selector<=0)*second;
+			zP; first output;
+			b+o; (selector>=0)*first+(selector<=0)*second;
 			`,
 			[[2,2,2],[1,0,-1],[3,3,3]],
 			[[2,5,3]]
@@ -282,11 +282,11 @@ describe('TIS-100',()=>{
 	});
 	it('Sequence Generator', ()=>{
 		testExecutionOutputForInput(`
-			1PiA; A=first
-			zPiB; B=second
-			mo; output min(first,second)
-			bMo; output max(first,second)
-			zo; sequence end
+			1PiA; A=first;
+			zPiB; B=second;
+			mo; output min(first,second);
+			bMo; output max(first,second);
+			zo; sequence end;
 			`,
 			[[10,40,50,60,90,100],[20,30,50,70,80,100]],
 			[[10,20,0,30,40,0,50,50,0,60,70,0,80,90,0,100,100,0]]
@@ -294,10 +294,10 @@ describe('TIS-100',()=>{
 	});
 	it('Sequence Counter',()=>{
 		testExecutionOutputForInput(`
-			zBzC; sum=0, count=0
-				iAb+B; sum+=input
-				z<Ac+C; count+=input>0
-			z29*Dz1-Az109*Ad+J; if input>0
+			zBzC; sum=0, count=0;
+				iAb+B; sum+=input;
+				z<Ac+C; count+=input>0;
+			z30*Dz1-Az115*Ad+J; if input>0;
 			bo
 			z1Pco
 			zP
@@ -308,12 +308,12 @@ describe('TIS-100',()=>{
 	});
 	it('Signal Edge Detector', ()=>{
 		testExecutionOutputForInput(`
-			iC;      C=current
-			-A;      A= current - previous
-			z9<D;    D= 9 < current - previous
-			z-Az9<A; 9 < previous - current
-			d+o;     |previous - current| > 9
-			cA;      previous<-current
+			iC;      C=current;
+			-A;      A= current - previous;
+			z9<D;    D= 9 < current - previous;
+			z-Az9<A; 9 < previous - current;
+			d+o;     |previous - current| > 9;
+			cA;      previous<-current;
 			`,
 			[[0, 5, 100, 10, 20, 10, 1, 10]],
 			[[0, 0, 1, 1, 1, 1, 0, 0]]
@@ -321,16 +321,16 @@ describe('TIS-100',()=>{
 	});
 	it('Input Handler', ()=>{
 		testExecutionOutputForInput(`
-			iOA;            A=first
-			z1Pi|OA;        A=first second
-			z2Pi|OA;        A=first second third
-			z3Pi|AC;        C=first second third fourth
-			b^DA;           D=current ^ previous
-			cB;             previous<-current
-			zIOOO=C;        C=(first changed)? 1 : 0
-			zIOOAd=OAc+C;   C+=(second changed)? 2 : 0
-			zIOAd=Az3*Ac+C; C+=(third changed)? 3 : 0
-			zIAd=OOAc+C;    C+=(fourth changed)? 4 : 0
+			iOA;            A=first;
+			z1Pi|OA;        A=first second;
+			z2Pi|OA;        A=first second third;
+			z3Pi|AC;        C=first second third fourth;
+			b^DA;           D=current ^ previous;
+			cB;             previous<-current;
+			zIOOO=C;        C=(first changed)? 1 : 0;
+			zIOOAd=OAc+C;   C+=(second changed)? 2 : 0;
+			zIOAd=Az3*Ac+C; C+=(third changed)? 3 : 0;
+			zIAd=OOAc+C;    C+=(fourth changed)? 4 : 0;
 			zPco
 			`,[
 				[0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0],
@@ -344,10 +344,10 @@ describe('TIS-100',()=>{
 	});
 	it('Signal Pattern Detector', ()=>{
 		testExecutionOutputForInput(`
-			i=A;     is match
-			bO|A;    append match
-			zIII&BA; keep only 3 last matches
-			zIII=o;  is full match
+			i=A;     is match;
+			bO|A;    append match;
+			zIII&BA; keep only 3 last matches;
+			zIII=o;  is full match;
 			zA`,
 			[[2, 0,0,0, 1, 2, 0, 3, 0,0, 4, 0,0,0,0,0,0, 1, 0,0,0]],
 			[[0, 0,0,1, 0, 0, 0, 0, 0,0, 0, 0,0,1,1,1,1, 0, 0,0,1]]
@@ -371,9 +371,9 @@ describe('other', ()=>{
 	it('negabinary to binary', ()=>{
 		testExecutionOutputForInput(`
 			iA
-			zOIOIOIOI&B ;positive bits
-			zIOIOIOIO&A  ;negative bits
-			b-o         ;joins positive nad negative bits
+			zOIOIOIOI&B ;positive bits;
+			zIOIOIOIO&A  ;negative bits;
+			b-o         ;joins positive nad negative bits;
 			`,
 			[[0b1, 0b10, 0b11, 0b1111, 0b11111, 0b110001]],
 			[[1, -2, -1, -5, 11, -15]]

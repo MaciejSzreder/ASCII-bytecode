@@ -342,7 +342,7 @@ class Machine{
 			instruction(core, this);
 			break;
 		case 2/*comment*/:
-			if(codebyte === 10/*LF*/){
+			if(codebyte === 59/*;*/){
 				core.state = 1/*execution*/;
 			}
 			++core.registers[3]/*J*/;

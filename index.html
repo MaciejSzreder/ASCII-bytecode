@@ -14,7 +14,7 @@
 			<tr><th>ASCII code point</th><th>ASCII character/Unicode Control Picture</th><th>description</th><th>comments</th></tr>
 			<tr><td>0</td><td>&#x2400;</td><td>sets instruction pointer register to 0</td><td>loops code</td></tr>
 			<tr><td>9</td><td>&#x2409;</td><td>no operation</td><td>use for code formatting</td></tr>
-			<tr><td>10</td><td>&#x240A;</td><td>exits comment mode</td><td>use for code formatting</td></tr>
+			<tr><td>10</td><td>&#x240A;</td><td>no operation</td><td>use for code formatting</td></tr>
 			<tr><td>32</td><td>&#x2420;</td><td>no operation</td><td>use for code formatting</td></tr>
 			<tr><td>37</td><td>%</td><td>modules (basing on floored division; x % 0 == 0) accumulator by register A bits</td><td>accumulator%=A</td></tr>
 			<tr><td>38</td><td>&amp;</td><td>conjuncts corresponding accumulator bits with register A bits</td><td>accumulator&=A</td></tr>
@@ -31,7 +31,7 @@
 			<tr><td>55</td><td>7</td><td>appends 7 into decimal accumulator value</td><td>accumulator=accumulator*10+7</td></tr>
 			<tr><td>56</td><td>8</td><td>appends 8 into decimal accumulator value</td><td>accumulator=accumulator*10+8</td></tr>
 			<tr><td>57</td><td>9</td><td>appends 9 into decimal accumulator value</td><td>accumulator=accumulator*10+9</td></tr>
-			<tr><td>59</td><td>;</td><td>enters comment mode: ignores instructions until new line (LF)</td><td>use for commenting</td></tr>
+			<tr><td>59</td><td>;</td><td>enters comment mode: ignores instructions until next ;</td><td>use for commenting</td></tr>
 			<tr><td>60</td><td>&lt;</td><td>if accumulator value is less than register A value, sets accumulator to 1, otherwise to 0</td><td>accumulator=accumulator&lt;A</td></tr>
 			<tr><td>61</td><td>=</td><td>if accumulator value is equal to register A value, sets accumulator to 1, otherwise to 0</td><td>accumulator=accumulator==A</td></tr>
 			<tr><td>62</td><td>&gt;</td><td>if accumulator value is greater than register A value, sets accumulator to 1, otherwise to 0</td><td>accumulator=accumulator&gt;A</td></tr>
