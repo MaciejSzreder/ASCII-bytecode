@@ -1,5 +1,6 @@
 class Core{
 	registers
+	nest = 0;
 	state = 1;/*
 		1	execution
 		2	comment
@@ -227,6 +228,7 @@ class Machine{
 		91 /*[*/: (core)=>{
 			if(core.registers[0]/*ACC*/ === 0){
 				core.state = 3/*false if*/;
+				core.nest = 1;
 			}
 			++core.registers[3]/*J*/;
 		},
@@ -334,7 +336,12 @@ class Machine{
 			break;
 		case 3/*false if*/:
 			if(codebyte === 93/*]*/){
-				core.state = 1/*execution*/;
+				--core.nest;
+				if(core.nest === 0){
+					core.state = 1/*execution*/;
+				}
+			}else if(codebyte === 91/*[*/){
+				++core.nest;
 			}else if(codebyte === 59/*;*/){
 				core.state = 4/*false if comment*/
 			}

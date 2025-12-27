@@ -61,6 +61,18 @@ describe('jumps', ()=>{
 	it('comments in [] can contain ]', ()=>{
 		testExecutionOutputForSinglePass('1[o;o]o\no]',[],[[1, 1]]);
 	});
+	it('[] can be nested', ()=>{
+		testExecutionOutputForSinglePass('[o[o]o]',[],[]);
+	});
+	it('[] can be nested', ()=>{
+		testExecutionOutputForSinglePass('z[oz1[o]o]',[],[]);
+	});
+	it('[] can be nested', ()=>{
+		testExecutionOutputForSinglePass('z1[oz[o]o]',[],[[1, 0]]);
+	});
+	it('[] can be nested', ()=>{
+		testExecutionOutputForSinglePass('z1[o[o]o]',[],[[1, 1, 1]]);
+	});
 	it('forking jumps', ()=>{
 		testExecutionOutput('z11YjJo1o1oz1ojJ',99 , [], [[1]])
 	})
