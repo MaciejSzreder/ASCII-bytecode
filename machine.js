@@ -1,6 +1,10 @@
 class Core{
 	registers
-	comment = false
+	state = 1;/*
+		1	execution
+		2	comment
+		3	false if
+	*/
 
 	constructor(registers)
 	{
@@ -11,6 +15,7 @@ class Core{
 	{
 		let fork = new Core(this.registers);
 		fork.registers[3]/*J*/ = this.registers[0]/*ACC*/;
+		fork.state = this.state;
 		return fork;
 	}
 }
@@ -164,7 +169,7 @@ class Machine{
 			++core.registers[3]/*J*/;
 		},
 		59 /*;*/: (core)=>{
-			core.comment = true;
+			core.state = 2/*comment*/;
 			++core.registers[3]/*J*/;
 		},
 		60 /*<*/: (core)=>{
@@ -218,12 +223,21 @@ class Machine{
 			machine.cores.push(core.fork());
 			++core.registers[3]/*J*/;
 		},
-		97 /*a*/: (core)=>{
-			core.registers[0]/*ACC*/ = core.registers[1]/*A*/;
+		91 /*[*/: (core)=>{
+			if(core.registers[0]/*ACC*/ === 0){
+				core.state = 3/*false if*/;
+			}
+			++core.registers[3]/*J*/;
+		},
+		93 /*]*/: (core)=>{
 			++core.registers[3]/*J*/;
 		},
 		94 /*^*/: (core)=>{
 			core.registers[0]/*ACC*/ ^= core.registers[1]/*A*/;
+			++core.registers[3]/*J*/;
+		},
+		97 /*a*/: (core)=>{
+			core.registers[0]/*ACC*/ = core.registers[1]/*A*/;
 			++core.registers[3]/*J*/;
 		},
 		98 /*b*/: (core)=>{
@@ -303,17 +317,26 @@ class Machine{
 	step(){
 		let core = this.cores[this.core];
 		let codebyte = this.memory[core.registers[3]/*J*/ % this.memory.length];
-		if(core.comment){
-			if(codebyte === 10 /*LF*/){
-				core.comment = false;
-			}
-			++core.registers[3]/*J*/;
-		}else{
+		switch(core.state){
+		case 1/*execution*/:
 			let instruction = Machine.instructions[codebyte];
 			if(!instruction){
 				throw Error('Unknown instruction "' + String.fromCharCode(this.memory[core.registers[3]/*J*/]) + '" (code ' + this.memory[core.registers[3]/*J*/] + ') at address ' + core.registers[3]/*J*/ + ' in ' + String.fromCharCode(...this.memory) + '.');
 			}
-			instruction(core, this)
+			instruction(core, this);
+			break;
+		case 2/*comment*/:
+			if(codebyte === 10/*LF*/){
+				core.state = 1/*execution*/;
+			}
+			++core.registers[3]/*J*/;
+			break;
+		case 3/*false if*/:
+			if(codebyte === 93/*]*/){
+				core.state = 1/*execution*/;
+			}
+			++core.registers[3]/*J*/;
+			break;
 		}
 		this.core = (this.core + 1) % this.cores.length;
 	}

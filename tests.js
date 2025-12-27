@@ -49,6 +49,12 @@ describe('jumps', ()=>{
 	it('setting J register jumps', ()=>{
 		testExecutionOutputForSinglePass('z11Jo1o1o1oz1o', [], [[1]])
 	});
+	it('[] ignores code for zeroed accumulator', ()=>{
+		testExecutionOutputForSinglePass('[o]',[],[]);
+	});
+	it('[] executes code for not zeroed accumulator', ()=>{
+		testExecutionOutputForSinglePass('1[o]',[],[[1]]);
+	});
 	it('forking jumps', ()=>{
 		testExecutionOutput('z11YjJo1o1oz1ojJ',99 , [], [[1]])
 	})
