@@ -7,6 +7,7 @@ class Core{
 		3	false if
 		4	false if comment
 		5	repeat backtrack
+		6	repeat backtrack comment
 	*/
 
 	constructor(registers)
@@ -376,9 +377,16 @@ class Machine{
 				}
 			}else if(codebyte === 125/*}*/){
 				++core.nest;
+			}else if(codebyte === 59/*;*/){
+				core.state = 6/*repeat backtrack comment*/
 			}
 			--core.registers[3]/*J*/;
 			break;
+		case 6/*repeat backtrack comment*/:
+			if(codebyte === 59/*;*/){
+				core.state = 5/*repeat backtrack*/;
+			}
+			--core.registers[3]/*J*/;
 		}
 		this.core = (this.core + 1) % this.cores.length;
 	}

@@ -91,6 +91,12 @@ describe('jumps', ()=>{
 	it('{} can be nested', ()=>{
 		testExecutionOutputForSinglePass('{o{o}}',[],[[0, 0]]);
 	});
+	it('comments in {} can contain {', ()=>{
+		testExecutionOutputForSinglePass('{o;o{o;o}',[],[[0, 0]]);
+	});
+	it('comments in {} can contain {', ()=>{
+		testExecutionOutputForSinglePass('1Az3{o;o{o;o-}',[],[[3,3, 2,2, 1,1]]);
+	});
 	it('forking jumps', ()=>{
 		testExecutionOutput('z11YjJo1o1oz1ojJ',99 , [], [[1]])
 	})
