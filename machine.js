@@ -4,6 +4,7 @@ class Core{
 		1	execution
 		2	comment
 		3	false if
+		4	false if comment
 	*/
 
 	constructor(registers)
@@ -334,6 +335,14 @@ class Machine{
 		case 3/*false if*/:
 			if(codebyte === 93/*]*/){
 				core.state = 1/*execution*/;
+			}else if(codebyte === 59/*;*/){
+				core.state = 4/*false if comment*/
+			}
+			++core.registers[3]/*J*/;
+			break;
+		case 4/*false if comment*/:
+			if(codebyte === 10/*LF*/){
+				core.state = 3/*false if*/;
 			}
 			++core.registers[3]/*J*/;
 			break;

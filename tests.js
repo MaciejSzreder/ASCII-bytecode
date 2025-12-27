@@ -55,6 +55,12 @@ describe('jumps', ()=>{
 	it('[] executes code for not zeroed accumulator', ()=>{
 		testExecutionOutputForSinglePass('1[o]',[],[[1]]);
 	});
+	it('comments in [] can contain ]', ()=>{
+		testExecutionOutputForSinglePass('[o;o]o\no]',[],[]);
+	});
+	it('comments in [] can contain ]', ()=>{
+		testExecutionOutputForSinglePass('1[o;o]o\no]',[],[[1, 1]]);
+	});
 	it('forking jumps', ()=>{
 		testExecutionOutput('z11YjJo1o1oz1ojJ',99 , [], [[1]])
 	})
