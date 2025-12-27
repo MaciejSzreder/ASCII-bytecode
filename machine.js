@@ -6,6 +6,7 @@ class Core{
 		2	comment
 		3	false if
 		4	false if comment
+		5	repeat backtrack
 	*/
 
 	constructor(registers)
@@ -282,8 +283,19 @@ class Machine{
 			core.registers[0]/*ACC*/ = 0;
 			++core.registers[3]/*J*/;
 		},
+		123 /*{*/: (core)=>{
+			++core.registers[3]/*J*/;
+		},
 		124 /*|*/: (core)=>{
 			core.registers[0]/*ACC*/ |= core.registers[1]/*A*/;
+			++core.registers[3]/*J*/;
+		},
+		125 /*}*/: (core)=>{
+			if(core.registers[0]/*ACC*/ !== 0){
+				core.state = 5/*repeat backtrack*/
+				--core.registers[3]/*J*/;
+				return;
+			}
 			++core.registers[3]/*J*/;
 		},
 	}
@@ -352,6 +364,14 @@ class Machine{
 				core.state = 3/*false if*/;
 			}
 			++core.registers[3]/*J*/;
+			break;
+		case 5/*repeat backtrack*/:
+			if(codebyte === 123/*{*/){
+				core.state = 1/*execution*/;
+				++core.registers[3]/*J*/;
+				break;
+			}
+			--core.registers[3]/*J*/;
 			break;
 		}
 		this.core = (this.core + 1) % this.cores.length;
