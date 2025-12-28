@@ -140,6 +140,14 @@ describe('registers', ()=>{
 		testExecutionOutputForSinglePass('1PzpAzPaBzbCzcDzdo', [], [[1]]);
 	});
 });
+describe('memory', ()=>{
+	it('@ reads code', ()=>{
+		testExecutionOutputForSinglePass('@o',[], [[64]])
+	});
+	it('@ uses data address register', ()=>{
+		testExecutionOutputForSinglePass('z6D@o;D;',[], [[68]])
+	});
+})
 
 describe('arithmetic', ()=>{
 	it('add one', ()=>{
