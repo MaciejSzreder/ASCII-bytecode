@@ -359,6 +359,22 @@ describe('TIS-100',()=>{
 			[[0, 0,0,1, 0, 0, 0, 0, 0,0, 0, 0,0,1,1,1,1, 0, 0,0,1]]
 		)
 	});
+	it('Sequence Peek Detector', ()=>{
+		testExecutionOutputForInput(`
+			z32767B; initialize minimum;
+			zC;      initialize maximum;
+			{iA[;    while read value is not 0;
+				bmB
+				cMC
+			]}
+			bo
+			z1Pco
+			zP
+			`,
+			[[10,0, 1,2,3,0, 3,2,1,0, 1,3,2,0, 3,3,3,0]],
+			[[10, 1, 1, 1, 3], [10, 3, 3, 3, 3]]
+		);
+	});
 });
 
 describe('other', ()=>{
