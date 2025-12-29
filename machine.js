@@ -112,6 +112,10 @@ class Machine{
 		32 /* */: (core)=>{
 			++core.registers[3]/*J*/;
 		},
+		36 /*$*/: (core, machine)=>{
+			machine.memory[core.registers[6]/*data address*/] = core.registers[0]/*ACC*/
+			++core.registers[3]/*J*/;
+		},
 		37 /*%*/: (core)=>{
 			core.registers[0]/*ACC*/ = ((core.registers[0]/*ACC*/%core.registers[1]/*A*/)+core.registers[1]/*A*/)%core.registers[1]/*A*/;
 			++core.registers[3]/*J*/;

@@ -147,6 +147,12 @@ describe('memory', ()=>{
 	it('@ uses data address register', ()=>{
 		testExecutionOutputForSinglePass('z6D@o;D;',[], [[68]])
 	});
+	it('$ can change code', ()=>{
+		testExecutionOutputForSinglePass('7Dz111$',[], [[111]])
+	});
+	it('@ reads data written by $', ()=>{
+		testExecutionOutputForSinglePass('100Dz11$z@o',[], [[11]])
+	});
 })
 
 describe('arithmetic', ()=>{
