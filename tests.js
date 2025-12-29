@@ -1,4 +1,5 @@
 const expect = chai.expect;
+chai.config.truncateThreshold = 0;
 
 function testExecutionOutput(code, steps, input, expectedOutput)
 {
@@ -152,6 +153,9 @@ describe('memory', ()=>{
 	});
 	it('@ reads data written by $', ()=>{
 		testExecutionOutputForSinglePass('100Dz11$z@o',[], [[11]])
+	});
+	it('@ and $ supports negative address', ()=>{
+		testExecutionOutputForSinglePass('1Az-D$z@o',[], [[255]])
 	});
 })
 

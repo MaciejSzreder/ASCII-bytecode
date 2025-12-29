@@ -113,7 +113,7 @@ class Machine{
 			++core.registers[3]/*J*/;
 		},
 		36 /*$*/: (core, machine)=>{
-			machine.memory[core.registers[6]/*data address*/] = core.registers[0]/*ACC*/
+			machine.memory[(core.registers[6]/*data address*/ % machine.memory.length +  machine.memory.length) % machine.memory.length] = core.registers[0]/*ACC*/
 			++core.registers[3]/*J*/;
 		},
 		37 /*%*/: (core)=>{
@@ -193,7 +193,7 @@ class Machine{
 			++core.registers[3]/*J*/;
 		},
 		64 /*@*/: (core, machine)=>{
-			core.registers[0]/*ACC*/ = machine.memory[core.registers[6]/*data address*/];
+			core.registers[0]/*ACC*/ = machine.memory[(core.registers[6]/*data address*/ % machine.memory.length +  machine.memory.length) % machine.memory.length];
 			++core.registers[3]/*J*/;
 		},
 		65 /*A*/: (core)=>{
