@@ -128,6 +128,12 @@ describe('registers', ()=>{
 	it('writing to register D modifies only register D',()=>{
 		testExecutionOutputForSinglePass('5Daobocopodo', [], [[0, 0, 0, 0, 5]]);
 	});
+	it('register E allows for input swapping order',()=>{
+		testExecutionOutputForInput('iEioeo', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
+	});
+	it('writing to register E modifies only register D',()=>{
+		testExecutionOutputForSinglePass('5Eaobocopoeo', [], [[0, 0, 0, 0, 5]]);
+	});
 	it('writing to register P modifies only register P',()=>{
 		testExecutionOutputForSinglePass('5Paobocodopo', [], [undefined, undefined, undefined, undefined, undefined, [0, 0, 0, 0, 5]]);
 	});
@@ -137,8 +143,8 @@ describe('registers', ()=>{
 	it('register J stores current instruction address',()=>{
 		testExecutionOutputForSinglePass('     jo', [], [[5]]);
 	});
-	it('pass 1 through registers P, A, B, C, D', ()=>{
-		testExecutionOutputForSinglePass('1PzpAzPaBzbCzcDzdo', [], [[1]]);
+	it('pass 1 through registers P, A, B, C, D, E', ()=>{
+		testExecutionOutputForSinglePass('1PzpAzPaBzbCzcDzdEzeo', [], [[1]]);
 	});
 });
 describe('memory', ()=>{

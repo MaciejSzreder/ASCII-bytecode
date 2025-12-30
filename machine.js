@@ -12,7 +12,7 @@ class Core{
 
 	constructor(registers)
 	{
-		this.registers = new Int16Array(registers || 7);
+		this.registers = new Int16Array(registers || 8);
 	}
 
 	fork()
@@ -212,6 +212,10 @@ class Machine{
 			core.registers[6]/*D*/ = core.registers[0]/*ACC*/;
 			++core.registers[3]/*J*/;
 		},
+		69 /*E*/: (core)=>{
+			core.registers[7]/*E*/ = core.registers[0]/*ACC*/;
+			++core.registers[3]/*J*/;
+		},
 		73 /*I*/: (core)=>{
 			core.registers[0]/*ACC*/ = core.registers[0]/*ACC*/ * 2 + 1;
 			++core.registers[3]/*J*/;
@@ -263,6 +267,10 @@ class Machine{
 		},
 		100 /*d*/: (core)=>{
 			core.registers[0]/*ACC*/ = core.registers[6]/*D*/;
+			++core.registers[3]/*J*/;
+		},
+		101 /*d*/: (core)=>{
+			core.registers[0]/*ACC*/ = core.registers[7]/*E*/;
 			++core.registers[3]/*J*/;
 		},
 		105 /*i*/: (core, machine)=>{
