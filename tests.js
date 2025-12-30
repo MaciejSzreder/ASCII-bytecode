@@ -410,6 +410,21 @@ describe('TIS-100',()=>{
 			[[4,3,2,1,0, 0, 1,0, 2,1,0, 9,8,7,6,5,4,3,2,1,0]]
 		)
 	});
+	it('Signal Multiplier', ()=>{
+		testExecutionOutputForInput(`
+			iA
+			z1Pi
+			*A
+			zPao
+			`,
+			[
+				[0,   1,   2,  3,   4, 5],
+				[200, 100, 11, 55,  0, 5]
+			],[
+				[0,  100,  22, 165, 0, 25]
+			]
+		);
+	});
 });
 
 describe('other', ()=>{
