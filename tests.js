@@ -431,6 +431,21 @@ describe('TIS-100',()=>{
 			]
 		);
 	});
+	it('Signal Window Filter', ()=>{
+		testExecutionOutputForInput(`
+			;window (youngest)B, C, D, E, A(oldest);
+			eAdEcDbCiB;      window shift;
+			z1Pb+Ac+Ad+Ae+o; sum of 5-wide window;
+			zPbAc+Ad+o;      sum of 3-wide window;
+			`,
+			[
+				[1, 1, 1, 1, 1, 0, 0, 0, 0, 100, 50,  25,  12,  6,   3,  1]
+			],[
+				[1, 2, 3, 3, 3, 2, 1, 0, 0, 100, 150, 175, 87,  43,  21, 10],
+				[1, 2, 3, 4, 5, 4, 3, 2, 1, 100, 150, 175, 187, 193, 96, 47]
+			]
+		);
+	});
 });
 
 describe('other', ()=>{
