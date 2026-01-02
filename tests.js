@@ -180,7 +180,22 @@ describe('arithmetic', ()=>{
 	})
 	it('multiply by 2', ()=>{
 		testExecutionOutputForInput('z2Ai*o', [[0, 1, 2, 3, 4]], [[0, 2, 4, 6, 8]]);
-	})
+	});
+	it('self division ones', ()=>{
+		testExecutionOutputForInput('iA/o', [[-3, -2, -1, 1, 2, 3]], [[1, 1, 1, 1, 1, 1]]);
+	});
+	it('0/0 is 0', ()=>{
+		testExecutionOutputForSinglePass('/o', [], [[0]]);
+	});
+	it('>0/0 is greatest', ()=>{
+		testExecutionOutputForInput('i/o', [[1, 2, 3]], [[32767, 32767, 32767]]);
+	});
+	it('<0/0 is smallest', ()=>{
+		testExecutionOutputForInput('i/o', [[-1, -2, -3]], [[-32768, -32768, -32768]]);
+	});
+	it('division sign change', ()=>{
+		testExecutionOutputForInput('1A--A{i/o}', [[-3, -2, -1, 0, 1, 2, 3]], [[3, 2, 1, 0, -1, -2, -3]]);
+	});
 	it('self modulo zeroes', ()=>{
 		testExecutionOutputForInput('iA%o', [[0, 1, 2, 3, 4]], [[0, 0, 0, 0, 0]]);
 	})
@@ -443,6 +458,23 @@ describe('TIS-100',()=>{
 			],[
 				[1, 2, 3, 3, 3, 2, 1, 0, 0, 100, 150, 175, 87,  43,  21, 10],
 				[1, 2, 3, 4, 5, 4, 3, 2, 1, 100, 150, 175, 187, 193, 96, 47]
+			]
+		);
+	});
+	it('Signal Divider',()=>{
+		testExecutionOutputForInput(`
+			iB
+			z1PiA
+			b%o
+			zP
+			b/o
+			`,
+			[
+				[0,   1, 2],
+				[100, 2, 1]
+			],[
+				[0,   0, 2],
+				[0,   1, 0]
 			]
 		);
 	});

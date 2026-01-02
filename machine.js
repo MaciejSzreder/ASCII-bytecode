@@ -145,6 +145,22 @@ class Machine{
 			core.registers[0]/*accumulator*/ -= core.registers[1]/*argument*/;
 			++core.registers[3]/*instruction pointer*/;
 		},
+		47 /*/*/: (core)=>{
+			if(core.registers[1]/*argument*/ === 0){
+				if(core.registers[0]/*accumulator*/ === 0){
+					core.registers[0]/*accumulator*/ = 0;
+				}
+				if(core.registers[0]/*accumulator*/ > 0){
+					core.registers[0]/*accumulator*/ = 32767;
+				}
+				if(core.registers[0]/*accumulator*/ < 0){
+					core.registers[0]/*accumulator*/ = -32768;
+				}
+			}else{
+				core.registers[0]/*accumulator*/ /= core.registers[1]/*argument*/;
+			}
+			++core.registers[3]/*instruction pointer*/;
+		},
 		48 /*0*/: (core)=>{
 			core.registers[0]/*accumulator*/ *= 10;
 			++core.registers[3]/*instruction pointer*/;
