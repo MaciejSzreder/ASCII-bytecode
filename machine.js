@@ -318,7 +318,7 @@ class Machine{
 			++core.registers[3]/*instruction pointer*/;
 		},
 		111 /*o*/: (core, machine)=>{
-			(machine.outputCallbacks[core.registers[4]/*io port*/]||(()=>{}))(core.registers[0]/*accumulator*/);
+			(machine.outputCallbacks[core.registers[4]/*io port*/]||(()=>{}))(core.registers[0]/*accumulator*/ & 255);
 			++core.registers[3]/*instruction pointer*/;
 		},
 		112 /*p*/: (core)=>{

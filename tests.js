@@ -5,21 +5,21 @@ function testExecutionOutput(code, steps, input, expectedOutput)
 {
 	let out = Machine.execute(code, steps, input);
 
-	expect(out).to.deep.equal(expectedOutput)
+	expect(out).to.deep.equal(expectedOutput.map((port)=>port?.map((value)=>value & 255)))
 }
 
 function testExecutionOutputForInput(code, input, expectedOutput)
 {
 	let out = Machine.executeForInput(code, input);
 
-	expect(out).to.deep.equal(expectedOutput)
+	expect(out).to.deep.equal(expectedOutput.map((port)=>port?.map((value)=>value & 255)))
 }
 
 function testExecutionOutputForSinglePass(code, input, expectedOutput)
 {
 	let out = Machine.executeForSinglePass(code, input);
 
-	expect(out).to.deep.equal(expectedOutput)
+	expect(out).to.deep.equal(expectedOutput.map((port)=>port?.map((value)=>value & 255)))
 }
 
 describe('IO', ()=>{
