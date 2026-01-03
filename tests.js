@@ -191,7 +191,7 @@ describe('arithmetic', ()=>{
 		testExecutionOutputForInput('i/o', [[1, 2, 3]], [[32767, 32767, 32767]]);
 	});
 	it('<0/0 is smallest', ()=>{
-		testExecutionOutputForInput('i/o', [[-1, -2, -3]], [[-32768, -32768, -32768]]);
+		testExecutionOutputForInput('iS/o', [[-1, -2, -3]], [[-32768, -32768, -32768]]);
 	});
 	it('division sign change', ()=>{
 		testExecutionOutputForInput('1A--A{i/o}', [[-3, -2, -1, 0, 1, 2, 3]], [[3, 2, 1, 0, -1, -2, -3]]);
@@ -209,28 +209,28 @@ describe('arithmetic', ()=>{
 		testExecutionOutputForInput('i%o', [[-4, -3, -2, -1, 0, 1, 2, 3, 4]], [[0, 0, 0, 0, 0, 0, 0, 0, 0]]);
 	})
 	it('selects smaller', ()=>{
-		testExecutionOutputForInput('iAimo', [[0,1, -1,0, 2,1, 1,2, -1,-2, -2,-1, -1,1, 1,-1, 1,1, -1,-1]], [[0, -1, 1, 1, -2, -2, -1, -1, 1, -1]])
+		testExecutionOutputForInput('iSAiSmo', [[0,1, -1,0, 2,1, 1,2, -1,-2, -2,-1, -1,1, 1,-1, 1,1, -1,-1]], [[0, -1, 1, 1, -2, -2, -1, -1, 1, -1]])
 	})
 	it('selects greater', ()=>{
-		testExecutionOutputForInput('iAiMo', [[0,1, -1,0, 2,1, 1,2, -1,-2, -2,-1, -1,1, 1,-1, 1,1, -1,-1]], [[1, 0, 2, 2, -1, -1, 1, 1, 1, -1]])
+		testExecutionOutputForInput('iSAiSMo', [[0,1, -1,0, 2,1, 1,2, -1,-2, -2,-1, -1,1, 1,-1, 1,1, -1,-1]], [[1, 0, 2, 2, -1, -1, 1, 1, 1, -1]])
 	})
 	it('greater than 0', ()=>{
-		testExecutionOutputForInput('i>o', [[1,0,-1,2,-2,3,-3]], [[1,0,0,1,0,1,0]]);
+		testExecutionOutputForInput('iS>o', [[1,0,-1,2,-2,3,-3]], [[1,0,0,1,0,1,0]]);
 	});
 	it('equal to 0', ()=>{
-		testExecutionOutputForInput('i=o', [[1,0,-1,2,-2,3,-3]], [[0,1,0,0,0,0,0]]);
+		testExecutionOutputForInput('iS=o', [[1,0,-1,2,-2,3,-3]], [[0,1,0,0,0,0,0]]);
 	});
 	it('less than 0', ()=>{
-		testExecutionOutputForInput('i<o', [[1,0,-1,2,-2,3,-3]], [[0,0,1,0,1,0,1]]);
+		testExecutionOutputForInput('iS<o', [[1,0,-1,2,-2,3,-3]], [[0,0,1,0,1,0,1]]);
 	});
 	it('greater than 1', ()=>{
-		testExecutionOutputForInput('z1Ai>o', [[1,0,-1,2,-2,3,-3]], [[0,0,0,1,0,1,0]]);
+		testExecutionOutputForInput('z1AiS>o', [[1,0,-1,2,-2,3,-3]], [[0,0,0,1,0,1,0]]);
 	});
 	it('equal to 1', ()=>{
-		testExecutionOutputForInput('z1Ai=o', [[1,0,-1,2,-2,3,-3]], [[1,0,0,0,0,0,0]]);
+		testExecutionOutputForInput('z1AiS=o', [[1,0,-1,2,-2,3,-3]], [[1,0,0,0,0,0,0]]);
 	});
 	it('less than 1', ()=>{
-		testExecutionOutputForInput('z1Ai<o', [[1,0,-1,2,-2,3,-3]], [[0,1,1,0,1,0,1]]);
+		testExecutionOutputForInput('z1AiS<o', [[1,0,-1,2,-2,3,-3]], [[0,1,1,0,1,0,1]]);
 	});
 });
 
@@ -311,11 +311,11 @@ describe('TIS-100',()=>{
 		testExecutionOutputForInput('1PiAzPi-oAz1Pz-oz', [[1,2,3,4,5],[5,4,3,2,1]], [[-4,-2,0,2,4],[4,2,0,-2,-4]])
 	});
 	it('Signal Comparator', ()=>{
-		testExecutionOutputForInput('iAz<oz1Pz=oz2Pz>ozP', [[1,0,-1,2,-2,3,-3]], [[1,0,0,1,0,1,0],[0,1,0,0,0,0,0],[0,0,1,0,1,0,1]]);
+		testExecutionOutputForInput('iSAz<oz1Pz=oz2Pz>ozP', [[1,0,-1,2,-2,3,-3]], [[1,0,0,1,0,1,0],[0,1,0,0,0,0,0],[0,0,1,0,1,0,1]]);
 	});
 	it('Signal Multiplexer', ()=>{
 		testExecutionOutputForInput(`
-			z1PiB; B=selector;
+			z1PiSB; B=selector;
 			<Az1-A; A=selector>=0;
 			zPi*P; P=(selector>=0)*first;
 			zAb>Az1-A; A=selector<=0;

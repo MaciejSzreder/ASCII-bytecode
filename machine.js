@@ -305,7 +305,7 @@ class Machine{
 		105 /*i*/: (core, machine)=>{
 			let input = (machine.inputCallbacks[core.registers[4]/*io port*/]||(()=>null))();
 			if(input !== null && input !== undefined){
-				core.registers[0]/*accumulator*/ = input;
+				core.registers[0]/*accumulator*/ = input & 255;
 				++core.registers[3]/*instruction pointer*/;
 			}
 		},

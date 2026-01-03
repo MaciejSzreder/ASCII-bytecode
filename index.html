@@ -58,7 +58,7 @@
 			<tr><td>99</td><td>c</td><td>copies register C value into accumulator</td><td>accumulator=C</td></tr>
 			<tr><td>100</td><td>d</td><td>copies <u>d</u>ata address register value into accumulator</td><td>accumulator=data_address_register</td></tr>
 			<tr><td>101</td><td>e</td><td>copies register E value into accumulator</td><td>accumulator=E</td></tr>
-			<tr><td>105</td><td>i</td><td>reads a value of <u>i</u>nput pointed by port register and stores it in the accumulator</td><td>accumulator=IO[P]</td></tr>
+			<tr><td>105</td><td>i</td><td>reads 8bit integer from <u>i</u>nput pointed by port register and stores it in the accumulator</td><td>accumulator=IO[P]&255</td></tr>
 			<tr><td>106</td><td>j</td><td>copies instruction pointer register value into accumulator</td><td>use for <u>j</u>umps</td></tr>
 			<tr><td>109</td><td>m</td><td>copies <u>m</u>in value of register A and accumulator into accumulator</td><td>accumulator=min(accumulator,A)</td></tr>
 			<tr><td>111</td><td>o</td><td>write accumulator low byte to <u>o</u>utput pointed by port register as unsigned integer</td><td>IO[P]=accumulator&255</td></tr>
