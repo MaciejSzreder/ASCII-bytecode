@@ -253,6 +253,9 @@ describe('bitwise', ()=>{
 	it('parity bit', ()=>{
 		testExecutionOutputForInput('iAOOOOB^AOO^AO^AzIOOOOOOO&Az<o',[[0b0, 0b1, 0b10, 0b100, 0b1000, 0b10000, 0b100000, 0b1000000, 0b10000000, 0b10101010, 0b10001001]], [[0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1]])
 	});
+	it('sign extension', ()=>{
+		testExecutionOutputForInput('iSo', [[0, 1, 2, 127, 128, 129, 255, 254, 1278]], [[0, 1, 2, 127, -128, -127, -1, -2, -2]]);
+	});
 });
 
 describe('integer literals', ()=>{

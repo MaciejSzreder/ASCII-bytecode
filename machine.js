@@ -260,6 +260,10 @@ class Machine{
 			core.registers[4]/*io port*/ = core.registers[0]/*accumulator*/;
 			++core.registers[3]/*instruction pointer*/;
 		},
+		83 /*S*/: (core)=>{
+			core.registers[0]/*accumulator*/ |= core.registers[0]/*accumulator*/ >= 0b10000000 ? 0b1111111110000000 : 0;
+			++core.registers[3]/*instruction pointer*/;
+		},
 		89 /*Y*/: (core,machine)=>{
 			machine.cores.push(core.fork());
 			++core.registers[3]/*instruction pointer*/;

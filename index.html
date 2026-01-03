@@ -48,6 +48,7 @@
 			<tr><td>77</td><td>M</td><td>copies <u>m</u>ax value of register A and accumulator into accumulator</td><td>accumulator=max(accumulator,A)</td></tr>
 			<tr><td>79</td><td>O</td><td>appends <u>0</u> into binary accumulator value</td><td>accumulator=accumulator*2</td></tr>
 			<tr><td>80</td><td>P</td><td>copies accumulator value into <u>p</u>ort index register</td><td>use for I/O service</td></tr>
+			<tr><td>83</td><td>S</td><td>copies 8th bit into each higher bit in accumulator</td><td>use to convert 8bit signed number to 16bit signed number</td></tr>
 			<tr><td>89</td><td>Y</td><td>copies core state to free core, except instruction pointer register, which have assigned accumulator value. Core starts processing.</td><td></td></tr>
 			<tr><td>91</td><td>[</td><td>if accumulator is 0 ignores instruction until meeting corresponding ]</td><td>if(accumulator){code}</td></tr>
 			<tr><td>93</td><td>]</td><td>closes if body opened by [</td><td>if(accumulator){code}</td></tr>
