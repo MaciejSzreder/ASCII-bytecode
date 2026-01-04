@@ -163,6 +163,15 @@ describe('memory', ()=>{
 	it('@ and $ supports negative address', ()=>{
 		testExecutionOutputForSinglePass('1Az-D$z@o',[], [[255]])
 	});
+	it(', decreases data address register', ()=>{
+		testExecutionOutputForSinglePass(',do',[], [[-1]])
+	});
+	it(', default appends at memory end', ()=>{
+		testExecutionOutputForSinglePass('10,z1A--D@o',[], [[10]])
+	});
+	it(', appends at data address', ()=>{
+		testExecutionOutputForSinglePass('100Dz10,@o',[], [[10]])
+	});
 })
 
 describe('arithmetic', ()=>{
