@@ -490,6 +490,18 @@ describe('TIS-100',()=>{
 			]
 		);
 	});
+	it('Sequence Indexer', ()=>{
+		testExecutionOutputForInput(`
+			{i,}
+			{
+				z1P z1Ai+A--D
+				zP @o
+			}
+			`,
+			[[11, 22, 33, 44, 55, 66, 77, 88, 99, 0],[0, 1, 2, 3, 4, 5, 6, 7, 8]],
+			[[11, 22, 33, 44, 55, 66, 77, 88, 99]]
+		);
+	});
 });
 
 describe('other', ()=>{
