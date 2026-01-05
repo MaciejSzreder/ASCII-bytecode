@@ -150,6 +150,10 @@ class Machine{
 			core.registers[0]/*accumulator*/ -= core.registers[1]/*argument*/;
 			++core.registers[3]/*instruction pointer*/;
 		},
+		46 /*.*/: (core, machine)=>{
+			core.registers[0]/*accumulator*/ = machine.memory[(core.registers[6]/*data address*/++ % machine.memory.length +  machine.memory.length) % machine.memory.length];
+			++core.registers[3]/*instruction pointer*/;
+		},
 		47 /*/*/: (core)=>{
 			if(core.registers[1]/*argument*/ === 0){
 				if(core.registers[0]/*accumulator*/ === 0){

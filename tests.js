@@ -172,6 +172,15 @@ describe('memory', ()=>{
 	it(', appends at data address', ()=>{
 		testExecutionOutputForSinglePass('100Dz10,@o',[], [[10]])
 	});
+	it('. pops value appended by ,', ()=>{
+		testExecutionOutputForSinglePass('10,z.o',[], [[10]]);
+	});
+	it('. pops value pointed by data address register', ()=>{
+		testExecutionOutputForSinglePass('5D.o;\x10;',[], [[0x10]]);
+	});
+	it('. increments data address register', ()=>{
+		testExecutionOutputForSinglePass('4D.do',[], [[5]]);
+	});
 })
 
 describe('arithmetic', ()=>{
