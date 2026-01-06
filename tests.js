@@ -511,6 +511,33 @@ describe('TIS-100',()=>{
 			[[11, 22, 33, 44, 55, 66, 77, 88, 99]]
 		);
 	});
+	it('Sequence Sorter', ()=>{
+		testExecutionOutputForInput(`
+			{i,}.
+			dB; array size;
+			[{
+				.A; initialize min;
+				dE; initialize min index;
+				[{
+					.C<[
+						cA; update min;
+						dE; update min index;
+					]
+					d
+				}]
+				ao
+				bD.C; last value;
+				dB; shrink array;
+				z1Ae-D; real min index;
+				c$; remove min from list;
+				bD
+			}]
+			o
+			`,
+			[[11,22,33,0,33,22,11,0,100,200,0,200,100,0,100,0,0,3,1,4,5,9,2,8,6,7,0]],
+			[[11,22,33,0,11,22,33,0,100,200,0,100,200,0,100,0,0,1,2,3,4,5,6,7,8,9,0]]
+		);
+	});
 });
 
 describe('other', ()=>{
