@@ -108,31 +108,37 @@ describe('registers', ()=>{
 		testExecutionOutputForInput('iAioao', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
 	});
 	it('writing to register A modifies only register A',()=>{
-		testExecutionOutputForSinglePass('5Abocodopoao', [], [[0, 0, 0, 0, 5]]);
+		testExecutionOutputForSinglePass('5Abocodopo(doao', [], [[0, 0, 0, 0, 0, 5]]);
 	});
 	it('register B allows for input swapping order',()=>{
 		testExecutionOutputForInput('iBiobo', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
 	});
 	it('writing to register B modifies only register B',()=>{
-		testExecutionOutputForSinglePass('5Baocodopobo', [], [[0, 0, 0, 0, 5]]);
+		testExecutionOutputForSinglePass('5Baocodopo(dobo', [], [[0, 0, 0, 0, 0, 5]]);
 	});
 	it('register C allows for input swapping order',()=>{
 		testExecutionOutputForInput('iCioco', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
 	});
 	it('writing to register C modifies only register C',()=>{
-		testExecutionOutputForSinglePass('5Caobodopoco', [], [[0, 0, 0, 0, 5]]);
+		testExecutionOutputForSinglePass('5Caobodopo(doco', [], [[0, 0, 0,0, 0, 5]]);
 	});
 	it('register D allows for input swapping order',()=>{
 		testExecutionOutputForInput('iDiodo', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
 	});
 	it('writing to register D modifies only register D',()=>{
-		testExecutionOutputForSinglePass('5Daobocopodo', [], [[0, 0, 0, 0, 5]]);
+		testExecutionOutputForSinglePass('5Daobocopo(do(do', [], [[0, 0, 0, 0, 0, 5]]);
 	});
 	it('register E allows for input swapping order',()=>{
 		testExecutionOutputForInput('iEioeo', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
 	});
-	it('writing to register E modifies only register D',()=>{
-		testExecutionOutputForSinglePass('5Eaobocopoeo', [], [[0, 0, 0, 0, 5]]);
+	it('writing to register E modifies only register E',()=>{
+		testExecutionOutputForSinglePass('5Eaobocopo(doeo', [], [[0, 0, 0, 0, 0, 5]]);
+	});
+	it('stack pointer register allows for input swapping order',()=>{
+		testExecutionOutputForInput('iD(iDiodo(do', [[0, 1, 2, 3, 4, 5]], [[2, 1, 0, 5, 4, 3]]);
+	});
+	it('writing to stack pointer register modifies only stack pointer register',()=>{
+		testExecutionOutputForSinglePass('5D(aobocodopoeo(do', [], [[0, 0, 0, 0, 0, 0, 5]]);
 	});
 	it('writing to register P modifies only register P',()=>{
 		testExecutionOutputForSinglePass('5Paobocodopo', [], [undefined, undefined, undefined, undefined, undefined, [0, 0, 0, 0, 5]]);
@@ -143,8 +149,8 @@ describe('registers', ()=>{
 	it('register J stores current instruction address',()=>{
 		testExecutionOutputForSinglePass('     jo', [], [[5]]);
 	});
-	it('pass 1 through registers P, A, B, C, D, E', ()=>{
-		testExecutionOutputForSinglePass('1PzpAzPaBzbCzcDzdEzeo', [], [[1]]);
+	it('pass 1 through registers P, A, B, C, D, stack pointer, E', ()=>{
+		testExecutionOutputForSinglePass('1PzpAzPaBzbCzcD(z(zdEzeo', [], [[1]]);
 	});
 });
 describe('memory', ()=>{
