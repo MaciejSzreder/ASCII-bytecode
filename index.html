@@ -20,6 +20,7 @@
 			<tr><td>37</td><td>%</td><td>modules (basing on floored division; x % 0 == 0) accumulator by register A bits</td><td>accumulator%=A</td></tr>
 			<tr><td>38</td><td>&amp;</td><td>conjuncts corresponding accumulator bits with register A bits</td><td>accumulator&=A</td></tr>
 			<tr><td>40</td><td>(</td><td>swaps data address and stack pointer registers values</td><td>data_address_register,stack_pointer_register=stack_pointer_register,data_address_register</td></tr>
+			<tr><td>41</td><td>)</td><td>decreases data address register, then writes address of next instruction to memory pointed by data address register</td><td>memory[--data_address_register]=instruction_pointer_register<br/></td></tr>
 			<tr><td>42</td><td>*</td><td>multiplies accumulator by register A value</td><td>accumulator*=A</td></tr>
 			<tr><td>43</td><td>+</td><td>increases accumulator by register A value</td><td>accumulator+=A</td></tr>
 			<tr><td>44</td><td>,</td><td>decreases data address register, then writes accumulator low byte to memory pointed by data address register</td><td>memory[--data_address_register]=accumulator&255</td></tr>

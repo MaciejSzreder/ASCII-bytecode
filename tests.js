@@ -100,7 +100,13 @@ describe('jumps', ()=>{
 	});
 	it('forking jumps', ()=>{
 		testExecutionOutput('z11YjJo1o1oz1ojJ',99 , [], [[1]])
-	})
+	});
+	it('function call push return address', ()=>{
+		testExecutionOutputForSinglePass('2)z.o', [], [[2]]);
+	});
+	it('function call jumps', ()=>{
+		testExecutionOutputForSinglePass('4)jJz1o', [], [[1]]);
+	});
 });
 
 describe('registers', ()=>{
