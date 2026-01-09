@@ -300,6 +300,10 @@ class Machine{
 			core.registers[0]/*accumulator*/ ^= core.registers[1]/*argument*/;
 			++core.registers[3]/*instruction pointer*/;
 		},
+		95 /*_*/: (core)=>{
+			core.registers[0]/*accumulator*/ = 0;
+			++core.registers[3]/*instruction pointer*/;
+		},
 		97 /*a*/: (core)=>{
 			core.registers[0]/*accumulator*/ = core.registers[1]/*argument*/;
 			++core.registers[3]/*instruction pointer*/;
@@ -341,10 +345,6 @@ class Machine{
 		},
 		112 /*p*/: (core)=>{
 			core.registers[0]/*accumulator*/ = core.registers[4]/*io port*/;
-			++core.registers[3]/*instruction pointer*/;
-		},
-		122 /*z*/: (core)=>{
-			core.registers[0]/*accumulator*/ = 0;
 			++core.registers[3]/*instruction pointer*/;
 		},
 		123 /*{*/: (core)=>{
