@@ -262,6 +262,9 @@ describe('arithmetic', ()=>{
 	it('less than 1', ()=>{
 		testExecutionOutputForInput('_1AiS<o', [[1,0,-1,2,-2,3,-3]], [[0,1,1,0,1,0,1]]);
 	});
+	it('not equal to 0', ()=>{
+		testExecutionOutputForInput('iS!o', [[1,0,-1,2,-2,3,-3]], [[0,1,0,0,0,0,0]]);
+	});
 });
 
 describe('bitwise', ()=>{
