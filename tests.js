@@ -268,6 +268,9 @@ describe('arithmetic', ()=>{
 });
 
 describe('bitwise', ()=>{
+	it('not', ()=>{
+		testExecutionOutputForInput('i~o',[[0b0, 0b1, 0b10101010, 0b11111111]], [[0b11111111, 0b11111110, 0b01010101, 0b0]]);
+	});
 	it('and', ()=>{
 		testExecutionOutputForInput('iA_1Pi&A_Pao',[[0b0, 0b11111111, 0b10101001], [0b11111111, 0b0, 0b10011010]], [[0b0, 0b0, 0b10001000]])
 	});

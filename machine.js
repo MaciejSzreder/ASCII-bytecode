@@ -367,6 +367,10 @@ class Machine{
 			}
 			++core.registers[3]/*instruction pointer*/;
 		},
+		126 /*~*/: (core)=>{
+			core.registers[0]/*accumulator*/ = ~core.registers[0]/*accumulator*/;
+			++core.registers[3]/*instruction pointer*/;
+		},
 	}
 
 	core = 0;
