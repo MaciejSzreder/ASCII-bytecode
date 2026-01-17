@@ -126,6 +126,16 @@ class Machine{
 			core.registers[0]/*accumulator*/ = !core.registers[0]/*accumulator*/;
 			++core.registers[3]/*instruction pointer*/;
 		},
+		35 /*#*/: (core)=>{
+			let accumulator = core.registers[0]/*accumulator*/;
+
+			// 16bit set bit count
+			let count = accumulator - ((accumulator >> 1) & 0o133333) - ((accumulator >> 2) & 0o111111);
+			count = ((count + (count >> 3)) & 0o70707) % 63;
+
+			core.registers[0]/*accumulator*/ = count;
+			++core.registers[3]/*instruction pointer*/;
+		},
 		36 /*$*/: (core, machine)=>{
 			machine.memory[(core.registers[6]/*data address*/ % machine.memory.length +  machine.memory.length) % machine.memory.length] = core.registers[0]/*accumulator*/
 			++core.registers[3]/*instruction pointer*/;

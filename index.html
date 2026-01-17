@@ -17,6 +17,7 @@
 			<tr><td>10</td><td>&#x240A;</td><td>no operation</td><td>use for code formatting</td></tr>
 			<tr><td>32</td><td>&#x2420;</td><td>no operation</td><td>use for code formatting</td></tr>
 			<tr><td>33</td><td>!</td><td>writes to accumulator 1 if its previous value was not 0</td><td>accumulator=!accumulator</td></tr>
+			<tr><td>35</td><td>#</td><td>writes to accumulator numbers of set bits of accumulator</td></tr>
 			<tr><td>36</td><td>$</td><td>writes accumulator low byte to memory pointed by data address register</td><td>memory[data_address_register]=accumulator</td></tr>
 			<tr><td>37</td><td>%</td><td>modules (basing on floored division; x % 0 == 0) accumulator by register A bits</td><td>accumulator%=A</td></tr>
 			<tr><td>38</td><td>&amp;</td><td>conjuncts corresponding accumulator bits with register A bits</td><td>accumulator&=A</td></tr>

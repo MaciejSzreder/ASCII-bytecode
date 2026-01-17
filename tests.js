@@ -292,6 +292,9 @@ describe('bitwise', ()=>{
 	it('sign extension', ()=>{
 		testExecutionOutputForInput('iSo', [[0, 1, 2, 127, 128, 129, 255, 254, 1278]], [[0, 1, 2, 127, -128, -127, -1, -2, -2]]);
 	});
+	it('popcount', ()=>{
+		testExecutionOutputForInput('i#o', [[0b0, 0b1, 0b10, 0b11, 0b11111111, 0b10101010, 0b01010101]], [[0, 1, 1, 2, 8, 4, 4]]);
+	});
 });
 
 describe('integer literals', ()=>{
