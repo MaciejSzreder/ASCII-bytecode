@@ -226,6 +226,21 @@ describe('arithmetic', ()=>{
 	it('division sign change', ()=>{
 		testExecutionOutputForInput('1A--A{i/o}', [[-3, -2, -1, 0, 1, 2, 3]], [[3, 2, 1, 0, -1, -2, -3]]);
 	});
+	it('inverted self division ones', ()=>{
+		testExecutionOutputForInput('iA\\o', [[-3, -2, -1, 1, 2, 3]], [[1, 1, 1, 1, 1, 1]]);
+	});
+	it('0\\0 is 0', ()=>{
+		testExecutionOutputForSinglePass('\\o', [], [[0]]);
+	});
+	it('0\\>0 is greatest', ()=>{
+		testExecutionOutputForInput('iA_\\o', [[1, 2, 3]], [[32767, 32767, 32767]]);
+	});
+	it('0\\<0 is smallest', ()=>{
+		testExecutionOutputForInput('iSA_\\o', [[-1, -2, -3]], [[-32768, -32768, -32768]]);
+	});
+	it('inverted division sign change', ()=>{
+		testExecutionOutputForInput('1A--B{iAb\\o}', [[-3, -2, -1, 0, 1, 2, 3]], [[3, 2, 1, 0, -1, -2, -3]]);
+	});
 	it('self modulo zeroes', ()=>{
 		testExecutionOutputForInput('iA%o', [[0, 1, 2, 3, 4]], [[0, 0, 0, 0, 0]]);
 	})

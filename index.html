@@ -57,6 +57,7 @@
 			<tr><td>83</td><td>S</td><td>copies 8th bit into each higher bit in accumulator</td><td>use to convert 8bit signed number to 16bit signed number</td></tr>
 			<tr><td>89</td><td>Y</td><td>copies core state to free core, except instruction pointer register, which have assigned accumulator value. Core starts processing.</td><td></td></tr>
 			<tr><td>91</td><td>[</td><td>if accumulator is 0 ignores instruction until meeting corresponding ]</td><td>if(accumulator){code}</td></tr>
+			<tr><td>92</td><td>\</td><td>divides accumulator by register A value</td><td>accumulator=A/accumulator</td></tr>
 			<tr><td>93</td><td>]</td><td>closes if body opened by [</td><td>if(accumulator){code}</td></tr>
 			<tr><td>94</td><td>^</td><td>xores corresponding accumulator bits with register A bits</td><td>accumulator^=A</td></tr>
 			<tr><td>97</td><td>a</td><td>copies register A value into accumulator</td><td>accumulator=A</td></tr>
