@@ -43,6 +43,7 @@
 			<tr><td>60</td><td>&lt;</td><td>if accumulator value is less than register A value, sets accumulator to 1, otherwise to 0</td><td>accumulator=accumulator&lt;A</td></tr>
 			<tr><td>61</td><td>=</td><td>if accumulator value is equal to register A value, sets accumulator to 1, otherwise to 0</td><td>accumulator=accumulator==A</td></tr>
 			<tr><td>62</td><td>&gt;</td><td>if accumulator value is greater than register A value, sets accumulator to 1, otherwise to 0</td><td>accumulator=accumulator&gt;A</td></tr>
+			<tr><td>63</td><td>?</td><td>assigns to accumulator random number between (inclusive) old accumulator value and argument register value</td><td>accumulator=rand(accumulator, A)</td></tr>
 			<tr><td>64</td><td>@</td><td>copies to accumulator value from memory pointed by data address register </td><td>A=memory[data_address_register]</td></tr>
 			<tr><td>65</td><td>A</td><td>copies accumulator value into register A</td><td>A=accumulator</td></tr>
 			<tr><td>66</td><td>B</td><td>copies accumulator value into register B</td><td>B=accumulator</td></tr>

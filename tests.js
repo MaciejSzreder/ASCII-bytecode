@@ -280,6 +280,21 @@ describe('arithmetic', ()=>{
 	it('not equal to 0', ()=>{
 		testExecutionOutputForInput('iS!o', [[1,0,-1,2,-2,3,-3]], [[0,1,0,0,0,0,0]]);
 	});
+	it('random numbers are greater than lower bound', ()=>{
+		testExecutionOutputForSinglePass('32000B{ _100A0?C<[co] _1Ab-B}', [], []);
+	})
+	it('random numbers are less than upper bound', ()=>{
+		testExecutionOutputForSinglePass('32000B{ _1000A_100?C>[co] _1Ab-B}', [], []);
+	})
+	it('random numbers can be equal to lower bound', ()=>{
+		testExecutionOutputForSinglePass(' {_100A0?=!}', [], []);
+	})
+	it('random numbers can be equal to upper bound', ()=>{
+		testExecutionOutputForSinglePass(' {_1000A_100?=!}', [], []);
+	})
+	it('random numbers can be each between lower and upper bound', ()=>{
+		testExecutionOutputForSinglePass('100B{ {_500A_100?Ab=!} bA_1+B _500=!}', [], []);
+	})
 });
 
 describe('bitwise', ()=>{

@@ -249,6 +249,19 @@ class Machine{
 			core.registers[0]/*accumulator*/ = core.registers[0]/*accumulator*/ > core.registers[1]/*argument*/ ? 1 : 0;
 			++core.registers[3]/*instruction pointer*/;
 		},
+		63 /*?*/: (core)=>{
+			let min,max;
+			if(core.registers[0]/*accumulator*/ < core.registers[1]/*argument*/){
+				min = core.registers[0]/*accumulator*/;
+				max = core.registers[1]/*argument*/;
+			}else{
+				min = core.registers[1]/*argument*/;
+				max = core.registers[0]/*accumulator*/;
+			}
+
+			core.registers[0]/*accumulator*/ = Math.random() * (max - min + 1) + min;
+			++core.registers[3]/*instruction pointer*/;
+		},
 		64 /*@*/: (core, machine)=>{
 			core.registers[0]/*accumulator*/ = machine.memory[(core.registers[6]/*data address*/ % machine.memory.length +  machine.memory.length) % machine.memory.length];
 			++core.registers[3]/*instruction pointer*/;
