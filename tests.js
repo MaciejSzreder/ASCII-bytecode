@@ -114,49 +114,55 @@ describe('registers', ()=>{
 		testExecutionOutputForInput('iAioao', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
 	});
 	it('writing to register A modifies only register A',()=>{
-		testExecutionOutputForSinglePass('5Abocodopo(doao', [], [[0, 0, 0, 0, 0, 5]]);
+		testExecutionOutputForSinglePass('5Abocodopo(dofoao', [], [[0, 0, 0, 0, 0, 0, 5]]);
 	});
 	it('register B allows for input swapping order',()=>{
 		testExecutionOutputForInput('iBiobo', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
 	});
 	it('writing to register B modifies only register B',()=>{
-		testExecutionOutputForSinglePass('5Baocodopo(dobo', [], [[0, 0, 0, 0, 0, 5]]);
+		testExecutionOutputForSinglePass('5Baocodopo(dofobo', [], [[0, 0, 0, 0, 0, 0, 5]]);
 	});
 	it('register C allows for input swapping order',()=>{
 		testExecutionOutputForInput('iCioco', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
 	});
 	it('writing to register C modifies only register C',()=>{
-		testExecutionOutputForSinglePass('5Caobodopo(doco', [], [[0, 0, 0,0, 0, 5]]);
+		testExecutionOutputForSinglePass('5Caobodopo(dofoco', [], [[0, 0, 0,0, 0, 0, 5]]);
 	});
 	it('register D allows for input swapping order',()=>{
 		testExecutionOutputForInput('iDiodo', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
 	});
 	it('writing to register D modifies only register D',()=>{
-		testExecutionOutputForSinglePass('5Daobocopo(do(do', [], [[0, 0, 0, 0, 0, 5]]);
+		testExecutionOutputForSinglePass('5Daobocopofo(do(do', [], [[0, 0, 0, 0, 0, 0, 5]]);
 	});
 	it('register E allows for input swapping order',()=>{
 		testExecutionOutputForInput('iEioeo', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
 	});
 	it('writing to register E modifies only register E',()=>{
-		testExecutionOutputForSinglePass('5Eaobocopo(doeo', [], [[0, 0, 0, 0, 0, 5]]);
+		testExecutionOutputForSinglePass('5Eaobocopo(dofoeo', [], [[0, 0, 0, 0, 0, 0, 5]]);
+	});
+	it('register F allows for input swapping order',()=>{
+		testExecutionOutputForInput('iFiofo', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
+	});
+	it('writing to register F modifies only register F',()=>{
+		testExecutionOutputForSinglePass('5Faobocopo(doeofo', [], [[0, 0, 0, 0, 0, 0, 5]]);
 	});
 	it('stack pointer register allows for input swapping order',()=>{
 		testExecutionOutputForInput('iD(iDiodo(do', [[0, 1, 2, 3, 4, 5]], [[2, 1, 0, 5, 4, 3]]);
 	});
 	it('writing to stack pointer register modifies only stack pointer register',()=>{
-		testExecutionOutputForSinglePass('5D(aobocodopoeo(do', [], [[0, 0, 0, 0, 0, 0, 5]]);
+		testExecutionOutputForSinglePass('5D(aobocodopoeofo(do', [], [[0, 0, 0, 0, 0, 0, 0, 5]]);
 	});
 	it('writing to register P modifies only register P',()=>{
-		testExecutionOutputForSinglePass('5Paobocodopo', [], [undefined, undefined, undefined, undefined, undefined, [0, 0, 0, 0, 5]]);
+		testExecutionOutputForSinglePass('5Paobocodoeopo', [], [undefined, undefined, undefined, undefined, undefined, [0, 0, 0, 0, 0, 5]]);
 	});
 	it('writing to register J modifies only register J',()=>{
-		testExecutionOutputForSinglePass('2Jaobocodopojo', [], [[0, 0, 0, 0, 0, 12]]);
+		testExecutionOutputForSinglePass('2Jaobocodopoeojo', [], [[0, 0, 0, 0, 0, 0, 14]]);
 	});
 	it('register J stores current instruction address',()=>{
 		testExecutionOutputForSinglePass('     jo', [], [[5]]);
 	});
-	it('pass 1 through registers P, A, B, C, D, stack pointer, E', ()=>{
-		testExecutionOutputForSinglePass('1P_pA_PaB_bC_cD(_(_dE_eo', [], [[1]]);
+	it('pass 1 through registers P, A, B, C, D, stack pointer, E, F', ()=>{
+		testExecutionOutputForSinglePass('1P_pA_PaB_bC_cD(_(_dE_eF_fo', [], [[1]]);
 	});
 });
 describe('memory', ()=>{
@@ -294,7 +300,7 @@ describe('arithmetic', ()=>{
 	})
 	it('random numbers can be each between lower and upper bound', ()=>{
 		testExecutionOutputForSinglePass('100B{ {_500A_100?Ab=!} bA_1+B _500=!}', [], []);
-	})
+	});
 });
 
 describe('bitwise', ()=>{
