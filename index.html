@@ -50,7 +50,8 @@
 			<tr><td>67</td><td>C</td><td>copies accumulator value into register C</td><td>C=accumulator</td></tr>
 			<tr><td>68</td><td>D</td><td>copies accumulator value into <u>d</u>ata address register</td><td>data_address_register=accumulator</td></tr>
 			<tr><td>69</td><td>E</td><td>copies accumulator value into register E</td><td>E=accumulator</td></tr>
-			<tr><td>70</td><td>E</td><td>copies accumulator value into register F</td><td>F=accumulator</td></tr>
+			<tr><td>70</td><td>F</td><td>copies accumulator value into register F</td><td>F=accumulator</td></tr>
+			<tr><td>71</td><td>G</td><td>copies accumulator value into register G</td><td>G=accumulator</td></tr>
 			<tr><td>73</td><td>I</td><td>appends <u>1</u> into binary accumulator value</td><td>accumulator=accumulator*2+1</td></tr>
 			<tr><td>74</td><td>J</td><td>copies accumulator value into instruction pointer register</td><td>use for <u>j</u>umps</td></tr>
 			<tr><td>77</td><td>M</td><td>copies <u>m</u>ax value of register A and accumulator into accumulator</td><td>accumulator=max(accumulator,A)</td></tr>
@@ -68,6 +69,7 @@
 			<tr><td>100</td><td>d</td><td>copies <u>d</u>ata address register value into accumulator</td><td>accumulator=data_address_register</td></tr>
 			<tr><td>101</td><td>e</td><td>copies register E value into accumulator</td><td>accumulator=E</td></tr>
 			<tr><td>102</td><td>f</td><td>copies register F value into accumulator</td><td>accumulator=F</td></tr>
+			<tr><td>103</td><td>g</td><td>copies register G value into accumulator</td><td>accumulator=G</td></tr>
 			<tr><td>105</td><td>i</td><td>reads 8bit integer from <u>i</u>nput pointed by port register and stores it in the accumulator</td><td>accumulator=IO[P]&255</td></tr>
 			<tr><td>106</td><td>j</td><td>copies instruction pointer register value into accumulator</td><td>use for <u>j</u>umps</td></tr>
 			<tr><td>109</td><td>m</td><td>copies <u>m</u>in value of register A and accumulator into accumulator</td><td>accumulator=min(accumulator,A)</td></tr>
