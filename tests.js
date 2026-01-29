@@ -307,6 +307,9 @@ describe('arithmetic', ()=>{
 	it('random numbers can be each between lower and upper bound', ()=>{
 		testExecutionOutputForSinglePass('100B{ {_500A_100?Ab=!} bA_1+B _500=!}', [], []);
 	});
+	it('sinus', ()=>{
+		testExecutionOutputForInput('_128Ai*s/o', [[0/*0°*/, 255/*90°*/, 85/*30°*/, 128/*45°*/, 170/*60*/]], [[0, 255, 127, 181, 221]]);
+	});
 });
 
 describe('bitwise', ()=>{

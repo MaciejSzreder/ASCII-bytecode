@@ -408,6 +408,10 @@ class Machine{
 			core.registers[0]/*accumulator*/ = core.registers[4]/*io port*/;
 			++core.registers[3]/*instruction pointer*/;
 		},
+		115 /*s*/: (core)=>{
+			core.registers[0]/*accumulator*/ = Math.round(Math.sin(core.registers[0]/*accumulator*//65535*Math.PI)*32767);
+			++core.registers[3]/*instruction pointer*/;
+		},
 		123 /*{*/: (core)=>{
 			++core.registers[3]/*instruction pointer*/;
 		},
