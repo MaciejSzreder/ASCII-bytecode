@@ -3,12 +3,20 @@
 	<head>
 		<title>ASCII bytecode - prototype</title>
 		<script src="machine.js"></script>
+		<script>
+			function run()
+			{
+				const code = document.getElementById`code`.value;
+				console.log(Machine.executeForInput(code, [[]]));
+			}
+		</script>
 	</head>
 	<body>
 		<h1>ASCII bytecode - prototype</h1>
 		<p>The main idea is to use ASCII code points as bytecode.</p>
 		<h1>Interface</h1>
-		<p>No GUI - open console in your browser (probably Ctrl+Shift+I).</p>
+		<textarea id="code"></textarea>
+		<button onclick="run()">Run</button>
 		<h1>Instructions</h1>
 		<table>
 			<tr><th>ASCII code point</th><th>ASCII character/Unicode Control Picture</th><th>description</th><th>comments</th></tr>
