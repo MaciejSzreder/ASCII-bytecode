@@ -7,7 +7,8 @@
 			function run()
 			{
 				const code = document.getElementById`code`.value;
-				console.log(Machine.executeForInput(code, [[]]));
+				const input = document.getElementById`input`.value;
+				console.log(Machine.executeForInput(code, [[...input].map(c=>c.charCodeAt())]));
 			}
 		</script>
 	</head>
@@ -15,7 +16,14 @@
 		<h1>ASCII bytecode - prototype</h1>
 		<p>The main idea is to use ASCII code points as bytecode.</p>
 		<h1>Interface</h1>
-		<textarea id="code"></textarea>
+		<div>
+			<label for="input">input:</label>
+			<textarea id="input">123</textarea>
+		</div>
+		<div>
+			<label for="code">code:</label>
+			<textarea id="code">io</textarea>
+		</div>
 		<button onclick="run()">Run</button>
 		<h1>Instructions</h1>
 		<table>
