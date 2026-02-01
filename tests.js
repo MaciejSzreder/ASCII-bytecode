@@ -3,7 +3,7 @@ chai.config.truncateThreshold = 0;
 
 function testExecutionOutput(code, steps, input, expectedOutput)
 {
-	let out = Machine.execute(code, steps, input);
+	let out = Machine.execute(code, steps, input).output;
 
 	expect(out).to.deep.equal(expectedOutput.map((port)=>port?.map((value)=>value & 255)))
 }
@@ -22,6 +22,16 @@ function testExecutionOutputForSinglePass(code, input, expectedOutput)
 	expect(out).to.deep.equal(expectedOutput.map((port)=>port?.map((value)=>value & 255)))
 }
 
+function testExecutionRegistersState(code, steps, input, expectedRegistersState)
+{
+	let registers = Machine.execute(code, steps, input).state.registers;
+
+	expect(registers).to.deep.equal(expectedRegistersState.map((expectedRegistersState, processor)=>({
+		...expectedRegistersState,
+		...registers[processor]
+	})));
+}
+
 describe('IO', ()=>{
 	it('o command outputs', ()=>{
 		testExecutionOutputForSinglePass('o', [], [[0]]);
@@ -31,6 +41,9 @@ describe('IO', ()=>{
 	});
 	it('i command does not output', ()=>{
 		testExecutionOutputForSinglePass('i', [], []);
+	});
+	it('i loads input to accumulator', ()=>{
+		testExecutionRegistersState('i', 1, [[42]], [{'':42}]);
 	});
 	it('io passes input to output', ()=>{
 		testExecutionOutputForSinglePass('io', [[10]], [[10]]);

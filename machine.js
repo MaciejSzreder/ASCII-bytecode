@@ -55,7 +55,7 @@ class Machine{
 
 		machine.run(steps);
 
-		return output;
+		return {output, state: machine.state()};
 	}
 	static executeForInput(code, inputs=[])
 	{
@@ -521,5 +521,25 @@ class Machine{
 			--core.registers[3]/*instruction pointer*/;
 		}
 		this.core = (this.core + 1) % this.cores.length;
+	}
+
+	state()
+	{
+		return {
+			'registers': this.cores.map((core)=>({
+				'': core.registers[0]/*accumulator*/,
+				A: core.registers[1]/*argument*/,
+				B: core.registers[2]/*B*/,
+				C: core.registers[5]/*C*/,
+				D: core.registers[6]/*data base*/,
+				E: core.registers[7]/*E*/,
+				F: core.registers[9]/*F*/,
+				G: core.registers[10]/*G*/,
+				J: core.registers[3]/*instruction pointer*/,
+				P: core.registers[4]/*port*/,
+				'(': core.registers[8]/*port*/
+			})),
+			'memory': this.memory
+		};
 	}
 }
