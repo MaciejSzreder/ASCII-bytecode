@@ -235,6 +235,14 @@ class Machine{
 			core.registers[0]/*accumulator*/ = core.registers[0]/*accumulator*/ * 10 + 9;
 			++core.registers[3]/*instruction pointer*/;
 		},
+		57 /*9*/: (core)=>{
+			core.registers[0]/*accumulator*/ = core.registers[0]/*accumulator*/ * 10 + 9;
+			++core.registers[3]/*instruction pointer*/;
+		},
+		58 /*:*/: (core)=>{
+			core.registers[0]/*accumulator*/ = core.registers[0]/*accumulator*/ << 8 | core.registers[0]/*accumulator*/ >> 8
+			++core.registers[3]/*instruction pointer*/;
+		},
 		59 /*;*/: (core)=>{
 			core.state = 2/*comment*/;
 			++core.registers[3]/*instruction pointer*/;

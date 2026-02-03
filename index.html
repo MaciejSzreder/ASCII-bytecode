@@ -60,6 +60,7 @@
 			<tr><td>55</td><td>7</td><td>appends 7 into decimal accumulator value</td><td>accumulator=accumulator*10+7</td></tr>
 			<tr><td>56</td><td>8</td><td>appends 8 into decimal accumulator value</td><td>accumulator=accumulator*10+8</td></tr>
 			<tr><td>57</td><td>9</td><td>appends 9 into decimal accumulator value</td><td>accumulator=accumulator*10+9</td></tr>
+			<tr><td>58</td><td>:</td><td>swaps accumulator higher byte with lower byte</td><td>accumulator=accumulator>>8|accumulator&lt;&lt;8</td></tr>
 			<tr><td>59</td><td>;</td><td>enters comment mode: ignores instructions until next ;</td><td>use for commenting</td></tr>
 			<tr><td>60</td><td>&lt;</td><td>if accumulator value is less than register A value, sets accumulator to 1, otherwise to 0</td><td>accumulator=accumulator&lt;A</td></tr>
 			<tr><td>61</td><td>=</td><td>if accumulator value is equal to register A value, sets accumulator to 1, otherwise to 0</td><td>accumulator=accumulator==A</td></tr>

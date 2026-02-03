@@ -353,6 +353,9 @@ describe('bitwise', ()=>{
 	it('popcount', ()=>{
 		testExecutionOutputForInput('i#o', [[0b0, 0b1, 0b10, 0b11, 0b11111111, 0b10101010, 0b01010101]], [[0, 1, 1, 2, 8, 4, 4]]);
 	});
+	it('byte swap', ()=>{
+		testExecutionOutputForInput('iAi:|o:o', [[0x12, 0x34, 0xAB, 0xCD, 0x00, 0xFF, 0xFF, 0x00, 0xBE, 0xEF]], [[0x12, 0x34, 0xAB, 0xCD, 0x00, 0xFF, 0xFF, 0x00, 0xBE, 0xEF]]);
+	});
 });
 
 describe('integer literals', ()=>{
