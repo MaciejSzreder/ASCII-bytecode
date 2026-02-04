@@ -4,12 +4,16 @@
 		<title>ASCII bytecode - prototype</title>
 		<script src="machine.js"></script>
 		<script>
+			function tapeDecode(code)
+			{
+				return code.split('\n').map((row)=>parseInt(row.slice(0,8).padEnd(8, ' ').replaceAll(' ', '0').replaceAll('O', '1'),2));
+			}
 			function run()
 			{
 				const code = document.getElementById`code`.value;
-				const input = document.getElementById`input`.value;
+				const input = tapeDecode(document.getElementById`input`.value);
 				const output = document.getElementById`output`;
-				output.textContent=Machine.executeForInput(code, [[...input].map(c=>c.charCodeAt())]).join('\n');
+				output.textContent=Machine.executeForInput(code, [input]).join('\n');
 			}
 		</script>
 	</head>
@@ -19,7 +23,11 @@
 		<h1>Interface</h1>
 		<div>
 			<label for="input">input:</label>
-			<textarea id="input">123</textarea>
+			<textarea id="input">
+        
+       O
+      O 
+      OO</textarea>
 		</div>
 		<div>
 			<label for="code">code:</label>
