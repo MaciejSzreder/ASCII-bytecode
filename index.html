@@ -10,7 +10,7 @@
 			}
 			function run()
 			{
-				const code = document.getElementById`code`.value;
+				const code = String.fromCharCode(...tapeDecode(document.getElementById`code`.value));
 				const input = tapeDecode(document.getElementById`input`.value);
 				const output = document.getElementById`output`;
 				output.textContent=Machine.executeForInput(code, [input]).join('\n');
@@ -31,7 +31,9 @@
 		</div>
 		<div>
 			<label for="code">code:</label>
-			<textarea id="code">io</textarea>
+			<textarea id="code">
+ OO O  O
+ OO OOOO</textarea>
 		</div>
 		<div>
 			<label for="output">output:</label>
