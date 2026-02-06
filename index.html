@@ -8,12 +8,18 @@
 			{
 				return code.split('\n').map((row)=>parseInt(row.slice(0,8).padEnd(8, ' ').replaceAll(' ', '0').replaceAll('O', '1'),2));
 			}
+
+			function tapeEncode(data)
+			{
+				return data[0].map((value)=>value.toString(2).padStart(8,' ').replaceAll('0',' ').replaceAll('1','O')).join('\n');
+			}
+
 			function run()
 			{
 				const code = String.fromCharCode(...tapeDecode(document.getElementById`code`.value));
 				const input = tapeDecode(document.getElementById`input`.value);
 				const output = document.getElementById`output`;
-				output.textContent=Machine.executeForInput(code, [input]).join('\n');
+				output.textContent=tapeEncode(Machine.executeForInput(code, [input]));
 			}
 		</script>
 	</head>
