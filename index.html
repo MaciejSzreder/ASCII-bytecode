@@ -64,7 +64,6 @@
 			<tr><td>43</td><td>+</td><td>increases accumulator by register A value</td><td>accumulator+=A</td></tr>
 			<tr><td>44</td><td>,</td><td>decreases data address register, then writes accumulator low byte to memory pointed by data address register</td><td>memory[--data_address_register]=accumulator&255</td></tr>
 			<tr><td>45</td><td>-</td><td>decreases accumulator by register A value</td><td>accumulator-=A</td></tr>
-			<tr><td>46</td><td>.</td><td>copies to accumulator value from memory pointed by data address register, then increases data address register</td><td>accumulator=memory[data_address_register++]</td></tr>
 			<tr><td>47</td><td>/</td><td>divides accumulator by register A value</td><td>accumulator/=A</td></tr>
 			<tr><td>48</td><td>0</td><td>appends 0 into decimal accumulator value</td><td>accumulator=accumulator*10</td></tr>
 			<tr><td>49</td><td>1</td><td>appends 1 into decimal accumulator value</td><td>accumulator=accumulator*10+1</td></tr>
@@ -101,6 +100,7 @@
 			<tr><td>92</td><td>\</td><td>divides accumulator by register A value</td><td>accumulator=A/accumulator</td></tr>
 			<tr><td>93</td><td>]</td><td>closes if body opened by [</td><td>if(accumulator){code}</td></tr>
 			<tr><td>94</td><td>^</td><td>xores corresponding accumulator bits with register A bits</td><td>accumulator^=A</td></tr>
+			<tr><td>96</td><td>`</td><td>copies to accumulator value from memory pointed by data address register, then increases data address register</td><td>accumulator=memory[data_address_register++]</td></tr>
 			<tr><td>97</td><td>a</td><td>copies register A value into accumulator</td><td>accumulator=A</td></tr>
 			<tr><td>98</td><td>b</td><td>copies register B value into accumulator</td><td>accumulator=B</td></tr>
 			<tr><td>99</td><td>c</td><td>copies register C value into accumulator</td><td>accumulator=C</td></tr>

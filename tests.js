@@ -115,7 +115,7 @@ describe('jumps', ()=>{
 		testExecutionOutput('_11YjJo1o1o_1ojJ',99 , [], [[1]])
 	});
 	it('function call push return address', ()=>{
-		testExecutionOutputForSinglePass('2)_.o', [], [[2]]);
+		testExecutionOutputForSinglePass('2)_`o', [], [[2]]);
 	});
 	it('function call jumps', ()=>{
 		testExecutionOutputForSinglePass('4)jJ_1o', [], [[1]]);
@@ -209,14 +209,14 @@ describe('memory', ()=>{
 	it(', appends at data address', ()=>{
 		testExecutionOutputForSinglePass('100D_10,@o',[], [[10]])
 	});
-	it('. pops value appended by ,', ()=>{
-		testExecutionOutputForSinglePass('10,_.o',[], [[10]]);
+	it('` pops value appended by ,', ()=>{
+		testExecutionOutputForSinglePass('10,_`o',[], [[10]]);
 	});
-	it('. pops value pointed by data address register', ()=>{
-		testExecutionOutputForSinglePass('5D.o;\x10;',[], [[0x10]]);
+	it('` pops value pointed by data address register', ()=>{
+		testExecutionOutputForSinglePass('5D`o;\x10;',[], [[0x10]]);
 	});
-	it('. increments data address register', ()=>{
-		testExecutionOutputForSinglePass('4D.do',[], [[5]]);
+	it('` increments data address register', ()=>{
+		testExecutionOutputForSinglePass('4D`do',[], [[5]]);
 	});
 })
 
@@ -595,20 +595,20 @@ describe('TIS-100',()=>{
 	});
 	it('Sequence Sorter', ()=>{
 		testExecutionOutputForInput(`
-			{i,}.
+			{i,}\`
 			dB; array size;
 			[{
-				.A; initialize min;
+				\`A; initialize min;
 				dE; initialize min index;
 				[{
-					.C<[
+					\`C<[
 						cA; update min;
 						dE; update min index;
 					]
 					d
 				}]
 				ao
-				bD.C; last value;
+				bD\`C; last value;
 				dB; shrink array;
 				_1Ae-D; real min index;
 				c$; remove min from list;
