@@ -1,6 +1,16 @@
 const expect = chai.expect;
 chai.config.truncateThreshold = 0;
 
+function map(object, f)
+{
+	return Object.fromEntries(Object.entries(object).map(f))
+}
+
+function filter(object, f)
+{
+	return Object.fromEntries(Object.entries(object).filter(f))
+}
+
 function testExecutionOutput(code, steps, input, expectedOutput)
 {
 	let out = Machine.execute(code, steps, input).output;
@@ -27,8 +37,13 @@ function testExecutionRegistersState(code, steps, input, expectedRegistersState)
 	let registers = Machine.execute(code, steps, input).state.registers;
 
 	expect(registers).to.deep.equal(expectedRegistersState.map((expectedRegistersState, processor)=>({
-		...expectedRegistersState,
-		...registers[processor]
+		...map(registers[processor], ([register, value])=>[
+			register,
+			expectedRegistersState[register]==='any'
+				? value
+				: expectedRegistersState.others ?? value
+		]),
+		...filter(expectedRegistersState, ([register, value])=>register!=='others' && value!=='any')
 	})));
 }
 
@@ -172,10 +187,19 @@ describe('registers', ()=>{
 		testExecutionOutputForSinglePass('5D(aobocodopoeofogo(do', [], [[0, 0, 0, 0, 0, 0, 0, 0, 5]]);
 	});
 	it('writing to register P modifies only register P',()=>{
-		testExecutionOutputForSinglePass('5Paobocodoeogopo', [], [undefined, undefined, undefined, undefined, undefined, [0, 0, 0, 0, 0, 0, 5]]);
+		testExecutionRegistersState('5P', 2, [], [{
+			'':5,
+			P:5,
+			J:'any',
+			others:0
+		}]);
 	});
 	it('writing to register J modifies only register J',()=>{
-		testExecutionOutputForSinglePass('2Jaobocodopoeogojo', [], [[0, 0, 0, 0, 0, 0, 0, 16]]);
+		testExecutionRegistersState('5J', 2, [], [{
+			'':5,
+			J:5,
+			others:0
+		}]);
 	});
 	it('register J stores current instruction address',()=>{
 		testExecutionOutputForSinglePass('     jo', [], [[5]]);
