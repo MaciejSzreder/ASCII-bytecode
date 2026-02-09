@@ -204,6 +204,17 @@ describe('registers', ()=>{
 	it('register J stores current instruction address',()=>{
 		testExecutionOutputForSinglePass('     jo', [], [[5]]);
 	});
+	it('writing to register X modifies only register X',()=>{
+		testExecutionRegistersState('5X', 2, [], [{
+			'':5,
+			X:5,
+			J:'any',
+			others:0
+		}]);
+	});
+	it('register X allows for input swapping order',()=>{
+		testExecutionOutputForInput('iXioxo', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
+	});
 	it('pass 1 through registers P, A, B, C, D, stack pointer, E, F, G', ()=>{
 		testExecutionOutputForSinglePass('1P_pA_PaB_bC_cD(_(_dE_eF_fG_go', [], [[1]]);
 	});
