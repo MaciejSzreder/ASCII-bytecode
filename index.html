@@ -101,6 +101,7 @@
 			<tr><td>92</td><td>\</td><td>divides accumulator by register A value</td><td>accumulator=A/accumulator</td></tr>
 			<tr><td>93</td><td>]</td><td>closes if body opened by [</td><td>if(accumulator){code}</td></tr>
 			<tr><td>94</td><td>^</td><td>xores corresponding accumulator bits with register A bits</td><td>accumulator^=A</td></tr>
+			<tr><td>95</td><td>_</td><td>sets accumulator register to zero</td><td>accumulator=0</td></tr>
 			<tr><td>96</td><td>`</td><td>copies to accumulator value from memory pointed by data address register, then increases data address register</td><td>accumulator=memory[data_address_register++]</td></tr>
 			<tr><td>97</td><td>a</td><td>copies register A value into accumulator</td><td>accumulator=A</td></tr>
 			<tr><td>98</td><td>b</td><td>copies register B value into accumulator</td><td>accumulator=B</td></tr>
@@ -116,7 +117,6 @@
 			<tr><td>112</td><td>p</td><td>copies <u>p</u>ort register value into accumulator</td><td>accumulator=P</td></tr>
 			<tr><td>115</td><td>s</td><td>calculates sinus of angle in accumulator, where 0 means 0&deg;, 32768 means 90&deg;, and stores result reinterpreted as integer in accumulator</td><td>accumulator=round(sin(accumulator/32765*&pi;)*32767)</td></tr>
 			<tr><td>120</td><td>x</td><td>copies register x value into accumulator</td><td>accumulator=X</td></tr>
-			<tr><td>122</td><td>z</td><td>sets accumulator register to <u>z</u>ero</td><td>accumulator=0</td></tr>
 			<tr><td>123</td><td>{</td><td>opens loop body</td><td></td></tr>
 			<tr><td>124</td><td>|</td><td>alternates corresponding accumulator bits with register A bits</td><td>accumulator|=A</td></tr>
 			<tr><td>125</td><td>}</td><td>if accumulator is not 0, goes to corresponding {</td><td>do{code}while(accumulator)</td></tr>
