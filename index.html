@@ -97,6 +97,7 @@
 			<tr><td>83</td><td>S</td><td>copies 8th bit into each higher bit in accumulator</td><td>use to convert 8bit signed number to 16bit signed number</td></tr>
 			<tr><td>88</td><td>X</td><td>copies accumulator value into register X</td><td>X=accumulator</td></tr>
 			<tr><td>89</td><td>Y</td><td>copies core state to free core, except instruction pointer register, which have assigned accumulator value. Core starts processing.</td><td></td></tr>
+			<tr><td>90</td><td>Z</td><td>copies accumulator value into register Z</td><td>Z=accumulator</td></tr>
 			<tr><td>91</td><td>[</td><td>if accumulator is 0 ignores instruction until meeting corresponding ]</td><td>if(accumulator){code}</td></tr>
 			<tr><td>92</td><td>\</td><td>divides accumulator by register A value</td><td>accumulator=A/accumulator</td></tr>
 			<tr><td>93</td><td>]</td><td>closes if body opened by [</td><td>if(accumulator){code}</td></tr>
@@ -117,6 +118,7 @@
 			<tr><td>112</td><td>p</td><td>copies <u>p</u>ort register value into accumulator</td><td>accumulator=P</td></tr>
 			<tr><td>115</td><td>s</td><td>calculates sinus of angle in accumulator, where 0 means 0&deg;, 32768 means 90&deg;, and stores result reinterpreted as integer in accumulator</td><td>accumulator=round(sin(accumulator/32765*&pi;)*32767)</td></tr>
 			<tr><td>120</td><td>x</td><td>copies register x value into accumulator</td><td>accumulator=X</td></tr>
+			<tr><td>122</td><td>z</td><td>copies register Z value into accumulator</td><td>accumulator=Z</td></tr>
 			<tr><td>123</td><td>{</td><td>opens loop body</td><td></td></tr>
 			<tr><td>124</td><td>|</td><td>alternates corresponding accumulator bits with register A bits</td><td>accumulator|=A</td></tr>
 			<tr><td>125</td><td>}</td><td>if accumulator is not 0, goes to corresponding {</td><td>do{code}while(accumulator)</td></tr>

@@ -215,6 +215,17 @@ describe('registers', ()=>{
 	it('register X allows for input swapping order',()=>{
 		testExecutionOutputForInput('iXioxo', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
 	});
+	it('writing to register Z modifies only register Z',()=>{
+		testExecutionRegistersState('5Z', 2, [], [{
+			'':5,
+			Z:5,
+			J:'any',
+			others:0
+		}]);
+	});
+	it('register Z allows for input swapping order',()=>{
+		testExecutionOutputForInput('iZiozo', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
+	});
 	it('pass 1 through registers P, A, B, C, D, stack pointer, E, F, G', ()=>{
 		testExecutionOutputForSinglePass('1P_pA_PaB_bC_cD(_(_dE_eF_fG_go', [], [[1]]);
 	});

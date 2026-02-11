@@ -12,7 +12,7 @@ class Core{
 
 	constructor(registers)
 	{
-		this.registers = new Int16Array(registers || 12);/*
+		this.registers = new Int16Array(registers || 13);/*
 			0	accumulator
 			1	argument
 			2	B
@@ -25,6 +25,7 @@ class Core{
 			9	F
 			10	G
 			11	X
+			12	Z
 		*/
 	}
 
@@ -332,6 +333,10 @@ class Machine{
 			machine.cores.push(core.fork());
 			++core.registers[3]/*instruction pointer*/;
 		},
+		90 /*Z*/: (core)=>{
+			core.registers[12]/*Z*/ = core.registers[0]/*accumulator*/;
+			++core.registers[3]/*instruction pointer*/;
+		},
 		91 /*[*/: (core)=>{
 			if(core.registers[0]/*accumulator*/ === 0){
 				core.state = 3/*false if*/;
@@ -427,6 +432,10 @@ class Machine{
 		},
 		120 /*x*/: (core)=>{
 			core.registers[0]/*accumulator*/ = core.registers[11]/*X*/;
+			++core.registers[3]/*instruction pointer*/;
+		},
+		122 /*z*/: (core)=>{
+			core.registers[0]/*accumulator*/ = core.registers[12]/*Z*/;
 			++core.registers[3]/*instruction pointer*/;
 		},
 		123 /*{*/: (core)=>{
@@ -555,6 +564,7 @@ class Machine{
 				J: core.registers[3]/*instruction pointer*/,
 				P: core.registers[4]/*port*/,
 				X: core.registers[11]/*X*/,
+				Z: core.registers[12]/*Z*/,
 				'(': core.registers[8]/*port*/
 			})),
 			'memory': this.memory
