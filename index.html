@@ -55,12 +55,12 @@
 			<tr><td>10</td><td>&#x240A;</td><td>no operation</td><td>use for code formatting</td></tr>
 			<tr><td>32</td><td>&#x2420;</td><td>no operation</td><td>use for code formatting</td></tr>
 			<tr><td>33</td><td>!</td><td>writes to accumulator 1 if its previous value was not 0</td><td>accumulator=!accumulator</td></tr>
-			<tr><td>35</td><td>#</td><td>writes to accumulator numbers of set bits of accumulator</td></tr>
+			<tr><td>35</td><td>#</td><td>writes to accumulator numbers of set bits of accumulator</td><td>accumulator = for (int count = 0; accumulator>0; accumulator >>= 1) count += accumulator & 1;</td></tr>
 			<tr><td>36</td><td>$</td><td>writes accumulator low byte to memory pointed by data address register</td><td>memory[data_address_register]=accumulator</td></tr>
-			<tr><td>37</td><td>%</td><td>modules (basing on floored division; x % 0 == 0) accumulator by register A bits</td><td>accumulator%=A</td></tr>
-			<tr><td>38</td><td>&amp;</td><td>conjuncts corresponding accumulator bits with register A bits</td><td>accumulator&=A</td></tr>
+			<tr><td>37</td><td>%</td><td>modulo (basing on floored division; x % 0 == 0) accumulator by register A value</td><td>accumulator%=A</td></tr>
+			<tr><td>38</td><td>&amp;</td><td>ANDs corresponding accumulator bits with register A bits</td><td>accumulator&=A</td></tr>
 			<tr><td>40</td><td>(</td><td>swaps data address and stack pointer registers values</td><td>data_address_register,stack_pointer_register=stack_pointer_register,data_address_register</td></tr>
-			<tr><td>41</td><td>)</td><td>decreases data address register, then writes address of next instruction to memory pointed by data address register</td><td>memory[--data_address_register]=instruction_pointer_register<br/></td></tr>
+			<tr><td>41</td><td>)</td><td>decreases data address register, then writes address of next instruction to memory pointed by data address register and sets instruction pointer register to accumulator value</td><td>memory[--data_address_register]=instruction_pointer_register<br/>instruction_pointer_register=accumulator</td></tr>
 			<tr><td>42</td><td>*</td><td>multiplies accumulator by register A value</td><td>accumulator*=A</td></tr>
 			<tr><td>43</td><td>+</td><td>increases accumulator by register A value</td><td>accumulator+=A</td></tr>
 			<tr><td>44</td><td>,</td><td>decreases data address register, then writes accumulator low byte to memory pointed by data address register</td><td>memory[--data_address_register]=accumulator&255</td></tr>
@@ -82,7 +82,7 @@
 			<tr><td>61</td><td>=</td><td>if accumulator value is equal to register A value, sets accumulator to 1, otherwise to 0</td><td>accumulator=accumulator==A</td></tr>
 			<tr><td>62</td><td>&gt;</td><td>if accumulator value is greater than register A value, sets accumulator to 1, otherwise to 0</td><td>accumulator=accumulator&gt;A</td></tr>
 			<tr><td>63</td><td>?</td><td>assigns to accumulator random number between (inclusive) old accumulator value and argument register value</td><td>accumulator=rand(accumulator, A)</td></tr>
-			<tr><td>64</td><td>@</td><td>copies to accumulator value from memory pointed by data address register </td><td>A=memory[data_address_register]</td></tr>
+			<tr><td>64</td><td>@</td><td>copies to accumulator value from memory pointed by data address register </td><td>accumulator=memory[data_address_register]</td></tr>
 			<tr><td>65</td><td>A</td><td>copies accumulator value into register A</td><td>A=accumulator</td></tr>
 			<tr><td>66</td><td>B</td><td>copies accumulator value into register B</td><td>B=accumulator</td></tr>
 			<tr><td>67</td><td>C</td><td>copies accumulator value into register C</td><td>C=accumulator</td></tr>
@@ -98,12 +98,12 @@
 			<tr><td>82</td><td>R</td><td>copies accumulator value into register R</td><td>R=accumulator</td></tr>
 			<tr><td>83</td><td>S</td><td>copies 8th bit into each higher bit in accumulator</td><td>use to convert 8bit signed number to 16bit signed number</td></tr>
 			<tr><td>88</td><td>X</td><td>copies accumulator value into register X</td><td>X=accumulator</td></tr>
-			<tr><td>89</td><td>Y</td><td>copies core state to free core, except instruction pointer register, which have assigned accumulator value. Core starts processing.</td><td></td></tr>
+			<tr><td>89</td><td>Y</td><td>copies core state to free core, except instruction pointer register, which have assigned accumulator value. Core starts processing.</td><td>works like fork with callback</td></tr>
 			<tr><td>90</td><td>Z</td><td>copies accumulator value into register Z</td><td>Z=accumulator</td></tr>
 			<tr><td>91</td><td>[</td><td>if accumulator is 0 ignores instruction until meeting corresponding ]</td><td>if(accumulator){code}</td></tr>
-			<tr><td>92</td><td>\</td><td>divides accumulator by register A value</td><td>accumulator=A/accumulator</td></tr>
+			<tr><td>92</td><td>\</td><td>divides register A value by accumulator value and stores it in accumulator</td><td>accumulator=A/accumulator</td></tr>
 			<tr><td>93</td><td>]</td><td>closes if body opened by [</td><td>if(accumulator){code}</td></tr>
-			<tr><td>94</td><td>^</td><td>xores corresponding accumulator bits with register A bits</td><td>accumulator^=A</td></tr>
+			<tr><td>94</td><td>^</td><td>XORes corresponding accumulator bits with register A bits</td><td>accumulator^=A</td></tr>
 			<tr><td>95</td><td>_</td><td>sets accumulator register to zero</td><td>accumulator=0</td></tr>
 			<tr><td>96</td><td>`</td><td>copies to accumulator value from memory pointed by data address register, then increases data address register</td><td>accumulator=memory[data_address_register++]</td></tr>
 			<tr><td>97</td><td>a</td><td>copies register A value into accumulator</td><td>accumulator=A</td></tr>
@@ -116,15 +116,15 @@
 			<tr><td>105</td><td>i</td><td>reads 8bit integer from <u>i</u>nput pointed by port register and stores it in the accumulator</td><td>accumulator=IO[P]&255</td></tr>
 			<tr><td>106</td><td>j</td><td>copies instruction pointer register value into accumulator</td><td>use for <u>j</u>umps</td></tr>
 			<tr><td>109</td><td>m</td><td>copies <u>m</u>in value of register A and accumulator into accumulator</td><td>accumulator=min(accumulator,A)</td></tr>
-			<tr><td>111</td><td>o</td><td>write accumulator low byte to <u>o</u>utput pointed by port register as unsigned integer</td><td>IO[P]=accumulator&255</td></tr>
+			<tr><td>111</td><td>o</td><td>writes accumulator low byte to <u>o</u>utput pointed by port register as unsigned integer</td><td>IO[P]=accumulator&255</td></tr>
 			<tr><td>112</td><td>p</td><td>copies <u>p</u>ort register value into accumulator</td><td>accumulator=P</td></tr>
 			<tr><td>114</td><td>r</td><td>copies register R value into accumulator</td><td>accumulator=R</td></tr>
-			<tr><td>115</td><td>s</td><td>calculates sinus of angle in accumulator, where 0 means 0&deg;, 32768 means 90&deg;, and stores result reinterpreted as integer in accumulator</td><td>accumulator=round(sin(accumulator/32765*&pi;)*32767)</td></tr>
+			<tr><td>115</td><td>s</td><td>calculates sinus of angle in accumulator, where 0 means 0&deg;, 32767 means 90&deg;, and stores result reinterpreted as integer in accumulator</td><td>accumulator=round(sin(accumulator/65534*&pi;)*32767)</td></tr>
 			<tr><td>120</td><td>x</td><td>copies register x value into accumulator</td><td>accumulator=X</td></tr>
 			<tr><td>122</td><td>z</td><td>copies register Z value into accumulator</td><td>accumulator=Z</td></tr>
-			<tr><td>123</td><td>{</td><td>opens loop body</td><td></td></tr>
-			<tr><td>124</td><td>|</td><td>alternates corresponding accumulator bits with register A bits</td><td>accumulator|=A</td></tr>
-			<tr><td>125</td><td>}</td><td>if accumulator is not 0, goes to corresponding {</td><td>do{code}while(accumulator)</td></tr>
+			<tr><td>123</td><td>{</td><td>opens loop body</td><td>do{ <span style="color:gray">code  }while(accumulator!=0)</span></td></tr>
+			<tr><td>124</td><td>|</td><td>ORes corresponding accumulator bits with register A bits</td><td>accumulator|=A</td></tr>
+			<tr><td>125</td><td>}</td><td>if accumulator is not 0, goes to corresponding {</td><td><span style="color:gray">do{code</span>}while(accumulator!=0)</td></tr>
 			<tr><td>126</td><td>~</td><td>negates accumulator bits</td><td>accumulator=~accumulator</td></tr>
 		</table>
 	</body>

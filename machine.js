@@ -46,7 +46,7 @@ class Machine{
 		machine.load(code);
 		let output = [];
 		machine.outputs(new Proxy({},{
-			get(target, field, reciver){
+			get(target, field, receiver){
 				let idx = Number(field)
 				if(output[idx]===undefined){
 					output[idx] = [];
@@ -93,7 +93,7 @@ class Machine{
 		machine.load(code);
 		let output = [];
 		machine.outputs(new Proxy({},{
-			get(target, field, reciver){
+			get(target, field, receiver){
 				let idx = Number(field)
 				if(output[idx]===undefined){
 					output[idx] = [];
@@ -228,10 +228,6 @@ class Machine{
 		},
 		56 /*8*/: (core)=>{
 			core.registers[0]/*accumulator*/ = core.registers[0]/*accumulator*/ * 10 + 8;
-			++core.registers[3]/*instruction pointer*/;
-		},
-		57 /*9*/: (core)=>{
-			core.registers[0]/*accumulator*/ = core.registers[0]/*accumulator*/ * 10 + 9;
 			++core.registers[3]/*instruction pointer*/;
 		},
 		57 /*9*/: (core)=>{
@@ -415,7 +411,7 @@ class Machine{
 				++core.registers[3]/*instruction pointer*/;
 			}
 		},
-		106 /*instruction pointer*/: (core)=>{
+		106 /*j*/: (core)=>{
 			core.registers[0]/*accumulator*/ = core.registers[3]/*instruction pointer*/;
 			++core.registers[3]/*instruction pointer*/;
 		},
@@ -436,7 +432,7 @@ class Machine{
 			++core.registers[3]/*instruction pointer*/;
 		},
 		115 /*s*/: (core)=>{
-			core.registers[0]/*accumulator*/ = Math.round(Math.sin(core.registers[0]/*accumulator*//65535*Math.PI)*32767);
+			core.registers[0]/*accumulator*/ = Math.round(Math.sin(core.registers[0]/*accumulator*//65534*Math.PI)*32767);
 			++core.registers[3]/*instruction pointer*/;
 		},
 		120 /*x*/: (core)=>{
@@ -566,7 +562,7 @@ class Machine{
 				A: core.registers[1]/*argument*/,
 				B: core.registers[2]/*B*/,
 				C: core.registers[5]/*C*/,
-				D: core.registers[6]/*data base*/,
+				D: core.registers[6]/*data address*/,
 				E: core.registers[7]/*E*/,
 				F: core.registers[9]/*F*/,
 				G: core.registers[10]/*G*/,
@@ -575,7 +571,7 @@ class Machine{
 				R: core.registers[13]/*R*/,
 				X: core.registers[11]/*X*/,
 				Z: core.registers[12]/*Z*/,
-				'(': core.registers[8]/*port*/
+				'(': core.registers[8]/*stack pointer*/
 			})),
 			'memory': this.memory
 		};
