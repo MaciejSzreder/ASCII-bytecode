@@ -47,6 +47,17 @@ function testExecutionRegistersState(code, steps, input, expectedRegistersState)
 	})));
 }
 
+function testExecutionScreen(code, steps, expectedScreenState)
+{
+	let screen = Machine.execute(code, steps, []).state.screen;
+
+	expect(screen).to.deep.equal(
+		screen.map((pixels, row)=>pixels.map((pixel, column)=>
+			expectedScreenState[`${row},${column}`] ?? expectedScreenState.others ?? pixel
+		)
+	));
+}
+
 describe('IO', ()=>{
 	it('o command outputs', ()=>{
 		testExecutionOutputForSinglePass('o', [], [[0]]);
@@ -68,6 +79,9 @@ describe('IO', ()=>{
 	});
 	it('P register allows to change output port', ()=>{
 		testExecutionOutputForInput('ioiA_1Pao_P', [[0,1,2,3,4,5,6,7,8,9]], [[0,2,4,6,8],[1,3,5,7,9]]);
+	});
+	it('. changes pixel pointed by X and Z registers', ()=>{
+		testExecutionScreen('1X_2Z.', 6, {'1,2':1, 'others':0});
 	});
 });
 

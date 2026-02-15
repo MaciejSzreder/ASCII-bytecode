@@ -178,6 +178,10 @@ class Machine{
 			core.registers[0]/*accumulator*/ -= core.registers[1]/*argument*/;
 			++core.registers[3]/*instruction pointer*/;
 		},
+		46 /*.*/: (core, machine)=>{
+			machine.screen[core.registers[11]/*X*/][core.registers[12]/*Z*/] ^= 1;
+			++core.registers[3]/*instruction pointer*/;
+		},
 		47 /*/*/: (core)=>{
 			if(core.registers[1]/*argument*/ === 0){
 				if(core.registers[0]/*accumulator*/ === 0){
@@ -469,6 +473,7 @@ class Machine{
 
 	cores = [new Core];
 	memory = new Uint8Array(1<<16);
+	screen = Array.from({length: 100}, ()=>Array(100).fill(0));
 	inputCallbacks = [];
 	outputCallbacks = console.log;
 
@@ -573,7 +578,8 @@ class Machine{
 				Z: core.registers[12]/*Z*/,
 				'(': core.registers[8]/*stack pointer*/
 			})),
-			'memory': this.memory
+			'memory': this.memory,
+			'screen': this.screen
 		};
 	}
 }
