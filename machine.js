@@ -12,7 +12,7 @@ class Core{
 
 	constructor(registers)
 	{
-		this.registers = new Int16Array(registers || 14);/*
+		this.registers = new Int16Array(registers || 15);/*
 			0	accumulator
 			1	argument
 			2	B
@@ -27,6 +27,7 @@ class Core{
 			11	X
 			12	Z
 			13	R
+			14	H
 		*/
 	}
 
@@ -303,6 +304,10 @@ class Machine{
 			core.registers[10]/*G*/ = core.registers[0]/*accumulator*/;
 			++core.registers[3]/*instruction pointer*/;
 		},
+		72 /*H*/: (core)=>{
+			core.registers[14]/*H*/ = core.registers[0]/*accumulator*/;
+			++core.registers[3]/*instruction pointer*/;
+		},
 		73 /*I*/: (core)=>{
 			core.registers[0]/*accumulator*/ = core.registers[0]/*accumulator*/ * 2 + 1;
 			++core.registers[3]/*instruction pointer*/;
@@ -406,6 +411,10 @@ class Machine{
 		},
 		103 /*g*/: (core)=>{
 			core.registers[0]/*accumulator*/ = core.registers[10]/*G*/;
+			++core.registers[3]/*instruction pointer*/;
+		},
+		104 /*h*/: (core)=>{
+			core.registers[0]/*accumulator*/ = core.registers[14]/*H*/;
 			++core.registers[3]/*instruction pointer*/;
 		},
 		105 /*i*/: (core, machine)=>{
@@ -571,6 +580,7 @@ class Machine{
 				E: core.registers[7]/*E*/,
 				F: core.registers[9]/*F*/,
 				G: core.registers[10]/*G*/,
+				H: core.registers[14]/*H*/,
 				J: core.registers[3]/*instruction pointer*/,
 				P: core.registers[4]/*port*/,
 				R: core.registers[13]/*R*/,
