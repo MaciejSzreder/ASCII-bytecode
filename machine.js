@@ -183,7 +183,7 @@ class Machine{
 			++core.registers[3]/*instruction pointer*/;
 		},
 		46 /*.*/: (core, machine)=>{
-			machine.screen[core.registers[11]/*X*/][core.registers[12]/*Z*/] ^= 1;
+			machine.screen[core.registers[11]/*X*/][core.registers[12]/*Z*/] = [core.registers[13]/*R*/, core.registers[10]/*G*/, core.registers[2]/*B*/];
 			++core.registers[3]/*instruction pointer*/;
 		},
 		47 /*/*/: (core)=>{
@@ -509,7 +509,7 @@ class Machine{
 
 	cores = [new Core];
 	memory = new Uint8Array(1<<16);
-	screen = Array.from({length: 100}, ()=>Array(100).fill(0));
+	screen = Array.from({length: 100}, ()=>Array.from({length:100}, ()=>[0,0,0]));
 	inputCallbacks = [];
 	outputCallbacks = console.log;
 

@@ -65,7 +65,7 @@
 			<tr><td><code>  O O OO</code></td><td>43</td><td>+</td><td>increases accumulator by register A value</td><td>accumulator+=A</td></tr>
 			<tr><td><code>  O OO  </code></td><td>44</td><td>,</td><td>decreases data address register, then writes accumulator low byte to memory pointed by data address register</td><td>memory[--data_address_register]=accumulator&255</td></tr>
 			<tr><td><code>  O OO O</code></td><td>45</td><td>-</td><td>decreases accumulator by register A value</td><td>accumulator-=A</td></tr>
-			<tr><td><code>  O OOO </code></td><td>46</td><td>.</td><td>changes pixel pointed by X and Z registers</td><td>screen[X][Z]^=1</td></tr>
+			<tr><td><code>  O OOO </code></td><td>46</td><td>.</td><td>sets pixel pointed by X and Z registers to color coded in registers R, G, B (the younger byte encodes TrueColor, or is compatible)</td><td>screen[X][Z]=[R,G,B]</td></tr>
 			<tr><td><code>  O OOOO</code></td><td>47</td><td>/</td><td>divides accumulator by register A value</td><td>accumulator/=A</td></tr>
 			<tr><td><code>  OO    </code></td><td>48</td><td>0</td><td>appends 0 into decimal accumulator value</td><td>accumulator=accumulator*10</td></tr>
 			<tr><td><code>  OO   O</code></td><td>49</td><td>1</td><td>appends 1 into decimal accumulator value</td><td>accumulator=accumulator*10+1</td></tr>
