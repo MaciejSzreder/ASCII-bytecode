@@ -12,7 +12,7 @@ class Core{
 
 	constructor(registers)
 	{
-		this.registers = new Int16Array(registers || 18);/*
+		this.registers = new Int16Array(registers || 19);/*
 			0	accumulator
 			1	argument
 			2	B
@@ -31,6 +31,7 @@ class Core{
 			15	K
 			16	L
 			17	N
+			18	U
 		*/
 	}
 
@@ -350,6 +351,10 @@ class Machine{
 			core.registers[0]/*accumulator*/ |= core.registers[0]/*accumulator*/ >= 0b10000000 ? 0b1111111110000000 : 0;
 			++core.registers[3]/*instruction pointer*/;
 		},
+		85 /*U*/: (core)=>{
+			core.registers[18]/*U*/ = core.registers[0]/*accumulator*/;
+			++core.registers[3]/*instruction pointer*/;
+		},
 		88 /*X*/: (core)=>{
 			core.registers[11]/*X*/ = core.registers[0]/*accumulator*/;
 			++core.registers[3]/*instruction pointer*/;
@@ -473,6 +478,10 @@ class Machine{
 		},
 		115 /*s*/: (core)=>{
 			core.registers[0]/*accumulator*/ = Math.round(Math.sin(core.registers[0]/*accumulator*//65534*Math.PI)*32767);
+			++core.registers[3]/*instruction pointer*/;
+		},
+		117 /*u*/: (core)=>{
+			core.registers[0]/*accumulator*/ = core.registers[18]/*U*/;
 			++core.registers[3]/*instruction pointer*/;
 		},
 		120 /*x*/: (core)=>{
@@ -614,6 +623,7 @@ class Machine{
 				N: core.registers[17]/*N*/,
 				P: core.registers[4]/*port*/,
 				R: core.registers[13]/*R*/,
+				U: core.registers[18]/*U*/,
 				X: core.registers[11]/*X*/,
 				Z: core.registers[12]/*Z*/,
 				'(': core.registers[8]/*stack pointer*/
