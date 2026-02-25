@@ -100,6 +100,7 @@
 			<tr><td><code> O  OOO </code></td><td>78</td><td>N</td><td>copies accumulator value into register N</td><td>N=accumulator</td></tr>
 			<tr><td><code> O  OOOO</code></td><td>79</td><td>O</td><td>appends <u>0</u> into binary accumulator value</td><td>accumulator=accumulator*2</td></tr>
 			<tr><td><code> O O    </code></td><td>80</td><td>P</td><td>copies accumulator value into <u>p</u>ort index register</td><td>use for I/O service</td></tr>
+			<tr><td><code> O O   O</code></td><td>81</td><td>Q</td><td>copies accumulator value into register Q</td><td>Q=accumulator</td></tr>
 			<tr><td><code> O O  O </code></td><td>82</td><td>R</td><td>copies accumulator value into register R</td><td>R=accumulator</td></tr>
 			<tr><td><code> O O  OO</code></td><td>83</td><td>S</td><td>copies 8th bit into each higher bit in accumulator</td><td>use to convert 8bit signed number to 16bit signed number</td></tr>
 			<tr><td><code> O O O O</code></td><td>85</td><td>U</td><td>copies accumulator value into register U</td><td>U=accumulator</td></tr>
@@ -128,6 +129,7 @@
 			<tr><td><code> OO OOO </code></td><td>110</td><td>n</td><td>copies register N value into accumulator</td><td>accumulator=N</td></tr>
 			<tr><td><code> OO OOOO</code></td><td>111</td><td>o</td><td>writes accumulator low byte to <u>o</u>utput pointed by port register as unsigned integer</td><td>IO[P]=accumulator&255</td></tr>
 			<tr><td><code> OOO    </code></td><td>112</td><td>p</td><td>copies <u>p</u>ort register value into accumulator</td><td>accumulator=P</td></tr>
+			<tr><td><code> OOO   O</code></td><td>113</td><td>q</td><td>copies register Q value into accumulator</td><td>accumulator=Q</td></tr>
 			<tr><td><code> OOO  O </code></td><td>114</td><td>r</td><td>copies register R value into accumulator</td><td>accumulator=R</td></tr>
 			<tr><td><code> OOO  OO</code></td><td>115</td><td>s</td><td>calculates sinus of angle in accumulator, where 0 means 0&deg;, 32767 means 90&deg;, and stores result reinterpreted as integer in accumulator</td><td>accumulator=round(sin(accumulator/65534*&pi;)*32767)</td></tr>
 			<tr><td><code> OOO O O</code></td><td>117</td><td>u</td><td>copies register U value into accumulator</td><td>accumulator=U</td></tr>
