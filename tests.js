@@ -20,7 +20,7 @@ function testExecutionOutput(code, steps, input, expectedOutput)
 
 function testExecutionOutputForInput(code, input, expectedOutput)
 {
-	let out = Machine.executeForInput(code, input);
+	let out = Machine.executeForInput(code, input).output;
 
 	expect(out).to.deep.equal(expectedOutput.map((port)=>port?.map((value)=>value & 255)))
 }

@@ -20,7 +20,20 @@
 				const code = String.fromCharCode(...tapeDecode(document.getElementById`code`.value));
 				const input = tapeDecode(document.getElementById`input`.value);
 				const output = document.getElementById`output`;
-				output.textContent=tapeEncode(Machine.executeForInput(code, [input]));
+				const screen = document.getElementById`screen`;
+				const ctx = screen.getContext`2d`;
+
+				const {output: out, state:{screen:image}}=Machine.executeForInput(code, [input]);
+
+				output.textContent = tapeEncode(out);
+
+				for(let x=0; x<image.length; ++x){
+					for(let z=0; z<image[x].length; ++z){
+						const [r,g,b] = image[x][z];
+						ctx.fillStyle = `rgb(${r&255},${g&255},${b&255})`;
+						ctx.fillRect(x,z,1,1);
+					}
+				}
 			}
 		</script>
 	</head>
@@ -45,6 +58,10 @@
 		<div>
 			<label for="output">output:</label>
 			<textarea disabled id="output"></textarea>
+		</div>
+		<div>
+			image
+			<canvas id="screen" width="100" height="100"></canvas>
 		</div>
 		<button onclick="run()">Run</button>
 		<h1>Instructions</h1>

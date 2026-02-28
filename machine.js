@@ -90,7 +90,7 @@ class Machine{
 			machine.step();
 		}while(!outOfInput);
 
-		return output;
+		return {output, state: machine.state()};
 	}
 
 	static executeForSinglePass(code, inputs=[])
