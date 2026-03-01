@@ -46,10 +46,11 @@ class Core{
 }
 
 class Machine{
-	static execute(code, steps, inputs=[])
+	static prepare(code, inputs=[])
 	{
 		let machine = new Machine;
 		machine.load(code);
+
 		let output = [];
 		machine.outputs(new Proxy({},{
 			get(target, field, receiver){
@@ -60,64 +61,45 @@ class Machine{
 				return (data) => output[idx].push(data);
 			}
 		}));
-		machine.inputs(inputs.map((input)=>()=>input.shift()))
 
-		machine.run(steps);
-
-		return {output, state: machine.state()};
-	}
-	static executeForInput(code, inputs=[])
-	{
-		let machine = new Machine;
-		machine.load(code);
-		let output = [];
-		machine.outputs(new Proxy({},{
-			get(target, field, receiver){
-				let idx = Number(field)
-				if(output[idx]===undefined){
-					output[idx] = [];
-				}
-				return (data) => output[idx].push(data);
-			}
-		}));
 		let outOfInput = false;
 		machine.inputs(inputs.map((input)=>()=>{
 			outOfInput = input.length==0;
 			return input.shift();
 		}));
 
+		return {machine, output, outOfInput:()=>outOfInput};
+	}
+
+	static execute(code, steps, inputs=[])
+	{
+		let {machine, output} = Machine.prepare(code, inputs);
+
+		machine.run(steps);
+
+		return {output, state: machine.state()};
+	}
+	
+	static executeForInput(code, inputs=[])
+	{
+		let {machine, output, outOfInput} = Machine.prepare(code, inputs);
+
 		do{
 			machine.step();
-		}while(!outOfInput);
+		}while(!outOfInput());
 
 		return {output, state: machine.state()};
 	}
 
 	static executeForSinglePass(code, inputs=[])
 	{
-		let machine = new Machine;
-		machine.load(code);
-		let output = [];
-		machine.outputs(new Proxy({},{
-			get(target, field, receiver){
-				let idx = Number(field)
-				if(output[idx]===undefined){
-					output[idx] = [];
-				}
-				return (data) => output[idx].push(data);
-			}
-		}));
-		let outOfInput = false;
-		machine.inputs(inputs.map((input)=>()=>{
-			outOfInput = input.length==0;
-			return input.shift();
-		}));
+		let {machine, output} = Machine.prepare(code, inputs);
 
 		do{
 			machine.step();
 		}while(machine.cores[0].registers[3]/*instruction pointer*/ !== 0);
 
-		return output;
+		return {output, state: machine.state()};
 	}
 
 	static instructions={

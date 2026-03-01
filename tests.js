@@ -27,7 +27,7 @@ function testExecutionOutputForInput(code, input, expectedOutput)
 
 function testExecutionOutputForSinglePass(code, input, expectedOutput)
 {
-	let out = Machine.executeForSinglePass(code, input);
+	let out = Machine.executeForSinglePass(code, input).output;
 
 	expect(out).to.deep.equal(expectedOutput.map((port)=>port?.map((value)=>value & 255)))
 }
