@@ -52,21 +52,16 @@ class Machine{
 		machine.load(code);
 
 		let output = [];
-		machine.outputs(new Proxy({},{
-			get(target, field, receiver){
-				let idx = Number(field)
-				if(output[idx]===undefined){
-					output[idx] = [];
-				}
-				return (data) => output[idx].push(data);
-			}
-		}));
+		machine.outputs((port, data)=>{
+			output[port]??=[];
+			output[port].push(data);
+		});
 
 		let outOfInput = false;
-		machine.inputs(inputs.map((input)=>()=>{
-			outOfInput = input.length==0;
-			return input.shift();
-		}));
+		machine.inputs((port)=>{
+			outOfInput = (inputs[port]?.length??0) == 0;
+			return inputs[port]?.shift();
+		})
 
 		return {machine, output, outOfInput:()=>outOfInput};
 	}
@@ -425,9 +420,9 @@ class Machine{
 			++core.registers[3]/*instruction pointer*/;
 		},
 		105 /*i*/: (core, machine)=>{
-			let input = (machine.inputCallbacks[core.registers[4]/*io port*/]||(()=>null))();
-			if(input !== null && input !== undefined){
-				core.registers[0]/*accumulator*/ = input & 255;
+			let data = machine.inputsCallback(core.registers[4]/*io port*/);
+			if(data != null){
+				core.registers[0]/*accumulator*/ = data & 255;
 				++core.registers[3]/*instruction pointer*/;
 			}
 		},
@@ -452,7 +447,7 @@ class Machine{
 			++core.registers[3]/*instruction pointer*/;
 		},
 		111 /*o*/: (core, machine)=>{
-			(machine.outputCallbacks[core.registers[4]/*io port*/]||(()=>{}))(core.registers[0]/*accumulator*/ & 255);
+			machine.outputsCallback(core.registers[4]/*io port*/, core.registers[0]/*accumulator*/ & 255);
 			++core.registers[3]/*instruction pointer*/;
 		},
 		112 /*p*/: (core)=>{
@@ -510,22 +505,22 @@ class Machine{
 	cores = [new Core];
 	memory = new Uint8Array(1<<16);
 	screen = Array.from({length: 100}, ()=>Array.from({length:100}, ()=>[0,0,0]));
-	inputCallbacks = [];
-	outputCallbacks = console.log;
+	inputsCallback = ()=>{};
+	outputsCallback = console.log;
 
 	load(code)
 	{
 		this.memory.set([...code].map((char)=>char.charCodeAt()));
 	}
 
-	outputs(callbacks)
+	outputs(callback)
 	{
-		this.outputCallbacks = callbacks;
+		this.outputsCallback = callback;
 	}
 
-	inputs(callbacks)
+	inputs(callback)
 	{
-		this.inputCallbacks = callbacks;
+		this.inputsCallback = callback;
 	}
 
 	run(steps)
