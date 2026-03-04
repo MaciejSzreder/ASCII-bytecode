@@ -15,7 +15,7 @@
 				return data[0].map((value)=>value.toString(2).padStart(8,' ').replaceAll('0',' ').replaceAll('1','O')).join('\n');
 			}
 
-			function run()
+			function start()
 			{
 				const code = String.fromCharCode(...tapeDecode(document.getElementById`code`.value));
 				const input = tapeDecode(document.getElementById`input`.value);
@@ -23,17 +23,30 @@
 				const screen = document.getElementById`screen`;
 				const ctx = screen.getContext`2d`;
 
-				const {output: out, state:{screen:image}}=Machine.executeForInput(code, [input]);
-
-				output.textContent = tapeEncode(out);
-
-				for(let x=0; x<image.length; ++x){
-					for(let z=0; z<image[x].length; ++z){
-						const [r,g,b] = image[x][z];
-						ctx.fillStyle = `rgb(${r&255},${g&255},${b&255})`;
-						ctx.fillRect(x,z,1,1);
+				let {machine} = Machine.prepare(code,[input]);
+				machine.outputs((port,value)=>{
+					if(port==0){
+						output.textContent += tapeEncode([[value]]) + '\n';
 					}
+					console.log(`${port}: ${value}`);
+				});
+				
+				machine.restart();
+
+				function drawScreen()
+				{
+					const image = machine.image();
+					for(let x=0; x<image.length; ++x){
+						for(let z=0; z<image[x].length; ++z){
+							const [r,g,b] = image[x][z];
+							ctx.fillStyle = `rgb(${r&255},${g&255},${b&255})`;
+							ctx.fillRect(x,z,1,1);
+						}
+					}
+					requestAnimationFrame(drawScreen);
 				}
+
+				drawScreen();
 			}
 		</script>
 	</head>
@@ -63,7 +76,7 @@
 			image
 			<canvas id="screen" width="100" height="100"></canvas>
 		</div>
-		<button onclick="run()">Run</button>
+		<button onclick="start()">Start</button>
 		<h1>Instructions</h1>
 		<table>
 			<tr><th>punch tape encoding</th><th>ASCII code point</th><th>ASCII character/Unicode Control Picture</th><th>description</th><th>comments</th></tr>

@@ -507,6 +507,7 @@ class Machine{
 	screen = Array.from({length: 100}, ()=>Array.from({length:100}, ()=>[0,0,0]));
 	inputsCallback = ()=>{};
 	outputsCallback = console.log;
+	processID;
 
 	load(code)
 	{
@@ -521,6 +522,12 @@ class Machine{
 	inputs(callback)
 	{
 		this.inputsCallback = callback;
+	}
+
+	restart()
+	{
+		clearInterval(this.processID);
+		this.processID = setInterval(()=>this.step());
 	}
 
 	run(steps)
@@ -618,5 +625,10 @@ class Machine{
 			'memory': this.memory,
 			'screen': this.screen
 		};
+	}
+
+	image()
+	{
+		return this.screen;
 	}
 }
