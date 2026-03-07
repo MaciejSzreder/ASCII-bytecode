@@ -8,6 +8,7 @@ class Core{
 		4	false if comment
 		5	repeat backtrack
 		6	repeat backtrack comment
+		7	service execution
 	*/
 
 	constructor(registers)
@@ -46,7 +47,7 @@ class Core{
 }
 
 class Machine{
-	static prepare(code, inputs=[])
+	static prepare(code, inputs=[], serviceCode)
 	{
 		let machine = new Machine;
 		machine.load(code);
@@ -63,21 +64,27 @@ class Machine{
 			return inputs[port]?.shift();
 		})
 
+		if(serviceCode){
+			machine.serviceMode();
+			serviceCode = [...serviceCode].map(char=>char.charCodeAt());
+			machine.serviceInput(()=>serviceCode.shift());
+		}
+
 		return {machine, output, outOfInput:()=>outOfInput};
 	}
 
-	static execute(code, steps, inputs=[])
+	static execute(code, steps, inputs=[], serviceCode)
 	{
-		let {machine, output} = Machine.prepare(code, inputs);
+		let {machine, output} = Machine.prepare(code, inputs, serviceCode);
 
 		machine.run(steps);
 
 		return {output, state: machine.state()};
 	}
 	
-	static executeForInput(code, inputs=[])
+	static executeForInput(code, inputs=[], serviceCode)
 	{
-		let {machine, output, outOfInput} = Machine.prepare(code, inputs);
+		let {machine, output, outOfInput} = Machine.prepare(code, inputs, serviceCode);
 
 		do{
 			machine.step();
@@ -508,6 +515,7 @@ class Machine{
 	inputsCallback = ()=>{};
 	outputsCallback = console.log;
 	processID;
+	serviceInputCallback = ()=>{};
 
 	load(code)
 	{
@@ -528,6 +536,16 @@ class Machine{
 	{
 		clearInterval(this.processID);
 		this.processID = setInterval(()=>this.step());
+	}
+
+	serviceInput(callback)
+	{
+		this.serviceInputCallback = callback;
+	}
+
+	serviceMode(enable=true)
+	{
+		this.cores[0].state = enable ? 7/*service*/ : 1/*execution*/;
 	}
 
 	run(steps)
@@ -593,6 +611,20 @@ class Machine{
 				core.state = 5/*repeat backtrack*/;
 			}
 			--core.registers[3]/*instruction pointer*/;
+			break;
+		case 7/*service execution*/:{
+			codebyte = this.serviceInputCallback();
+			if(codebyte == 0){
+				core.state = 1/*execution*/;
+				break;
+			}
+			let instruction = Machine.instructions[codebyte];
+			if(!instruction){
+				throw Error('Unknown instruction "' + String.fromCharCode(this.memory[core.registers[3]/*instruction pointer*/]) + '" (code ' + this.memory[core.registers[3]/*instruction pointer*/] + ') at address ' + core.registers[3]/*instruction pointer*/ + ' in ' + String.fromCharCode(...this.memory) + '.');
+			}
+			instruction(core, this);
+			break;
+		}
 		}
 		this.core = (this.core + 1) % this.cores.length;
 	}
