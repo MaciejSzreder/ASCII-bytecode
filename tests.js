@@ -58,6 +58,13 @@ function testExecutionScreen(code, steps, expectedScreenState)
 	));
 }
 
+function testServiceExecutionOutput(code, serviceCode, steps, input, expectedOutput)
+{
+	let out = Machine.execute(code, steps, input, serviceCode).output;
+
+	expect(out).to.deep.equal(expectedOutput.map((port)=>port?.map((value)=>value & 255)))
+}
+
 describe('IO', ()=>{
 	it('o command outputs', ()=>{
 		testExecutionOutputForSinglePass('o', [], [[0]]);
@@ -529,7 +536,16 @@ describe('formatting', ()=>{
 	it('new line (LF) exits comment mode', ()=>{
 		testExecutionOutputForInput('i;A+;o', [[0, 1, 2, 3, 4]], [[0, 1, 2, 3, 4]])
 	})
-})
+});
+
+describe('service mode', ()=>{
+	it('service mode executes code from service input',()=>{
+		testServiceExecutionOutput('_1o', '_2o', 3, [], [[2]]);
+	});
+	it('NULL character starts execution mode',()=>{
+		testServiceExecutionOutput('_1o', '_2o_0J\0', 10, [], [[2, 1]]);
+	});
+});
 
 describe('TIS-100',()=>{
 	it('Self-Test Diagnostic',()=>{
