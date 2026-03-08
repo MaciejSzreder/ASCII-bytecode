@@ -67,7 +67,11 @@ class Machine{
 		if(serviceCode){
 			machine.serviceMode();
 			serviceCode = [...serviceCode].map(char=>char.charCodeAt());
-			machine.serviceInput(()=>serviceCode.shift());
+			machine.serviceInput(()=>{
+				let instruction = serviceCode.shift();
+				serviceCode.push(instruction);
+				return instruction;
+			});
 		}
 
 		return {machine, output, outOfInput:()=>outOfInput};

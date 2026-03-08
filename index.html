@@ -23,7 +23,7 @@
 				const screen = document.getElementById`screen`;
 				const ctx = screen.getContext`2d`;
 
-				let {machine} = Machine.prepare(code,[input]);
+				let {machine} = Machine.prepare('', [input], code);
 				machine.outputs((port,value)=>{
 					if(port==0){
 						output.textContent += tapeEncode([[value]]) + '\n';
