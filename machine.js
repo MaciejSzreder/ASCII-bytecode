@@ -47,6 +47,33 @@ class Core{
 }
 
 class Machine{
+	static makeTapeIterator(source)
+	{
+		if(typeof source === 'function'){
+			return ()=>{
+				const data = source();
+				return data == null ? data : data&255;
+			};
+		}else if(Array.isArray(source)){
+			return Machine.makeTapeIterator(()=>source?.shift());
+		}else if(typeof source === 'string'){
+			return Machine.makeTapeIterator([...source].map(char=>char.charCodeAt()))
+		}
+	}
+
+	static makePortIterator(source)
+	{
+		if(typeof source === 'function'){
+			return port=>{
+				const data = source(port);
+				return data == null ? data : data&255;
+			}
+		}else if(Array.isArray(source)){
+			source = source.map(data=>Machine.makeTapeIterator(data));
+			return Machine.makePortIterator(port=>(source[port]??(()=>{}))());
+		}
+	}
+
 	static prepare(code, inputs=[], serviceCode)
 	{
 		let machine = new Machine;
@@ -58,20 +85,18 @@ class Machine{
 			output[port].push(data);
 		});
 
+		inputs = Machine.makePortIterator(inputs);
+		
 		let outOfInput = false;
 		machine.inputs((port)=>{
-			outOfInput = (inputs[port]?.length??0) == 0;
-			return inputs[port]?.shift();
-		})
-
+			const data = inputs(port);
+			outOfInput = data == null;
+			return data;
+		});
+		
 		if(serviceCode){
 			machine.serviceMode();
-			serviceCode = [...serviceCode].map(char=>char.charCodeAt());
-			machine.serviceInput(()=>{
-				let instruction = serviceCode.shift();
-				serviceCode.push(instruction);
-				return instruction;
-			});
+			machine.serviceInput(Machine.makeTapeIterator(serviceCode));
 		}
 
 		return {machine, output, outOfInput:()=>outOfInput};
