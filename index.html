@@ -42,11 +42,28 @@
 				}
 			}
 
+			function punchValue(canvas, value)
+			{
+				const holeRadius = 10;
+				const holeCenterDistance = 30;
+				const holeCenterEdgeDistance = 20;
+				const ctx = canvas.getContext`2d`;
+				ctx.clearRect(0,0, canvas.width,canvas.height);
+				for(let idx=0; value>0; value>>=1, ++idx){
+					if(value&1){
+						ctx.beginPath();
+						ctx.arc(holeCenterEdgeDistance+holeCenterDistance*idx, holeCenterEdgeDistance, holeRadius, 0, Math.PI * 2);
+						ctx.fill();
+					}
+				}
+			}
+
 			function start()
 			{
 				const serviceCode = tapeIterator(document.getElementById`serviceInput`.value);
 				const input = tapeIterator(document.getElementById`input`.value);
 				const output = document.getElementById`output`;
+				const outputTape = document.getElementById`outputTape`;
 				const screen = document.getElementById`screen`;
 				const ctx = screen.getContext`2d`;
 
@@ -54,6 +71,7 @@
 				machine.outputs((port,value)=>{
 					if(port==0){
 						output.textContent += tapeEncode([[value]]) + '\n';
+						punchValue(outputTape, value);
 					}
 					console.log(`${port}: ${value}`);
 				});
@@ -100,6 +118,7 @@
 		<div>
 			<label for="output">output:</label>
 			<textarea disabled id="output"></textarea>
+			<canvas id="outputTape" width="250" height="40"></canvas>
 		</div>
 		<div>
 			image
