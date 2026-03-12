@@ -42,19 +42,28 @@
 				}
 			}
 
-			function punchValue(canvas, value)
+			const holeRadius = 10;
+			const holeCenterDistance = 30;
+			const holeCenterEdgeDistance = 20;
+
+			function punchValue(ctx, value, y)
 			{
-				const holeRadius = 10;
-				const holeCenterDistance = 30;
-				const holeCenterEdgeDistance = 20;
-				const ctx = canvas.getContext`2d`;
-				ctx.clearRect(0,0, canvas.width,canvas.height);
 				for(let idx=0; value>0; value>>=1, ++idx){
 					if(value&1){
 						ctx.beginPath();
-						ctx.arc(holeCenterEdgeDistance+holeCenterDistance*idx, holeCenterEdgeDistance, holeRadius, 0, Math.PI * 2);
+						ctx.arc(holeCenterEdgeDistance+holeCenterDistance*idx, y, holeRadius, 0, Math.PI * 2);
 						ctx.fill();
 					}
+				}
+			}
+
+			function punchTape(canvas, values)
+			{
+				const ctx = canvas.getContext`2d`;
+				ctx.clearRect(0,0, canvas.width,canvas.height);
+				for(const [index,value] of values.entries()){
+					let y = holeCenterEdgeDistance + (values.length - index - 1)*holeCenterDistance;
+					punchValue(ctx, value, y);
 				}
 			}
 
@@ -68,10 +77,12 @@
 				const ctx = screen.getContext`2d`;
 
 				let {machine} = Machine.prepare('', (port)=>port==0?input():null, serviceCode);
+				let outputValues = [];
 				machine.outputs((port,value)=>{
 					if(port==0){
 						output.textContent += tapeEncode([[value]]) + '\n';
-						punchValue(outputTape, value);
+						outputValues.push(value);
+						punchTape(outputTape, outputValues);
 					}
 					console.log(`${port}: ${value}`);
 				});
@@ -117,8 +128,8 @@
 		</div>
 		<div>
 			<label for="output">output:</label>
-			<textarea disabled id="output"></textarea>
-			<canvas id="outputTape" width="250" height="40"></canvas>
+			<textarea disabled id="output" style="height: 310px"></textarea>
+			<canvas id="outputTape" width="250" height="310"></canvas>
 		</div>
 		<div>
 			image
