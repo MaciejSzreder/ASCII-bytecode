@@ -5,17 +5,7 @@
 		<link rel="icon" href="favicon.png" />
 		<script src="machine.js"></script>
 		<script>
-			function tapeDecode(code)
-			{
-				return code.split('\n').map((row)=>parseInt(row.slice(0,8).padEnd(8, ' ').replaceAll(' ', '0').replaceAll('O', '1'),2));
-			}
-
-			function tapeEncode(data)
-			{
-				return data[0].map((value)=>value.toString(2).padStart(8,' ').replaceAll('0',' ').replaceAll('1','O')).join('\n');
-			}
-
-			function tapeIterator(encoded)
+			function tapeDecode(encoded)
 			{
 				let loop = false;
 				if(encoded.startsWith('========\n') || encoded.startsWith('~~~~~~~~\n')){
@@ -27,7 +17,20 @@
 					loop = true;
 				};
 
-				let decoded = tapeDecode(encoded);
+				let data = encoded.split('\n').map((row)=>parseInt(row.slice(0,8).padEnd(8, ' ').replaceAll(' ', '0').replaceAll('O', '1'),2));
+
+				return [data, loop];
+			}
+
+			function tapeEncode(data)
+			{
+				return data[0].map((value)=>value.toString(2).padStart(8,' ').replaceAll('0',' ').replaceAll('1','O')).join('\n');
+			}
+
+			function tapeIterator(encoded)
+			{
+
+				let [decoded, loop] = tapeDecode(encoded);
 
 				if(loop){
 					return ()=>{
@@ -57,13 +60,20 @@
 				}
 			}
 
-			function punchTape(canvas, values)
+			function punchTape(canvas, values, loop)
 			{
 				const ctx = canvas.getContext`2d`;
 				ctx.clearRect(0,0, canvas.width,canvas.height);
+				if(loop){
+					ctx.fillRect(0, 0, canvas.width, holeCenterEdgeDistance-holeRadius);
+				}
 				for(const [index,value] of values.entries()){
 					let y = holeCenterEdgeDistance + (values.length - index - 1)*holeCenterDistance;
 					punchValue(ctx, value, y);
+				}
+				if(loop){
+					let y = holeCenterEdgeDistance + (values.length - 1)*holeCenterDistance;
+					ctx.fillRect(0, y + holeRadius, canvas.width, holeCenterEdgeDistance-holeRadius);
 				}
 			}
 
@@ -104,6 +114,18 @@
 
 				drawScreen();
 			}
+			
+			function drawInputTape()
+			{
+				const inputTape = document.getElementById`inputTape`;
+				const input = document.getElementById`input`;
+				punchTape(inputTape, ...tapeDecode(input.value));
+			}
+
+			document.addEventListener('DOMContentLoaded', ()=>{
+				drawInputTape();
+				document.getElementById`input`.addEventListener('input', drawInputTape);
+			});
 		</script>
 	</head>
 	<body>
@@ -112,12 +134,13 @@
 		<h1>Interface</h1>
 		<div>
 			<label for="input">input:</label>
-			<textarea id="input">
+			<textarea id="input" style="height: 310px">
         
        O
       O 
       OO
 ========</textarea>
+		<canvas id="inputTape" width="250" height="310"></canvas>
 		</div>
 		<div>
 			<label for="serviceInput">service input:</label>
