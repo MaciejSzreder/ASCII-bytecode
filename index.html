@@ -48,14 +48,23 @@
 			const holeRadius = 10;
 			const holeCenterDistance = 30;
 			const holeCenterEdgeDistance = 20;
+			const holeColor = 'black';
+			const potentialHoleColor = 'gray';
+			const glueColor = 'black';
+
+			function punchHole(ctx, x, y, potential = false)
+			{
+				ctx.beginPath();
+				ctx.arc(x, y, holeRadius, 0, Math.PI * 2);
+				ctx.fillStyle = potential ? potentialHoleColor : holeColor;
+				ctx.fill();
+			}
 
 			function punchValue(ctx, value, y)
 			{
 				for(let idx=0; value>0; value>>=1, ++idx){
 					if(value&1){
-						ctx.beginPath();
-						ctx.arc(holeCenterEdgeDistance+holeCenterDistance*idx, y, holeRadius, 0, Math.PI * 2);
-						ctx.fill();
+						punchHole(ctx, holeCenterEdgeDistance+holeCenterDistance*idx, y);
 					}
 				}
 			}
@@ -65,6 +74,7 @@
 				const ctx = canvas.getContext`2d`;
 				ctx.clearRect(0,0, canvas.width,canvas.height);
 				if(loop){
+					ctx.fillStyle = glueColor;
 					ctx.fillRect(0, 0, canvas.width, holeCenterEdgeDistance-holeRadius);
 				}
 				for(const [index,value] of values.entries()){
@@ -72,6 +82,7 @@
 					punchValue(ctx, value, y);
 				}
 				if(loop){
+					ctx.fillStyle = glueColor;
 					let y = holeCenterEdgeDistance + (values.length - 1)*holeCenterDistance;
 					ctx.fillRect(0, y + holeRadius, canvas.width, holeCenterEdgeDistance-holeRadius);
 				}
@@ -125,6 +136,28 @@
 			document.addEventListener('DOMContentLoaded', ()=>{
 				drawInputTape();
 				document.getElementById`input`.addEventListener('input', drawInputTape);
+
+				const inputTape = document.getElementById`inputTape`;
+				inputTape.addEventListener('mousemove', (data)=>{
+					const rect = inputTape.getBoundingClientRect();
+					const mouse = {
+						x: data.clientX - rect.left,
+						y: data.clientY - rect.top
+					};
+					const cell = {
+						column: Math.round((mouse.x-holeCenterEdgeDistance)/holeCenterDistance),
+						row: Math.round((mouse.y-holeCenterEdgeDistance)/holeCenterDistance)
+					};
+					const hole = {
+						x: cell.column*holeCenterDistance + holeCenterEdgeDistance,
+						y: cell.row*holeCenterDistance + holeCenterEdgeDistance
+					}
+
+					const ctx = inputTape.getContext`2d`;
+					ctx.clearRect(0,0, inputTape.width, inputTape.height);
+					drawInputTape();
+					punchHole(ctx, hole.x, hole.y, true);
+				});
 			});
 		</script>
 	</head>
