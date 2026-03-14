@@ -158,6 +158,25 @@
 					drawInputTape();
 					punchHole(ctx, hole.x, hole.y, true);
 				});
+
+				inputTape.addEventListener('click', (data)=>{
+					const rect = inputTape.getBoundingClientRect();
+					const mouse = {
+						x: data.clientX - rect.left,
+						y: data.clientY - rect.top
+					};
+					const cell = {
+						column: Math.round((mouse.x-holeCenterEdgeDistance)/holeCenterDistance),
+						row: Math.round((mouse.y-holeCenterEdgeDistance)/holeCenterDistance)
+					};
+					
+					const input = document.getElementById`input`;
+					const [decoded] = tapeDecode(input.value);
+					let index = decoded.length - 1 - cell.row;
+					decoded[index] ^= 1 << cell.column;
+					input.value = tapeEncode([decoded]);
+					drawInputTape();
+				})
 			});
 		</script>
 	</head>
