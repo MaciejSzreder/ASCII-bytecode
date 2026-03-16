@@ -64,7 +64,7 @@
 			{
 				for(let idx=0; value>0; value>>=1, ++idx){
 					if(value&1){
-						punchHole(ctx, holeCenterEdgeDistance+holeCenterDistance*idx, y);
+						punchHole(ctx, holeCenterEdgeDistance+holeCenterDistance*(7-idx), y);
 					}
 				}
 			}
@@ -130,7 +130,8 @@
 			{
 				const inputTape = document.getElementById`inputTape`;
 				const input = document.getElementById`input`;
-				punchTape(inputTape, ...tapeDecode(input.value));
+				let [data, loop] = tapeDecode(input.value)
+				punchTape(inputTape, data.reverse(), loop);
 			}
 
 			document.addEventListener('DOMContentLoaded', ()=>{
@@ -172,8 +173,7 @@
 					
 					const input = document.getElementById`input`;
 					const [decoded] = tapeDecode(input.value);
-					let index = decoded.length - 1 - cell.row;
-					decoded[index] ^= 1 << cell.column;
+					decoded[cell.row] ^= 1 << (7-cell.column);
 					input.value = tapeEncode([decoded]);
 					drawInputTape();
 				})
