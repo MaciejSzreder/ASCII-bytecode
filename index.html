@@ -125,22 +125,19 @@
 
 				drawScreen();
 			}
-			
-			function drawInputTape()
+
+			function drawTape(tapeCanvas, tapeInput)
 			{
-				const inputTape = document.getElementById`inputTape`;
-				const input = document.getElementById`input`;
-				let [data, loop] = tapeDecode(input.value)
-				punchTape(inputTape, data.reverse(), loop);
+				let [data, loop] = tapeDecode(tapeInput.value)
+				punchTape(tapeCanvas, data.reverse(), loop);
 			}
 
-			document.addEventListener('DOMContentLoaded', ()=>{
-				drawInputTape();
-				document.getElementById`input`.addEventListener('input', drawInputTape);
-
-				const inputTape = document.getElementById`inputTape`;
-				inputTape.addEventListener('mousemove', (data)=>{
-					const rect = inputTape.getBoundingClientRect();
+			function implementTape(tapeCanvas, tapeInput)
+			{
+				drawTape(tapeCanvas, tapeInput);
+				tapeInput.addEventListener('input', ()=>drawTape(tapeCanvas, tapeInput));
+				tapeCanvas.addEventListener('mousemove', (data)=>{
+					const rect = tapeCanvas.getBoundingClientRect();
 					const mouse = {
 						x: data.clientX - rect.left,
 						y: data.clientY - rect.top
@@ -154,14 +151,14 @@
 						y: cell.row*holeCenterDistance + holeCenterEdgeDistance
 					}
 
-					const ctx = inputTape.getContext`2d`;
-					ctx.clearRect(0,0, inputTape.width, inputTape.height);
-					drawInputTape();
+					const ctx = tapeCanvas.getContext`2d`;
+					ctx.clearRect(0,0, tapeCanvas.width, tapeCanvas.height);
+					drawTape(tapeCanvas, tapeInput);
 					punchHole(ctx, hole.x, hole.y, true);
 				});
 
-				inputTape.addEventListener('click', (data)=>{
-					const rect = inputTape.getBoundingClientRect();
+				tapeCanvas.addEventListener('click', (data)=>{
+					const rect = tapeCanvas.getBoundingClientRect();
 					const mouse = {
 						x: data.clientX - rect.left,
 						y: data.clientY - rect.top
@@ -171,12 +168,16 @@
 						row: Math.round((mouse.y-holeCenterEdgeDistance)/holeCenterDistance)
 					};
 					
-					const input = document.getElementById`input`;
-					const [decoded] = tapeDecode(input.value);
+					const [decoded] = tapeDecode(tapeInput.value);
 					decoded[cell.row] ^= 1 << (7-cell.column);
-					input.value = tapeEncode([decoded]);
-					drawInputTape();
+					tapeInput.value = tapeEncode([decoded]);
+					drawTape(tapeCanvas, tapeInput);
 				})
+			}
+
+			document.addEventListener('DOMContentLoaded', ()=>{
+				implementTape(document.getElementById`inputTape`, document.getElementById`input`);
+				implementTape(document.getElementById`serviceTape`, document.getElementById`serviceInput`);
 			});
 		</script>
 	</head>
@@ -196,10 +197,11 @@
 		</div>
 		<div>
 			<label for="serviceInput">service input:</label>
-			<textarea id="serviceInput">
+			<textarea id="serviceInput" style="height: 310px">
  OO O  O
  OO OOOO
 ========</textarea>
+			<canvas id="serviceTape" width="250" height="310"></canvas>
 		</div>
 		<div>
 			<label for="output">output:</label>
