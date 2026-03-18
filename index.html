@@ -22,9 +22,18 @@
 				return [data, loop];
 			}
 
-			function tapeEncode(data)
+			function tapeEncode(data, loop = false)
 			{
-				return data[0].map((value)=>value.toString(2).padStart(8,' ').replaceAll('0',' ').replaceAll('1','O')).join('\n');
+				return(
+					data[0].map((value)=>
+						value
+						.toString(2)
+						.padStart(8,' ')
+						.replaceAll('0',' ')
+						.replaceAll('1','O')
+					).join('\n')
+					+(loop?'\n========':'')
+				);
 			}
 
 			function tapeIterator(encoded)
@@ -168,9 +177,9 @@
 						row: Math.round((mouse.y-holeCenterEdgeDistance)/holeCenterDistance)
 					};
 					
-					const [decoded] = tapeDecode(tapeInput.value);
+					const [decoded, loop] = tapeDecode(tapeInput.value);
 					decoded[cell.row] ^= 1 << (7-cell.column);
-					tapeInput.value = tapeEncode([decoded]);
+					tapeInput.value = tapeEncode([decoded], loop);
 					drawTape(tapeCanvas, tapeInput);
 				})
 			}
