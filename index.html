@@ -60,6 +60,13 @@
 			const holeColor = 'black';
 			const potentialHoleColor = 'gray';
 			const glueColor = 'black';
+			const potentialGlueColor = 'gray';
+
+			function glueCovering(ctx, y, potential)
+			{
+				ctx.fillStyle = potential ? potentialGlueColor : glueColor;
+				ctx.fillRect(0, y, ctx.canvas.width, holeCenterEdgeDistance-holeRadius)
+			}
 
 			function punchHole(ctx, x, y, potential = false)
 			{
@@ -83,17 +90,15 @@
 				const ctx = canvas.getContext`2d`;
 				ctx.clearRect(0,0, canvas.width,canvas.height);
 				if(loop){
-					ctx.fillStyle = glueColor;
-					ctx.fillRect(0, 0, canvas.width, holeCenterEdgeDistance-holeRadius);
+					glueCovering(ctx, 0);
 				}
 				for(const [index,value] of values.entries()){
 					let y = holeCenterEdgeDistance + (values.length - index - 1)*holeCenterDistance;
 					punchValue(ctx, value, y);
 				}
 				if(loop){
-					ctx.fillStyle = glueColor;
-					let y = holeCenterEdgeDistance + (values.length - 1)*holeCenterDistance;
-					ctx.fillRect(0, y + holeRadius, canvas.width, holeCenterEdgeDistance-holeRadius);
+					let y = holeCenterEdgeDistance + (values.length - 1)*holeCenterDistance + holeRadius;
+					glueCovering(ctx, y);
 				}
 			}
 
@@ -163,7 +168,12 @@
 					const ctx = tapeCanvas.getContext`2d`;
 					ctx.clearRect(0,0, tapeCanvas.width, tapeCanvas.height);
 					drawTape(tapeCanvas, tapeInput);
-					punchHole(ctx, hole.x, hole.y, true);
+					const rowY = mouse.y % (holeCenterEdgeDistance+holeRadius);
+					if(rowY < holeCenterEdgeDistance-holeRadius){
+						glueCovering(ctx, mouse.y-rowY, true);
+					}else{
+						punchHole(ctx, hole.x, hole.y, true);
+					}
 				});
 
 				tapeCanvas.addEventListener('click', (data)=>{
