@@ -55,8 +55,9 @@
 			}
 
 			const holeRadius = 10;
-			const holeCenterDistance = 30;
-			const holeCenterEdgeDistance = 20;
+			const holeGap = 10;
+			const holeCenterDistance = 2*holeRadius + holeGap;
+			const holeCenterEdgeDistance = holeRadius + holeGap;
 			const holeColor = 'black';
 			const potentialHoleColor = 'gray';
 			const glueColor = 'black';
@@ -158,7 +159,7 @@
 					};
 					const cell = {
 						column: Math.round((mouse.x-holeCenterEdgeDistance)/holeCenterDistance),
-						row: Math.round((mouse.y-holeCenterEdgeDistance)/holeCenterDistance)
+						row: Math.floor(mouse.y / holeCenterDistance)
 					};
 					const hole = {
 						x: cell.column*holeCenterDistance + holeCenterEdgeDistance,
@@ -168,8 +169,8 @@
 					const ctx = tapeCanvas.getContext`2d`;
 					ctx.clearRect(0,0, tapeCanvas.width, tapeCanvas.height);
 					drawTape(tapeCanvas, tapeInput);
-					const rowY = mouse.y % (holeCenterEdgeDistance+holeRadius);
-					if(rowY < holeCenterEdgeDistance-holeRadius){
+					const rowY = mouse.y % holeCenterDistance;
+					if(rowY <= holeGap){
 						glueCovering(ctx, mouse.y-rowY, true);
 					}else{
 						punchHole(ctx, hole.x, hole.y, true);
@@ -184,11 +185,17 @@
 					};
 					const cell = {
 						column: Math.round((mouse.x-holeCenterEdgeDistance)/holeCenterDistance),
-						row: Math.round((mouse.y-holeCenterEdgeDistance)/holeCenterDistance)
+						row: Math.floor(mouse.y / holeCenterDistance)
 					};
 					
-					const [decoded, loop] = tapeDecode(tapeInput.value);
-					decoded[cell.row] ^= 1 << (7-cell.column);
+					let [decoded, loop] = tapeDecode(tapeInput.value);
+					const rowY = mouse.y % holeCenterDistance;
+					if(rowY <= holeGap){
+						loop = !(loop && decoded.length===cell.row);
+						decoded.length = cell.row;
+					}else{
+						decoded[cell.row] ^= 1 << (7-cell.column);
+					}
 					tapeInput.value = tapeEncode([decoded], loop);
 					drawTape(tapeCanvas, tapeInput);
 				})
