@@ -191,8 +191,11 @@
 					let [decoded, loop] = tapeDecode(tapeInput.value);
 					const rowY = mouse.y % holeCenterDistance;
 					if(rowY <= holeGap){
-						loop = !(loop && decoded.length===cell.row);
-						decoded.length = cell.row;
+						// set loop if there was no glue or did not clicked on glue
+						loop = !loop || (decoded.length!==cell.row && cell.row!==0);
+						if(cell.row!==0){
+							decoded.length = cell.row;
+						}
 					}else{
 						decoded[cell.row] ^= 1 << (7-cell.column);
 					}
