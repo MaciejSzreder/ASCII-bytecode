@@ -299,6 +299,7 @@
 			<tr><td><code> O O  O </code></td><td>82</td><td>R</td><td>copies accumulator value into register R</td><td>R=accumulator</td></tr>
 			<tr><td><code> O O  OO</code></td><td>83</td><td>S</td><td>copies 8th bit into each higher bit in accumulator</td><td>use to convert 8bit signed number to 16bit signed number</td></tr>
 			<tr><td><code> O O O O</code></td><td>85</td><td>U</td><td>copies accumulator value into register U</td><td>U=accumulator</td></tr>
+			<tr><td><code> O O OO </code></td><td>86</td><td>V</td><td>copies accumulator value into register V</td><td>V=accumulator</td></tr>
 			<tr><td><code> O OO   </code></td><td>88</td><td>X</td><td>copies accumulator value into register X</td><td>X=accumulator</td></tr>
 			<tr><td><code> O OO  O</code></td><td>89</td><td>Y</td><td>copies core state to free core, except instruction pointer register, which have assigned accumulator value. Core starts processing.</td><td>works like fork with callback</td></tr>
 			<tr><td><code> O OO O </code></td><td>90</td><td>Z</td><td>copies accumulator value into register Z</td><td>Z=accumulator</td></tr>
@@ -328,6 +329,7 @@
 			<tr><td><code> OOO  O </code></td><td>114</td><td>r</td><td>copies register R value into accumulator</td><td>accumulator=R</td></tr>
 			<tr><td><code> OOO  OO</code></td><td>115</td><td>s</td><td>calculates sinus of angle in accumulator, where 0 means 0&deg;, 32767 means 90&deg;, and stores result reinterpreted as integer in accumulator</td><td>accumulator=round(sin(accumulator/65534*&pi;)*32767)</td></tr>
 			<tr><td><code> OOO O O</code></td><td>117</td><td>u</td><td>copies register U value into accumulator</td><td>accumulator=U</td></tr>
+			<tr><td><code> OOO OO </code></td><td>118</td><td>v</td><td>copies register V value into accumulator</td><td>accumulator=V</td></tr>
 			<tr><td><code> OOOO   </code></td><td>120</td><td>x</td><td>copies register x value into accumulator</td><td>accumulator=X</td></tr>
 			<tr><td><code> OOOO O </code></td><td>122</td><td>z</td><td>copies register Z value into accumulator</td><td>accumulator=Z</td></tr>
 			<tr><td><code> OOOO OO</code></td><td>123</td><td>{</td><td>opens loop body</td><td>do{ <span style="color:gray">code  }while(accumulator!=0)</span></td></tr>
