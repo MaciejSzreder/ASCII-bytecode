@@ -13,7 +13,7 @@ class Core{
 
 	constructor(registers)
 	{
-		this.registers = new Int16Array(registers || 21);/*
+		this.registers = new Int16Array(registers || 22);/*
 			0	accumulator
 			1	argument
 			2	B
@@ -35,6 +35,7 @@ class Core{
 			18	U
 			19	Q
 			20	V
+			20	W
 		*/
 	}
 
@@ -378,6 +379,10 @@ class Machine{
 			core.registers[20]/*V*/ = core.registers[0]/*accumulator*/;
 			++core.registers[3]/*instruction pointer*/;
 		},
+		87 /*W*/: (core)=>{
+			core.registers[21]/*W*/ = core.registers[0]/*accumulator*/;
+			++core.registers[3]/*instruction pointer*/;
+		},
 		88 /*X*/: (core)=>{
 			core.registers[11]/*X*/ = core.registers[0]/*accumulator*/;
 			++core.registers[3]/*instruction pointer*/;
@@ -513,6 +518,10 @@ class Machine{
 		},
 		118 /*v*/: (core)=>{
 			core.registers[0]/*accumulator*/ = core.registers[20]/*V*/;
+			++core.registers[3]/*instruction pointer*/;
+		},
+		119 /*w*/: (core)=>{
+			core.registers[0]/*accumulator*/ = core.registers[21]/*W*/;
 			++core.registers[3]/*instruction pointer*/;
 		},
 		120 /*x*/: (core)=>{
@@ -689,6 +698,7 @@ class Machine{
 				R: core.registers[13]/*R*/,
 				U: core.registers[18]/*U*/,
 				V: core.registers[20]/*V*/,
+				W: core.registers[21]/*W*/,
 				X: core.registers[11]/*X*/,
 				Z: core.registers[12]/*Z*/,
 				'(': core.registers[8]/*stack pointer*/

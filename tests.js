@@ -292,6 +292,17 @@ describe('registers', ()=>{
 			others:0
 		}]);
 	});
+	it('register W allows for input swapping order',()=>{
+		testExecutionOutputForInput('iWiowo', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
+	});
+	it('writing to register W modifies only register W',()=>{
+		testExecutionRegistersState('5W', 2, [], [{
+			'':5,
+			W:5,
+			J:'any',
+			others:0
+		}]);
+	});
 	it('register Q allows for input swapping order',()=>{
 		testExecutionOutputForInput('iQioqo', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
 	});
