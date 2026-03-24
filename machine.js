@@ -130,7 +130,7 @@ class Machine{
 
 		do{
 			machine.step();
-		}while(machine.cores[0].registers[3]/*instruction pointer*/ !== 0);
+		}while(machine.cores.length!==0 && machine.cores[0].registers[3]/*instruction pointer*/ !== 0);
 
 		return {output, state: machine.state()};
 	}
@@ -526,6 +526,11 @@ class Machine{
 		},
 		120 /*x*/: (core)=>{
 			core.registers[0]/*accumulator*/ = core.registers[11]/*X*/;
+			++core.registers[3]/*instruction pointer*/;
+		},
+		121 /*y*/: (core,machine)=>{
+			machine.cores[machine.core--] = machine.cores[machine.cores.length-1];
+			--machine.cores.length;
 			++core.registers[3]/*instruction pointer*/;
 		},
 		122 /*z*/: (core)=>{

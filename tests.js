@@ -156,6 +156,12 @@ describe('jumps', ()=>{
 	it('function call jumps', ()=>{
 		testExecutionOutputForSinglePass('4)jJ_1o', [], [[1]]);
 	});
+	it('y ends execution', ()=>{
+		testExecutionOutputForSinglePass('4oy_5o', [], [[4]]);
+	});
+	it('y ends execution new cores', ()=>{
+		testExecutionOutputForSinglePass('8YYYYYYY_4oy_5o', [], [[4,4,4,4,4,4,4,4]]);
+	});
 });
 
 describe('registers', ()=>{
