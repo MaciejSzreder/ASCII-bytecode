@@ -248,6 +248,7 @@
 			<tr><td><code>        </code></td><td>0</td><td>&#x2400;</td><td>sets instruction pointer register to 0</td><td>loops code</td></tr>
 			<tr><td><code>    O  O</code></td><td>9</td><td>&#x2409;</td><td>no operation</td><td>use for code formatting</td></tr>
 			<tr><td><code>    O O </code></td><td>10</td><td>&#x240A;</td><td>no operation</td><td>use for code formatting</td></tr>
+			<tr><td><code>    OO O</code></td><td>13</td><td>&#x240D;</td><td>no operation</td><td>use for code formatting</td></tr>
 			<tr><td><code>  O     </code></td><td>32</td><td>&#x2420;</td><td>no operation</td><td>use for code formatting</td></tr>
 			<tr><td><code>  O    O</code></td><td>33</td><td>!</td><td>writes to accumulator 1 if its previous value was not 0</td><td>accumulator=!accumulator</td></tr>
 			<tr><td><code>  O   OO</code></td><td>35</td><td>#</td><td>writes to accumulator numbers of set bits of accumulator</td><td>accumulator = for (int count = 0; accumulator>0; accumulator >>= 1) count += accumulator & 1;</td></tr>

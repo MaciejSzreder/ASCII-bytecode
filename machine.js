@@ -145,6 +145,9 @@ class Machine{
 		10 /*LF*/: (core)=>{
 			++core.registers[3]/*instruction pointer*/;
 		},
+		13 /*CR*/: (core)=>{
+			++core.registers[3]/*instruction pointer*/;
+		},
 		32 /* */: (core)=>{
 			++core.registers[3]/*instruction pointer*/;
 		},

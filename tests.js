@@ -558,6 +558,9 @@ describe('formatting', ()=>{
 	it('code can contain new line (LF)', ()=>{
 		testExecutionOutputForInput('i\no', [[0, 1, 2, 3, 4]], [[0, 1, 2, 3, 4]])
 	})
+	it('code can contain new line (CR)', ()=>{
+		testExecutionOutputForInput('i\ro', [[0, 1, 2, 3, 4]], [[0, 1, 2, 3, 4]])
+	})
 	it('; ignores commands', ()=>{
 		testExecutionOutputForSinglePass('io;o', [[1]], [[1]])
 	})
