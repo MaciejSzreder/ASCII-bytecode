@@ -106,9 +106,11 @@ class Machine{
 
 	static execute(code, steps, inputs=[], serviceCode)
 	{
-		let {machine, output} = Machine.prepare(code, inputs, serviceCode);
+		let {machine, output, outOfInput} = Machine.prepare(code, inputs, serviceCode);
 
-		machine.run(steps);
+		for(let step=0; !(step>=steps || outOfInput() || machine.finished()); ++step){
+			machine.step();
+		}
 
 		return {output, state: machine.state()};
 	}
@@ -119,7 +121,7 @@ class Machine{
 
 		do{
 			machine.step();
-		}while(!outOfInput());
+		}while(!outOfInput() && !machine.finished());
 
 		return {output, state: machine.state()};
 	}
@@ -130,7 +132,7 @@ class Machine{
 
 		do{
 			machine.step();
-		}while(machine.cores.length!==0 && machine.cores[0].registers[3]/*instruction pointer*/ !== 0);
+		}while(!machine.finished() && machine.cores[0].registers[3]/*instruction pointer*/ !== 0);
 
 		return {output, state: machine.state()};
 	}
@@ -714,6 +716,11 @@ class Machine{
 			'memory': this.memory,
 			'screen': this.screen
 		};
+	}
+
+	finished()
+	{
+		return this.cores.length===0;
 	}
 
 	image()
