@@ -169,49 +169,89 @@ describe('registers', ()=>{
 		testExecutionOutputForInput('iAioao', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
 	});
 	it('writing to register A modifies only register A',()=>{
-		testExecutionOutputForSinglePass('5Abocodopo(dofogoao', [], [[0, 0, 0, 0, 0, 0, 0, 5]]);
+		testExecutionRegistersState('5A', 2, [], [{
+			'':5,
+			A:5,
+			J:'any',
+			others:0
+		}]);
 	});
 	it('register B allows for input swapping order',()=>{
 		testExecutionOutputForInput('iBiobo', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
 	});
 	it('writing to register B modifies only register B',()=>{
-		testExecutionOutputForSinglePass('5Baocodopo(dofogobo', [], [[0, 0, 0, 0, 0, 0, 0, 5]]);
+		testExecutionRegistersState('5B', 2, [], [{
+			'':5,
+			B:5,
+			J:'any',
+			others:0
+		}]);
 	});
 	it('register C allows for input swapping order',()=>{
 		testExecutionOutputForInput('iCioco', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
 	});
 	it('writing to register C modifies only register C',()=>{
-		testExecutionOutputForSinglePass('5Caobodopo(dofogoco', [], [[0, 0, 0, 0, 0, 0, 0, 5]]);
+		testExecutionRegistersState('5C', 2, [], [{
+			'':5,
+			C:5,
+			J:'any',
+			others:0
+		}]);
 	});
 	it('register D allows for input swapping order',()=>{
 		testExecutionOutputForInput('iDiodo', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
 	});
 	it('writing to register D modifies only register D',()=>{
-		testExecutionOutputForSinglePass('5Daobocopofogo(do(do', [], [[0, 0, 0, 0, 0, 0, 0, 5]]);
+		testExecutionRegistersState('5D', 2, [], [{
+			'':5,
+			D:5,
+			J:'any',
+			others:0
+		}]);
 	});
 	it('register E allows for input swapping order',()=>{
 		testExecutionOutputForInput('iEioeo', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
 	});
 	it('writing to register E modifies only register E',()=>{
-		testExecutionOutputForSinglePass('5Eaobocopo(dofogoeo', [], [[0, 0, 0, 0, 0, 0, 0, 5]]);
+		testExecutionRegistersState('5E', 2, [], [{
+			'':5,
+			E:5,
+			J:'any',
+			others:0
+		}]);
 	});
 	it('register F allows for input swapping order',()=>{
 		testExecutionOutputForInput('iFiofo', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
 	});
 	it('writing to register F modifies only register F',()=>{
-		testExecutionOutputForSinglePass('5Faobocopo(doeogofo', [], [[0, 0, 0, 0, 0, 0, 0, 5]]);
+		testExecutionRegistersState('5F', 2, [], [{
+			'':5,
+			F:5,
+			J:'any',
+			others:0
+		}]);
 	});
 	it('register G allows for input swapping order',()=>{
 		testExecutionOutputForInput('iGiogo', [[0, 1, 2, 3]], [[1, 0, 3, 2]]);
 	});
 	it('writing to register G modifies only register G',()=>{
-		testExecutionOutputForSinglePass('5Gaobocopo(doeofogo', [], [[0, 0, 0, 0, 0, 0, 0, 5]]);
+		testExecutionRegistersState('5G', 2, [], [{
+			'':5,
+			G:5,
+			J:'any',
+			others:0
+		}]);
 	});
 	it('stack pointer register allows for input swapping order',()=>{
 		testExecutionOutputForInput('iD(iDiodo(do', [[0, 1, 2, 3, 4, 5]], [[2, 1, 0, 5, 4, 3]]);
 	});
 	it('writing to stack pointer register modifies only stack pointer register',()=>{
-		testExecutionOutputForSinglePass('5D(aobocodopoeofogo(do', [], [[0, 0, 0, 0, 0, 0, 0, 0, 5]]);
+		testExecutionRegistersState('5D(', 3, [], [{
+			'':5,
+			'(':5,
+			J:'any',
+			others:0
+		}]);
 	});
 	it('writing to register P modifies only register P',()=>{
 		testExecutionRegistersState('5P', 2, [], [{
