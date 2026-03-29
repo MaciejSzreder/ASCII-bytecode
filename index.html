@@ -56,8 +56,10 @@
 
 			const holeRadius = 10;
 			const holeGap = 10;
+			const holeMargin = holeGap;
 			const holeCenterDistance = 2*holeRadius + holeGap;
-			const holeCenterEdgeDistance = holeRadius + holeGap;
+			const holeCenterEdgeDistance = holeRadius + holeMargin;
+			const tapeWith = 8*2*holeRadius + 7*holeGap + 2*holeMargin;
 			const holeColor = 'black';
 			const potentialHoleColor = 'gray';
 			const glueColor = 'black';
@@ -66,7 +68,7 @@
 			function glueCovering(ctx, y, potential)
 			{
 				ctx.fillStyle = potential ? potentialGlueColor : glueColor;
-				ctx.fillRect(0, y, ctx.canvas.width, holeCenterEdgeDistance-holeRadius)
+				ctx.fillRect(0, y, tapeWith, holeCenterEdgeDistance-holeRadius)
 			}
 
 			function punchHole(ctx, x, y, potential = false)
@@ -205,15 +207,21 @@
 			}
 
 			document.addEventListener('DOMContentLoaded', ()=>{
-				implementTape(document.getElementById`inputTape`, document.getElementById`input`);
+				let view = document.getElementsByTagName`html`[0]
+				let main = document.getElementById`main`;
+				main.style.height = main.height = view.clientHeight;
+				main.style.width = main.width = view.clientWidth;
+				
+				implementTape(main, document.getElementById`input`);
 				implementTape(document.getElementById`serviceTape`, document.getElementById`serviceInput`);
 			});
 		</script>
 	</head>
-	<body>
+	<body style="margin: 0">
 		<h1><img src="logo.png" alt="ABc logo" style="height:1cap; image-rendering: pixelated;vertical-align: baseline;" />ASCII bytecode - prototype</h1>
 		<p>The main idea is to use ASCII code points as bytecode.</p>
 		<h1>Interface</h1>
+		<canvas id="main"></canvas>
 		<div>
 			<label for="input">input:</label>
 			<textarea id="input" style="height: 310px">
@@ -222,7 +230,6 @@
       O 
       OO
 ========</textarea>
-		<canvas id="inputTape" width="250" height="310"></canvas>
 		</div>
 		<div>
 			<label for="serviceInput">service input:</label>
