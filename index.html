@@ -91,7 +91,8 @@
 			function punchTape(canvas, values, loop)
 			{
 				const ctx = canvas.getContext`2d`;
-				ctx.clearRect(0,0, canvas.width,canvas.height);
+				ctx.clearRect(0,0, tapeWith,canvas.height);
+				ctx.strokeRect(0.5,0.5, tapeWith-1,canvas.height-1);
 				if(loop){
 					glueCovering(ctx, 0);
 				}
@@ -160,7 +161,7 @@
 						y: data.clientY - rect.top
 					};
 					const cell = {
-						column: Math.round((mouse.x-holeCenterEdgeDistance)/holeCenterDistance),
+						column: Math.max(0,Math.min(Math.round((mouse.x-holeCenterEdgeDistance)/holeCenterDistance), 7)),
 						row: Math.floor(mouse.y / holeCenterDistance)
 					};
 					const hole = {
@@ -169,8 +170,12 @@
 					}
 
 					const ctx = tapeCanvas.getContext`2d`;
-					ctx.clearRect(0,0, tapeCanvas.width, tapeCanvas.height);
 					drawTape(tapeCanvas, tapeInput);
+
+					if(mouse.x>tapeWith){
+						return;
+					}
+
 					const rowY = mouse.y % holeCenterDistance;
 					if(rowY <= holeGap){
 						glueCovering(ctx, mouse.y-rowY, true);
@@ -186,9 +191,13 @@
 						y: data.clientY - rect.top
 					};
 					const cell = {
-						column: Math.round((mouse.x-holeCenterEdgeDistance)/holeCenterDistance),
+						column: Math.max(0,Math.min(Math.round((mouse.x-holeCenterEdgeDistance)/holeCenterDistance), 7)),
 						row: Math.floor(mouse.y / holeCenterDistance)
 					};
+
+					if(mouse.x>tapeWith){
+						return;
+					}
 					
 					let [decoded, loop] = tapeDecode(tapeInput.value);
 					const rowY = mouse.y % holeCenterDistance;
