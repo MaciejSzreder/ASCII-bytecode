@@ -65,10 +65,10 @@
 			const glueColor = 'black';
 			const potentialGlueColor = 'gray';
 
-			function glueCovering(ctx, y, potential)
+			function glueCovering(ctx, x,y, potential)
 			{
 				ctx.fillStyle = potential ? potentialGlueColor : glueColor;
-				ctx.fillRect(0, y, tapeWith, holeCenterEdgeDistance-holeRadius)
+				ctx.fillRect(x, y, tapeWith, holeCenterEdgeDistance-holeRadius)
 			}
 
 			function punchHole(ctx, x, y, potential = false)
@@ -79,30 +79,30 @@
 				ctx.fill();
 			}
 
-			function punchValue(ctx, value, y)
+			function punchValue(ctx, value, x,y)
 			{
 				for(let idx=0; value>0; value>>=1, ++idx){
 					if(value&1){
-						punchHole(ctx, holeCenterEdgeDistance+holeCenterDistance*(7-idx), y);
+						punchHole(ctx, x + holeCenterEdgeDistance + holeCenterDistance*(7-idx), y);
 					}
 				}
 			}
 
-			function punchTape(canvas, values, loop)
+			function punchTape(canvas, values, loop, x)
 			{
 				const ctx = canvas.getContext`2d`;
-				ctx.clearRect(0,0, tapeWith,canvas.height);
-				ctx.strokeRect(0.5,0.5, tapeWith-1,canvas.height-1);
+				ctx.clearRect(x,0, tapeWith,canvas.height);
+				ctx.strokeRect(x+0.5,0.5, tapeWith-1,canvas.height-1);
 				if(loop){
-					glueCovering(ctx, 0);
+					glueCovering(ctx, x,0);
 				}
 				for(const [index,value] of values.entries()){
 					let y = holeCenterEdgeDistance + (values.length - index - 1)*holeCenterDistance;
-					punchValue(ctx, value, y);
+					punchValue(ctx, value, x,y);
 				}
 				if(loop){
 					let y = holeCenterEdgeDistance + (values.length - 1)*holeCenterDistance + holeRadius;
-					glueCovering(ctx, y);
+					glueCovering(ctx, x,y);
 				}
 			}
 
@@ -121,7 +121,8 @@
 					if(port==0){
 						output.textContent += tapeEncode([[value]]) + '\n';
 						outputValues.push(value);
-						punchTape(outputTape, outputValues);
+						outputTape.getContext`2d`.clearRect(0,0, outputTape.width,outputTape.height);
+						punchTape(outputTape, outputValues, false, 0);
 					}
 					console.log(`${port}: ${value}`);
 				});
@@ -144,20 +145,22 @@
 				drawScreen();
 			}
 
-			function drawTape(tapeCanvas, tapeInput)
+			function drawTape(tapeCanvas, tapeInput, x)
 			{
 				let [data, loop] = tapeDecode(tapeInput.value)
-				punchTape(tapeCanvas, data.reverse(), loop);
+				punchTape(tapeCanvas, data.reverse(), loop, x);
 			}
 
-			function implementTape(tapeCanvas, tapeInput)
+			function implementTape(tapeCanvas, tapeInput, x)
 			{
-				drawTape(tapeCanvas, tapeInput);
-				tapeInput.addEventListener('input', ()=>drawTape(tapeCanvas, tapeInput));
+				let drawThisTape = ()=>drawTape(tapeCanvas, tapeInput, x);
+
+				drawThisTape();
+				tapeInput.addEventListener('input', drawThisTape);
 				tapeCanvas.addEventListener('mousemove', (data)=>{
 					const rect = tapeCanvas.getBoundingClientRect();
 					const mouse = {
-						x: data.clientX - rect.left,
+						x: data.clientX - rect.left - x,
 						y: data.clientY - rect.top
 					};
 					const cell = {
@@ -165,20 +168,20 @@
 						row: Math.floor(mouse.y / holeCenterDistance)
 					};
 					const hole = {
-						x: cell.column*holeCenterDistance + holeCenterEdgeDistance,
+						x: cell.column*holeCenterDistance + holeCenterEdgeDistance + x,
 						y: cell.row*holeCenterDistance + holeCenterEdgeDistance
 					}
 
 					const ctx = tapeCanvas.getContext`2d`;
-					drawTape(tapeCanvas, tapeInput);
+					drawThisTape();
 
-					if(mouse.x>tapeWith){
+					if(0>mouse.x || mouse.x>tapeWith){
 						return;
 					}
 
 					const rowY = mouse.y % holeCenterDistance;
 					if(rowY <= holeGap){
-						glueCovering(ctx, mouse.y-rowY, true);
+						glueCovering(ctx, x,mouse.y-rowY, true);
 					}else{
 						punchHole(ctx, hole.x, hole.y, true);
 					}
@@ -187,7 +190,7 @@
 				tapeCanvas.addEventListener('click', (data)=>{
 					const rect = tapeCanvas.getBoundingClientRect();
 					const mouse = {
-						x: data.clientX - rect.left,
+						x: data.clientX - rect.left - x,
 						y: data.clientY - rect.top
 					};
 					const cell = {
@@ -195,7 +198,7 @@
 						row: Math.floor(mouse.y / holeCenterDistance)
 					};
 
-					if(mouse.x>tapeWith){
+					if(0>mouse.x || mouse.x>tapeWith){
 						return;
 					}
 					
@@ -211,7 +214,7 @@
 						decoded[cell.row] ^= 1 << (7-cell.column);
 					}
 					tapeInput.value = tapeEncode([decoded], loop);
-					drawTape(tapeCanvas, tapeInput);
+					drawThisTape();
 				})
 			}
 
@@ -221,8 +224,8 @@
 				main.style.height = main.height = view.clientHeight;
 				main.style.width = main.width = view.clientWidth;
 				
-				implementTape(main, document.getElementById`input`);
-				implementTape(document.getElementById`serviceTape`, document.getElementById`serviceInput`);
+				implementTape(main, document.getElementById`input`, 100);
+				implementTape(document.getElementById`serviceTape`, document.getElementById`serviceInput`, 0);
 			});
 		</script>
 	</head>
