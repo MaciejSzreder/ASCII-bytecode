@@ -60,6 +60,7 @@
 			const holeCenterDistance = 2*holeRadius + holeGap;
 			const holeCenterEdgeDistance = holeRadius + holeMargin;
 			const tapeWith = 8*2*holeRadius + 7*holeGap + 2*holeMargin;
+			const tapeGap = holeGap
 			const holeColor = 'black';
 			const potentialHoleColor = 'gray';
 			const glueColor = 'black';
@@ -224,8 +225,8 @@
 				main.style.height = main.height = view.clientHeight;
 				main.style.width = main.width = view.clientWidth;
 				
-				implementTape(main, document.getElementById`input`, 100);
-				implementTape(document.getElementById`serviceTape`, document.getElementById`serviceInput`, 0);
+				implementTape(main, document.getElementById`serviceInput`, 0);
+				implementTape(main, document.getElementById`input`, tapeWith + tapeGap);
 			});
 		</script>
 	</head>
@@ -249,7 +250,6 @@
  OO O  O
  OO OOOO
 ========</textarea>
-			<canvas id="serviceTape" width="250" height="310"></canvas>
 		</div>
 		<div>
 			<label for="output">output:</label>
