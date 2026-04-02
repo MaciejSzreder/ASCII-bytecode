@@ -123,8 +123,8 @@
 					if(port==0){
 						output.textContent += tapeEncode([[value]]) + '\n';
 						outputValues.push(value);
-						outputTape.getContext`2d`.clearRect(0,0, outputTape.width,outputTape.height);
-						punchTape(outputTape, outputValues, false, 0);
+						main.getContext`2d`.clearRect(2*tapeWith + tapeGap + 2*tapeScreenGap + machine.image().length,0, tapeWith,main.height);
+						punchTape(main, outputValues, false, 2*tapeWith + tapeGap + 2*tapeScreenGap + machine.image().length);
 					}
 					console.log(`${port}: ${value}`);
 				});
@@ -259,7 +259,6 @@
 		<div>
 			<label for="output">output:</label>
 			<textarea disabled id="output" style="height: 310px"></textarea>
-			<canvas id="outputTape" width="250" height="310"></canvas>
 		</div>
 		<button onclick="start()">Start</button>
 		<h1>Instructions</h1>
