@@ -62,6 +62,8 @@
 			const tapeWith = 8*2*holeRadius + 7*holeGap + 2*holeMargin;
 			const tapeGap = holeGap
 			const tapeScreenGap = tapeGap;
+			const buttonScreenGap = tapeScreenGap;
+			const buttonTapeGap = buttonScreenGap;
 			const holeColor = 'black';
 			const potentialHoleColor = 'gray';
 			const glueColor = 'black';
@@ -224,6 +226,34 @@
 				})
 			}
 
+			function implementButton(canvas, x,y, content, action)
+			{
+				const ctx = canvas.getContext`2d`;
+				ctx.font = '50px sans-serif';
+				let {
+					width,
+					actualBoundingBoxAscent,
+					actualBoundingBoxDescent
+				} = ctx.measureText(content);
+				ctx.fillRect(x,y, width,actualBoundingBoxAscent+actualBoundingBoxDescent+3);
+				ctx.fillStyle = 'white';
+				ctx.fillText(content, x,y+actualBoundingBoxAscent+actualBoundingBoxDescent);
+
+				canvas.addEventListener('click', (data)=>{
+					const rect = canvas.getBoundingClientRect();
+					const mouse = {
+						x: data.clientX - rect.left,
+						y: data.clientY - rect.top
+					};
+
+					if(mouse.x<x || mouse.x>x+width, mouse.y<y || mouse.y>y+actualBoundingBoxAscent+actualBoundingBoxDescent+3){
+						return;
+					}
+
+					action();
+				});
+			}
+
 			document.addEventListener('DOMContentLoaded', ()=>{
 				let view = document.getElementsByTagName`html`[0]
 				let main = document.getElementById`main`;
@@ -232,6 +262,8 @@
 				
 				implementTape(main, document.getElementById`serviceInput`, 0);
 				implementTape(main, document.getElementById`input`, tapeWith + tapeGap);
+
+				implementButton(main, 2*tapeWith + tapeGap + buttonTapeGap, (new Machine).image()[0].length + buttonScreenGap, '▶', start);
 			});
 		</script>
 	</head>
@@ -260,7 +292,6 @@
 			<label for="output">output:</label>
 			<textarea disabled id="output" style="height: 310px"></textarea>
 		</div>
-		<button onclick="start()">Start</button>
 		<h1>Instructions</h1>
 		<table>
 			<tr><th>punch tape encoding</th><th>ASCII code point</th><th>ASCII character/Unicode Control Picture</th><th>description</th><th>comments</th></tr>
