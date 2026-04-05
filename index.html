@@ -268,6 +268,8 @@
 		</script>
 		<style>
 			code{white-space: pre}
+
+			.rest{color: gray}
 		</style>
 	</head>
 	<body style="margin: 0">
@@ -358,9 +360,9 @@
 			<tr><td><code> O OO   </code></td><td>88</td><td>X</td><td>copies accumulator value into register X</td><td>X=accumulator</td></tr>
 			<tr><td><code> O OO  O</code></td><td>89</td><td>Y</td><td>copies core state to free core, except instruction pointer register, which have assigned accumulator value. Core starts processing.</td><td>works like fork with callback</td></tr>
 			<tr><td><code> O OO O </code></td><td>90</td><td>Z</td><td>copies accumulator value into register Z</td><td>Z=accumulator</td></tr>
-			<tr><td><code> O OO OO</code></td><td>91</td><td>[</td><td>if accumulator is 0 ignores instruction until meeting corresponding ]</td><td>if(accumulator){code}</td></tr>
+			<tr><td><code> O OO OO</code></td><td>91</td><td>[</td><td>if accumulator is 0 ignores instruction until meeting corresponding ]</td><td>if(accumulator){<span class="rest">code}</span></td></tr>
 			<tr><td><code> O OOO  </code></td><td>92</td><td>\</td><td>divides register A value by accumulator value and stores it in accumulator</td><td>accumulator=A/accumulator</td></tr>
-			<tr><td><code> O OOO O</code></td><td>93</td><td>]</td><td>closes if body opened by [</td><td>if(accumulator){code}</td></tr>
+			<tr><td><code> O OOO O</code></td><td>93</td><td>]</td><td>closes if body opened by [</td><td><span class="rest">if(accumulator){code</span>}</td></tr>
 			<tr><td><code> O OOOO </code></td><td>94</td><td>^</td><td>XORes corresponding accumulator bits with register A bits</td><td>accumulator^=A</td></tr>
 			<tr><td><code> O OOOOO</code></td><td>95</td><td>_</td><td>sets accumulator register to zero</td><td>accumulator=0</td></tr>
 			<tr><td><code> OO     </code></td><td>96</td><td>`</td><td>copies to accumulator value from memory pointed by data address register, then increases data address register</td><td>accumulator=memory[data_address_register++]</td></tr>
@@ -389,9 +391,9 @@
 			<tr><td><code> OOOO   </code></td><td>120</td><td>x</td><td>copies register x value into accumulator</td><td>accumulator=X</td></tr>
 			<tr><td><code> OOOO  O</code></td><td>121</td><td>y</td><td>stops core execution</td><td></td></tr>
 			<tr><td><code> OOOO O </code></td><td>122</td><td>z</td><td>copies register Z value into accumulator</td><td>accumulator=Z</td></tr>
-			<tr><td><code> OOOO OO</code></td><td>123</td><td>{</td><td>opens loop body</td><td>do{ <span style="color:gray">code  }while(accumulator!=0)</span></td></tr>
+			<tr><td><code> OOOO OO</code></td><td>123</td><td>{</td><td>opens loop body</td><td>do{ <span class="rest">code  }while(accumulator!=0)</span></td></tr>
 			<tr><td><code> OOOOO  </code></td><td>124</td><td>|</td><td>ORes corresponding accumulator bits with register A bits</td><td>accumulator|=A</td></tr>
-			<tr><td><code> OOOOO O</code></td><td>125</td><td>}</td><td>if accumulator is not 0, goes to corresponding {</td><td><span style="color:gray">do{code</span>}while(accumulator!=0)</td></tr>
+			<tr><td><code> OOOOO O</code></td><td>125</td><td>}</td><td>if accumulator is not 0, goes to corresponding {</td><td><span class="rest">do{code</span>}while(accumulator!=0)</td></tr>
 			<tr><td><code> OOOOOO </code></td><td>126</td><td>~</td><td>negates accumulator bits</td><td>accumulator=~accumulator</td></tr>
 			<tr><td><code>========</code></td><td></td><td></td><td>adhesive tape sticking ends of punched tapes</td><td></td></tr>
 			<tr><td><code>~~~~~~~~</code></td><td></td><td></td><td>glue for sticking ends of punched tapes</td><td></td></tr>
