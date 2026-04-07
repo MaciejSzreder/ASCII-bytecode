@@ -19,8 +19,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
 		};
 
 		for(let object of objects){
-			if(inRectangle(mouse, object.hitBox)){
-				object.click();
+			if(object.click && object.hitBox && inRectangle(mouse, object.hitBox)){
+				let localMouse = {
+					x: mouse.x - object.hitBox.x,
+					y: mouse.y - object.hitBox.y
+				};
+				object.click(localMouse);
 			}
 		}
 	});

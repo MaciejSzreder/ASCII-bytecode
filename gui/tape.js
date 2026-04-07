@@ -86,9 +86,9 @@ function punchValue(ctx, value, x,y)
 
 function punchTape(canvas, values, loop, x)
 {
-	const ctx = canvas.getContext`2d`;
-	ctx.clearRect(x,0, tapeWith,canvas.height);
-	ctx.strokeRect(x+0.5,0.5, tapeWith-1,canvas.height-1);
+	const ctx = canvas.getContext?canvas.getContext`2d`:canvas;
+	ctx.clearRect(x,0, tapeWith,ctx.canvas.height);
+	ctx.strokeRect(x+0.5,0.5, tapeWith-1,ctx.canvas.height-1);
 	if(loop){
 		glueCovering(ctx, x,0);
 	}
@@ -110,6 +110,8 @@ function drawTape(tapeCanvas, tapeInput, x)
 
 function implementTape(tapeCanvas, tapeInput, x)
 {
+	render(new Tape(tapeInput, x));
+
 	let drawThisTape = ()=>drawTape(tapeCanvas, tapeInput, x);
 
 	drawThisTape();
@@ -130,36 +132,51 @@ function implementTape(tapeCanvas, tapeInput, x)
 		}
 
 		const ctx = tapeCanvas.getContext`2d`;
-		drawThisTape();
+		requestAnimationFrame(()=>{
+			drawThisTape();
 
-		if(0>mouse.x || mouse.x>tapeWith){
-			return;
-		}
+			if(0>mouse.x || mouse.x>tapeWith){
+				return;
+			}
 
-		const rowY = mouse.y % holeCenterDistance;
-		if(rowY <= holeGap){
-			glueCovering(ctx, x,mouse.y-rowY, true);
-		}else{
-			punchHole(ctx, hole.x, hole.y, true);
-		}
+			const rowY = mouse.y % holeCenterDistance;
+			if(rowY <= holeGap){
+				glueCovering(ctx, x,mouse.y-rowY, true);
+			}else{
+				punchHole(ctx, hole.x, hole.y, true);
+			}
+		});
 	});
+}
 
-	tapeCanvas.addEventListener('click', (data)=>{
-		const rect = tapeCanvas.getBoundingClientRect();
-		const mouse = {
-			x: data.clientX - rect.left - x,
-			y: data.clientY - rect.top
+class Tape
+{
+	constructor(source, x)
+	{
+		this.source = source;
+		this.x = x;
+		this.hitBox = {
+			x: this.x,
+			y: 0,
+			width: tapeWith,
+			height: Infinity
 		};
+	}
+
+	draw(ctx)
+	{
+		let [data, loop] = tapeDecode(this.source.value);
+		punchTape(ctx, data.reverse(), loop, this.x);
+	}
+
+	click(mouse)
+	{
 		const cell = {
 			column: Math.max(0,Math.min(Math.round((mouse.x-holeCenterEdgeDistance)/holeCenterDistance), 7)),
 			row: Math.floor(mouse.y / holeCenterDistance)
 		};
-
-		if(0>mouse.x || mouse.x>tapeWith){
-			return;
-		}
 		
-		let [decoded, loop] = tapeDecode(tapeInput.value);
+		let [decoded, loop] = tapeDecode(this.source.value);
 		const rowY = mouse.y % holeCenterDistance;
 		if(rowY <= holeGap){
 			// set loop if there was no glue or did not clicked on glue
@@ -170,7 +187,6 @@ function implementTape(tapeCanvas, tapeInput, x)
 		}else{
 			decoded[cell.row] ^= 1 << (7-cell.column);
 		}
-		tapeInput.value = tapeEncode([decoded], loop);
-		drawThisTape();
-	});
+		this.source.value = tapeEncode([decoded], loop);
+	}
 }
