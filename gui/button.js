@@ -1,27 +1,45 @@
-function implementButton(canvas, x,y, content, action)
+class Button
 {
-	const ctx = canvas.getContext`2d`;
-	ctx.font = '50px sans-serif';
-	let {
-		width,
-		actualBoundingBoxAscent,
-		actualBoundingBoxDescent
-	} = ctx.measureText(content);
-	ctx.fillRect(x,y, width,actualBoundingBoxAscent+actualBoundingBoxDescent+3);
-	ctx.fillStyle = 'white';
-	ctx.fillText(content, x,y+actualBoundingBoxAscent+actualBoundingBoxDescent);
+	font = '50px sans-serif';
+	textColor = 'white';
+	buttonColor = 'black';
+	constructor(x,y,content,action)
+	{
+		this.x = x;
+		this.y = y;
+		this.content = content;
+		this.action = action;
+	}
 
-	canvas.addEventListener('click', (data)=>{
-		const rect = canvas.getBoundingClientRect();
-		const mouse = {
-			x: data.clientX - rect.left,
-			y: data.clientY - rect.top
+	hitBox()
+	{
+		return this.hitBox;
+	}
+
+	draw(ctx)
+	{
+		ctx.font = this.font;
+		let {
+			width,
+			actualBoundingBoxAscent,
+			actualBoundingBoxDescent
+		} = ctx.measureText(this.content);
+		let hitBox = {
+			x: this.x,
+			y: this.y,
+			width: width,
+			height: actualBoundingBoxAscent+actualBoundingBoxDescent+2
 		};
+		ctx.fillStyle = this.buttonColor;
+		ctx.fillRect(hitBox.x,hitBox.y, hitBox.width,hitBox.height);
+		ctx.fillStyle = this.textColor;
+		ctx.fillText(this.content, hitBox.x,hitBox.y+hitBox.height-3);
 
-		if(mouse.x<x || mouse.x>x+width, mouse.y<y || mouse.y>y+actualBoundingBoxAscent+actualBoundingBoxDescent+3){
-			return;
-		}
+		this.hitBox = hitBox;
+	}
 
-		action();
-	});
+	click()
+	{
+		this.action();
+	}
 }

@@ -53,5 +53,5 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	
 	implementTape(main, document.getElementById`serviceInput`, 0);
 	implementTape(main, document.getElementById`input`, tapeWith + tapeGap);
-	implementButton(main, 2*tapeWith + tapeGap + buttonTapeGap, (new Machine).image()[0].length + buttonScreenGap, '▶', start);
+	render(new Button(2*tapeWith + tapeGap + buttonTapeGap, (new Machine).image()[0].length + buttonScreenGap, '▶', start));
 });
