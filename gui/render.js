@@ -4,9 +4,21 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	let canvas = document.getElementById`main`;
 	let ctx = canvas.getContext`2d`;
 
+	let mouse = {};
+
+	canvas.addEventListener('mousemove', (event)=>{
+		const rect = canvas.getBoundingClientRect();
+		mouse = {
+			x: event.clientX - rect.left,
+			y: event.clientY - rect.top
+		};
+
+	});
+
 	requestAnimationFrame(function drawObjects(){
 		for(let object of objects){
-			object.draw(ctx);
+			mouse.isOver = inRectangle(mouse, object.hitBox);
+			object.draw(ctx, {mouse});
 		}
 		requestAnimationFrame(drawObjects);
 	});

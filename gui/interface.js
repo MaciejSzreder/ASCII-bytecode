@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	main.style.height = main.height = view.clientHeight;
 	main.style.width = main.width = view.clientWidth;
 	
-	implementTape(main, document.getElementById`serviceInput`, 0);
-	implementTape(main, document.getElementById`input`, tapeWith + tapeGap);
+	render(new Tape(document.getElementById`serviceInput`, 0));
+	render(new Tape(document.getElementById`input`, tapeWith + tapeGap));
 	render(new Button(2*tapeWith + tapeGap + buttonTapeGap, (new Machine).image()[0].length + buttonScreenGap, '▶', start));
 });

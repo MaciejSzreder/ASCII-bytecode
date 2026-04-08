@@ -102,53 +102,6 @@ function punchTape(canvas, values, loop, x)
 	}
 }
 
-function drawTape(tapeCanvas, tapeInput, x)
-{
-	let [data, loop] = tapeDecode(tapeInput.value)
-	punchTape(tapeCanvas, data.reverse(), loop, x);
-}
-
-function implementTape(tapeCanvas, tapeInput, x)
-{
-	render(new Tape(tapeInput, x));
-
-	let drawThisTape = ()=>drawTape(tapeCanvas, tapeInput, x);
-
-	drawThisTape();
-	tapeInput.addEventListener('input', drawThisTape);
-	tapeCanvas.addEventListener('mousemove', (data)=>{
-		const rect = tapeCanvas.getBoundingClientRect();
-		const mouse = {
-			x: data.clientX - rect.left - x,
-			y: data.clientY - rect.top
-		};
-		const cell = {
-			column: Math.max(0,Math.min(Math.round((mouse.x-holeCenterEdgeDistance)/holeCenterDistance), 7)),
-			row: Math.floor(mouse.y / holeCenterDistance)
-		};
-		const hole = {
-			x: cell.column*holeCenterDistance + holeCenterEdgeDistance + x,
-			y: cell.row*holeCenterDistance + holeCenterEdgeDistance
-		}
-
-		const ctx = tapeCanvas.getContext`2d`;
-		requestAnimationFrame(()=>{
-			drawThisTape();
-
-			if(0>mouse.x || mouse.x>tapeWith){
-				return;
-			}
-
-			const rowY = mouse.y % holeCenterDistance;
-			if(rowY <= holeGap){
-				glueCovering(ctx, x,mouse.y-rowY, true);
-			}else{
-				punchHole(ctx, hole.x, hole.y, true);
-			}
-		});
-	});
-}
-
 class Tape
 {
 	constructor(source, x)
@@ -163,10 +116,28 @@ class Tape
 		};
 	}
 
-	draw(ctx)
+	draw(ctx, {mouse})
 	{
 		let [data, loop] = tapeDecode(this.source.value);
 		punchTape(ctx, data.reverse(), loop, this.x);
+
+		if(mouse.isOver){
+			const cell = {
+				column: Math.max(0,Math.min(Math.round((mouse.x-this.x-holeCenterEdgeDistance)/holeCenterDistance), 7)),
+				row: Math.floor(mouse.y / holeCenterDistance)
+			};
+			const hole = {
+				x: cell.column*holeCenterDistance + holeCenterEdgeDistance + this.x,
+				y: cell.row*holeCenterDistance + holeCenterEdgeDistance
+			}
+			const rowY = mouse.y % holeCenterDistance;
+
+			if(rowY <= holeGap){
+				glueCovering(ctx, this.x,mouse.y-rowY, true);
+			}else{
+				punchHole(ctx, hole.x, hole.y, true);
+			}
+		}
 	}
 
 	click(mouse)
