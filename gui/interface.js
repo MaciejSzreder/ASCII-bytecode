@@ -12,13 +12,9 @@ function start()
 	const ctx = main.getContext`2d`;
 
 	let {machine} = Machine.prepare('', (port)=>port==0?input():null, serviceCode);
-	let outputValues = [];
 	machine.outputs((port,value)=>{
 		if(port==0){
-			output.textContent += tapeEncode([[value]]) + '\n';
-			outputValues.push(value);
-			main.getContext`2d`.clearRect(2*tapeWith + tapeGap + 2*tapeScreenGap + machine.image().length,0, tapeWith,main.height);
-			punchTape(main, outputValues, false, 2*tapeWith + tapeGap + 2*tapeScreenGap + machine.image().length);
+			output.value = tapeEncode([[value]]) + '\n' + output.value;
 		}
 		console.log(`${port}: ${value}`);
 	});
@@ -54,4 +50,5 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	render(new Tape(document.getElementById`serviceInput`, 0));
 	render(new Tape(document.getElementById`input`, tapeWith + tapeGap));
 	render(new Button(2*tapeWith + tapeGap + buttonTapeGap, (new Machine).image()[0].length + buttonScreenGap, '▶', start));
+	render(new Tape(document.getElementById`output`, 2*tapeWith + tapeGap + 2*tapeScreenGap + (new Machine).image().length));
 });
