@@ -1,4 +1,5 @@
-﻿const tapeScreenGap = tapeGap;
+﻿const tapeGap = Tape.holeGap;
+const tapeScreenGap = tapeGap;
 const buttonScreenGap = tapeScreenGap;
 const buttonTapeGap = buttonScreenGap;
 
@@ -24,7 +25,7 @@ function start()
 	function drawScreen()
 	{
 		const screen = {
-			x: 2*tapeWith + 2*tapeGap,
+			x: 2*Tape.width + 2*tapeGap,
 			y: 0
 		};
 		const image = machine.image();
@@ -48,7 +49,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	main.style.width = main.width = view.clientWidth;
 	
 	render(new Tape(document.getElementById`serviceInput`, 0));
-	render(new Tape(document.getElementById`input`, tapeWith + tapeGap));
-	render(new Button(2*tapeWith + tapeGap + buttonTapeGap, (new Machine).image()[0].length + buttonScreenGap, '▶', start));
-	render(new Tape(document.getElementById`output`, 2*tapeWith + tapeGap + 2*tapeScreenGap + (new Machine).image().length));
+	render(new Tape(document.getElementById`input`, Tape.width + tapeGap));
+	render(new Button(2*Tape.width + tapeGap + buttonTapeGap, (new Machine).image()[0].length + buttonScreenGap, '▶', start));
+	render(new Tape(document.getElementById`output`, 2*Tape.width + tapeGap + 2*tapeScreenGap + (new Machine).image().length));
 });

@@ -1,59 +1,22 @@
-const holeRadius = 10;
-const holeGap = 10;
-const holeMargin = holeGap;
-const holeCenterDistance = 2*holeRadius + holeGap;
-const holeCenterEdgeDistance = holeRadius + holeMargin;
-const tapeWith = 8*2*holeRadius + 7*holeGap + 2*holeMargin;
-const tapeGap = holeGap
+	
+	
 
-const holeColor = 'black';
-const potentialHoleColor = 'gray';
-const glueColor = 'black';
-const potentialGlueColor = 'gray';
-
-function glueCovering(ctx, x,y, potential)
-{
-	ctx.fillStyle = potential ? potentialGlueColor : glueColor;
-	ctx.fillRect(x, y, tapeWith, holeCenterEdgeDistance-holeRadius);
-}
-
-function punchHole(ctx, x, y, potential = false)
-{
-	ctx.beginPath();
-	ctx.arc(x, y, holeRadius, 0, Math.PI * 2);
-	ctx.fillStyle = potential ? potentialHoleColor : holeColor;
-	ctx.fill();
-}
-
-function punchValue(ctx, value, x,y)
-{
-	for(let idx=0; value>0; value>>=1, ++idx){
-		if(value&1){
-			punchHole(ctx, x + holeCenterEdgeDistance + holeCenterDistance*(7-idx), y);
-		}
-	}
-}
-
-function punchTape(canvas, values, loop, x)
-{
-	const ctx = canvas.getContext?canvas.getContext`2d`:canvas;
-	ctx.clearRect(x,0, tapeWith,ctx.canvas.height);
-	ctx.strokeRect(x+0.5,0.5, tapeWith-1,ctx.canvas.height-1);
-	if(loop){
-		glueCovering(ctx, x,0);
-	}
-	for(const [index,value] of values.entries()){
-		let y = holeCenterEdgeDistance + (values.length - index - 1)*holeCenterDistance;
-		punchValue(ctx, value, x,y);
-	}
-	if(loop){
-		let y = holeCenterEdgeDistance + (values.length - 1)*holeCenterDistance + holeRadius;
-		glueCovering(ctx, x,y);
-	}
-}
 
 class Tape
 {
+	static holeRadius = 10;
+	static holeGap = 10;
+	static holeMargin = Tape.holeGap;
+	static holeCenterDistance = 2*Tape.holeRadius + Tape.holeGap;
+	static holeCenterEdgeDistance = Tape.holeRadius + Tape.holeMargin;
+	static width = 8*2*Tape.holeRadius + 7*Tape.holeGap + 2*Tape.holeMargin;
+
+	holeColor = 'black';
+	potentialHoleColor = 'gray';
+	glueColor = 'black'; 
+	potentialGlueColor = 'gray';
+
+
 	constructor(source, x)
 	{
 		this.source = source;
@@ -61,7 +24,7 @@ class Tape
 		this.hitBox = {
 			x: this.x,
 			y: 0,
-			width: tapeWith,
+			width: Tape.width,
 			height: Infinity
 		};
 	}
@@ -69,23 +32,23 @@ class Tape
 	draw(ctx, {mouse})
 	{
 		let [data, loop] = tapeDecode(this.source.value);
-		punchTape(ctx, data.reverse(), loop, this.x);
+		this.punchTape(ctx, data.reverse(), loop, this.x);
 
 		if(mouse.isOver){
 			const cell = {
-				column: Math.max(0,Math.min(Math.round((mouse.x-this.x-holeCenterEdgeDistance)/holeCenterDistance), 7)),
-				row: Math.floor(mouse.y / holeCenterDistance)
+				column: Math.max(0,Math.min(Math.round((mouse.x-this.x-Tape.holeCenterEdgeDistance)/Tape.holeCenterDistance), 7)),
+				row: Math.floor(mouse.y / Tape.holeCenterDistance)
 			};
 			const hole = {
-				x: cell.column*holeCenterDistance + holeCenterEdgeDistance + this.x,
-				y: cell.row*holeCenterDistance + holeCenterEdgeDistance
+				x: cell.column*Tape.holeCenterDistance + Tape.holeCenterEdgeDistance + this.x,
+				y: cell.row*Tape.holeCenterDistance + Tape.holeCenterEdgeDistance
 			}
-			const rowY = mouse.y % holeCenterDistance;
+			const rowY = mouse.y % Tape.holeCenterDistance;
 
-			if(rowY <= holeGap){
-				glueCovering(ctx, this.x,mouse.y-rowY, true);
+			if(rowY <= Tape.holeGap){
+				this.glueCovering(ctx, this.x,mouse.y-rowY, true);
 			}else{
-				punchHole(ctx, hole.x, hole.y, true);
+				this.punchHole(ctx, hole.x, hole.y, true);
 			}
 		}
 	}
@@ -93,13 +56,13 @@ class Tape
 	click(mouse)
 	{
 		const cell = {
-			column: Math.max(0,Math.min(Math.round((mouse.x-holeCenterEdgeDistance)/holeCenterDistance), 7)),
-			row: Math.floor(mouse.y / holeCenterDistance)
+			column: Math.max(0,Math.min(Math.round((mouse.x-Tape.holeCenterEdgeDistance)/Tape.holeCenterDistance), 7)),
+			row: Math.floor(mouse.y / Tape.holeCenterDistance)
 		};
 		
 		let [decoded, loop] = tapeDecode(this.source.value);
-		const rowY = mouse.y % holeCenterDistance;
-		if(rowY <= holeGap){
+		const rowY = mouse.y % Tape.holeCenterDistance;
+		if(rowY <= Tape.holeGap){
 			// set loop if there was no glue or did not clicked on glue
 			loop = !loop || (decoded.length!==cell.row && cell.row!==0);
 			if(cell.row!==0){
@@ -109,5 +72,46 @@ class Tape
 			decoded[cell.row] ^= 1 << (7-cell.column);
 		}
 		this.source.value = tapeEncode([decoded], loop);
+	}
+
+	punchTape(canvas, values, loop, x)
+	{
+		const ctx = canvas.getContext?canvas.getContext`2d`:canvas;
+		ctx.clearRect(x,0, Tape.width,ctx.canvas.height);
+		ctx.strokeRect(x+0.5,0.5, Tape.width-1,ctx.canvas.height-1);
+		if(loop){
+			this.glueCovering(ctx, x,0);
+		}
+		for(const [index,value] of values.entries()){
+			let y = Tape.holeCenterEdgeDistance + (values.length - index - 1)*Tape.holeCenterDistance;
+			this.punchValue(ctx, value, x,y);
+		}
+		if(loop){
+			let y = Tape.holeCenterEdgeDistance + (values.length - 1)*Tape.holeCenterDistance + Tape.holeRadius;
+			this.glueCovering(ctx, x,y);
+		}
+	}
+	
+	punchValue(ctx, value, x,y)
+	{
+		for(let idx=0; value>0; value>>=1, ++idx){
+			if(value&1){
+				this.punchHole(ctx, x + Tape.holeCenterEdgeDistance + Tape.holeCenterDistance*(7-idx), y);
+			}
+		}
+	}
+	
+	punchHole(ctx, x, y, potential = false)
+	{
+		ctx.beginPath();
+		ctx.arc(x, y, Tape.holeRadius, 0, Math.PI * 2);
+		ctx.fillStyle = potential ? this.potentialGlueColor : this.glueColor;
+		ctx.fill();
+	}
+	
+	glueCovering(ctx, x,y, potential)
+	{
+		ctx.fillStyle = potential ? this.potentialGlueColor : this.glueColor;
+		ctx.fillRect(x, y, Tape.width, Tape.holeCenterEdgeDistance-Tape.holeRadius);
 	}
 }
