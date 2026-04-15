@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	requestAnimationFrame(function drawObjects(){
 		for(let object of objects){
 			mouse.isOver = inRectangle(mouse, object.hitBox);
-			object.draw(ctx, {mouse});
+			object.draw?.(ctx, {mouse});
 		}
 		requestAnimationFrame(drawObjects);
 	});
@@ -49,7 +49,8 @@ function render(object)
 
 function inRectangle(point, rectangle)
 {
-	return rectangle.x <= point.x
+	return rectangle
+		&& rectangle.x <= point.x
 		&& point.x <= rectangle.x + rectangle.width
 		&& rectangle.y <= point.y
 		&& point.y <= rectangle.y + rectangle.height;
