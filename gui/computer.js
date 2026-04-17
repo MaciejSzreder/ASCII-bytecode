@@ -21,13 +21,34 @@ function start()
 
 class Computer
 {
-	static buttonScreenGap = 10;
+	static screenEdgeGap = 10;
+	static buttonEdgeGap = Computer.screenEdgeGap;
+	static buttonScreenGap = Computer.buttonEdgeGap;
+	static width = image.length + 2*Computer.screenEdgeGap;
 	
 	constructor(x,y)
 	{
 		this.x = x;
 		this.y = y;
-		render(new Screen(x,y, ()=>image));
-		render(new Button(x, y + image[0].length + Computer.buttonScreenGap, '▶', start));
+		render(this.screen = new Screen(x+Computer.screenEdgeGap,y+Computer.screenEdgeGap, ()=>image));
+		render(this.button = new Button(
+			x+Computer.buttonEdgeGap,
+			y + image[0].length + Computer.buttonScreenGap + Computer.screenEdgeGap,
+			'▶',
+			start
+		));
+	}
+
+	draw(ctx)
+	{
+		this.hitBox = {
+			x: this.x,
+			y: this.y,
+			width: Computer.width,
+			height: this.button.hitBox.y - this.y + this.button.hitBox.height + Computer.buttonEdgeGap
+		}
+		ctx.fillStyle = 'black';
+		ctx.strokeRect(this.x + 0.5, this.y + 0.5, this.hitBox.width, this.hitBox.height);
+	
 	}
 }

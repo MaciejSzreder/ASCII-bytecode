@@ -10,5 +10,5 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	render(new Tape(document.getElementById`serviceInput`, 0));
 	render(new Tape(document.getElementById`input`, Tape.width + tapeGap));
 	render(new Computer(2*Tape.width + 2*tapeGap,0, ()=>image));
-	render(new Tape(document.getElementById`output`, 2*Tape.width + tapeGap + 2*tapeComputerGap + (new Machine).image().length));
+	render(new Tape(document.getElementById`output`, 2*Tape.width + tapeGap + 2*tapeComputerGap + Computer.width));
 });
