@@ -43,6 +43,7 @@
 			<textarea disabled id="output" style="height: 310px"></textarea>
 		</div>
 		<h1>Instructions</h1>
+		<h2>Table</h2>
 		<table>
 			<tr><th>punch tape encoding</th><th>ASCII code point</th><th>ASCII character/Unicode Control Picture</th><th>description</th><th>comments</th></tr>
 			<tr><td><code>        </code></td><td>0</td><td>&#x2400;</td><td>sets instruction pointer register to 0</td><td>loops code</td></tr>
@@ -143,6 +144,31 @@
 			<tr><td><code>========</code></td><td></td><td></td><td>adhesive tape sticking ends of punched tapes</td><td></td></tr>
 			<tr><td><code>~~~~~~~~</code></td><td></td><td></td><td>glue for sticking ends of punched tapes</td><td></td></tr>
 		</table>
+		<h2>Binary Operators</h2>
+		<p>
+			Binary operators operate on two registers: argument register and accumulator register. Result is stored in the accumulator
+			register. For most binary operator instruction left operand is the accumulator register and right operand is the argument
+			register. Exception is <code>\</code> (inverted division), where the operator is traditional division and operands are swapped.
+		</p>
+		<p>Binary operator instructions:
+			<ul>
+				<li><code>+</code> - addition</li>
+				<li><code>-</code> - subtraction</li>
+				<li><code>*</code> - multiplication</li>
+				<li><code>/</code> - division</li>
+				<li><code>\</code> - inverted division</li>
+				<li><code>%</code> - modulo</li>
+				<li><code>&amp;</code> - bitwise AND</li>
+				<li><code>|</code> - bitwise OR</li>
+				<li><code>^</code> - bitwise XOR</li>
+				<li><code>&lt;</code> - less than</li>
+				<li><code>=</code> - equals</li>
+				<li><code>&gt;</code> - greater than</li>
+				<li><code>?</code> - random</li>
+				<li><code>M</code> - max</li>
+				<li><code>m</code> - min</li>
+			</ul>
+		</p>
 		<h1>Registers</h1>
 		<p>Each register holds a 16 bits wide signed integer value in 2's complement representation.</p>
 	</body>
