@@ -236,6 +236,18 @@
 				<code>y</code> - deletes current hardware thread execution.
 			</li>
 		</ul>
+		<h2>Memory</h2>
+		<p>
+			Memory is organized as a linear array of bytes. Instruction operating on memory uses 2 registers: data address register and
+			accumulator register. Data address register holds byte address. Accumulator register holds value to write or loaded value.
+			Memory instructions:
+			<ul>
+				<li><code>@</code> - loads value from memory</li>
+				<li><code>$</code> - writes value to memory</li>
+				<li><code>,</code> - pushes value to end of stack; it decrements data address register before writing</li>
+				<li><code>`</code> - pops value from end of stack; it increments data address register after reading</li>
+			</ul>
+		</p>
 		<h1>Registers</h1>
 		<p>Each register holds a 16 bits wide signed integer value in 2's complement representation.</p>
 	</body>
