@@ -187,6 +187,55 @@
 				<li><code>S</code> - sign extension</li>
 			</ul>
 		</p>
+		<h2>Control Flow</h2>
+		<p>
+			Control flow instructions changes the default execution process by change instruction pointer register or changing execution mode.
+		</p>
+		<ul>
+			<li>
+				<code>␀</code> (not printable character ending the code) - sets the instruction pointer to 0, so the program executes from
+				beginning. It makes the program works in main loop.
+			</li>
+			<li>
+				<code>;</code> - unconditional skip code until next <code>;</code>. Useful for commenting code. 
+			</li>
+			<li>
+				<code>[</code> - skips code until corresponding <code>]</code>, if accumulator value is 0. <code>]</code> inside
+				<code>;</code> are ignored. Each <code>[</code> have to have corresponding <code>]</code> in sequential order,
+				and contained code have to jump back (if jumps) before closing <code>]</code>, otherwise the behavior is undefined. Useful
+				for if statement.
+			</li>
+			<li>
+				<code>]</code> - marks end of skipped code by <code>[</code>. Useful for if statement.
+			</li>
+			<li>
+				<code>}</code> - repeats code since corresponding <code>{</code> until accumulator value is 0. <code>{</code> inside
+				<code>;</code> are ignored. Each <code>}</code> have to have corresponding <code>{</code> in sequential order,
+				and contained code have to jump back (if jumps) after opening <code>{</code>, otherwise the behavior is undefined.
+			</li>
+			<li>
+				<code>{</code> - marks beginning of code repeated by <code>}</code>. Useful for loops.
+			</li>
+			<li>
+				<code>J</code> - Jumps to instruction pointed by accumulator register by coping its value to instruction pointer register.
+			</li>
+			<li>
+				<code>j</code> - do not modify execution flow, but can used to control flow by coping instruction pointer value into
+				accumulator register, modify it and copy back to instruction pointer register. Useful for relative jumps.
+			</li>
+			<li>
+				<code>)</code> - push return address to stack pointed by data address register, then jumps to instruction pointed by
+				accumulator register. Useful for function calls.
+			</li>
+			<li>
+				<code>Y</code> - creates new hardware thread by coping current core state to new hardware context (eg. free hardware core,
+				free logic core, new entry in register file), but instruction pinter register of new hardware thread is set to accumulator
+				value. Useful for code forking.
+			</li>
+			<li>
+				<code>y</code> - deletes current hardware thread execution.
+			</li>
+		</ul>
 		<h1>Registers</h1>
 		<p>Each register holds a 16 bits wide signed integer value in 2's complement representation.</p>
 	</body>
