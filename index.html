@@ -248,6 +248,16 @@
 				<li><code>`</code> - pops value from end of stack; it increments data address register after reading</li>
 			</ul>
 		</p>
+		<h2>Input/Output</h2>
+		<p>
+			Input and output instructions uses 2 registers: port register and accumulator register. Port register holds index
+			of input/output register and accumulator register holds value to write or loaded value. Single port can store single byte
+			of data. Input/output instructions:
+			<ul>
+				<li><code>i</code> - loads value from port</li>
+				<li><code>o</code> - writes value into port</li>
+			</ul>
+		</p>
 		<h1>Registers</h1>
 		<p>Each register holds a 16 bits wide signed integer value in 2's complement representation.</p>
 	</body>
