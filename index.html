@@ -258,6 +258,13 @@
 				<li><code>o</code> - writes value into port</li>
 			</ul>
 		</p>
+		<h2>Screen</h2>
+		<p>
+			There is only one instruction to manipulate screen: <code>.</code>. It uses 5 registers: X, Z, R, G, B. Registers X and Z
+			holds coordinates of pixel, and registers R, G, B stores new color of pixel. Register X stores x coordinate, Register Z stores
+			y coordinate, lower byte of register R stores red channel, lower byte of register G stores green channel, lower byte
+			of register B stores blue channel. Color is encoded in TrueColor format.
+		</p>
 		<h1>Registers</h1>
 		<p>Each register holds a 16 bits wide signed integer value in 2's complement representation.</p>
 	</body>
