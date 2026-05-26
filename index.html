@@ -155,6 +155,37 @@
 			In order to allow for better code readability no operation instructions are whitespaces: space, horizontal tabulation, line
 			feed, carriage return.
 		</p>
+		<h2>Registers assignment</h2>
+		<p>
+			Coping values happens between the register and the accumulator register, exception is stack register. To copy register value
+			to accumulator register use small letter instruction being single letter name of the register. To copy accumulator value
+			to register use capital letter instruction being single letter name of the register. To assign value to stack register
+			is possible only by swapping its value with data address value by <code>(</code>.
+		</p>
+		<table>
+			<tr><th>Single letter register name</th><th>Long register name</th><th>write instruction</th><th>read instruction</th></tr>
+			<tr><td>A</td><td>Accumulator</td><td><code>A</code></td><td><code>a</code></td></tr>
+			<tr><td>B</td><td>Blue</td><td><code>B</code></td><td><code>b</code></td></tr>
+			<tr><td>C</td><td></td><td><code>C</code></td><td><code>c</code></td></tr>
+			<tr><td>D</td><td>Data Address</td><td><code>D</code></td><td><code>d</code></td></tr>
+			<tr><td>E</td><td></td><td><code>E</code></td><td><code>e</code></td></tr>
+			<tr><td>F</td><td></td><td><code>F</code></td><td><code>f</code></td></tr>
+			<tr><td>G</td><td></td><td><code>G</code></td><td><code>g</code></td></tr>
+			<tr><td>H</td><td></td><td><code>H</code></td><td><code>h</code></td></tr>
+			<tr><td>J</td><td>Instruction Pointer</td><td><code>J</code></td><td><code>j</code></td></tr>
+			<tr><td>K</td><td></td><td><code>K</code></td><td><code>k</code></td></tr>
+			<tr><td>L</td><td></td><td><code>L</code></td><td><code>l</code></td></tr>
+			<tr><td>N</td><td></td><td><code>N</code></td><td><code>n</code></td></tr>
+			<tr><td>P</td><td>Port index</td><td><code>P</code></td><td><code>p</code></td></tr>
+			<tr><td>Q</td><td></td><td><code>Q</code></td><td><code>q</code></td></tr>
+			<tr><td>R</td><td>Red</td><td><code>R</code></td><td><code>r</code></td></tr>
+			<tr><td>Q</td><td></td><td><code>Q</code></td><td><code>q</code></td></tr>
+			<tr><td>U</td><td></td><td><code>U</code></td><td><code>u</code></td></tr>
+			<tr><td>V</td><td></td><td><code>V</code></td><td><code>v</code></td></tr>
+			<tr><td>W</td><td></td><td><code>W</code></td><td><code>w</code></td></tr>
+			<tr><td>X</td><td>X coordinate</td><td><code>X</code></td><td><code>x</code></td></tr>
+			<tr><td>Z</td><td>Y coordinate</td><td><code>Z</code></td><td><code>z</code></td></tr>
+		</table>
 		<h2>Binary Operators</h2>
 		<p>
 			Binary operators operate on two registers: argument register and accumulator register. Result is stored in the accumulator
