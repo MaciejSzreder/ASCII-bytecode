@@ -301,6 +301,24 @@
 			y coordinate, lower byte of register R stores red channel, lower byte of register G stores green channel, lower byte
 			of register B stores blue channel. Color is encoded in TrueColor format.
 		</p>
+		<h1>Execution modes</h1>
+		<p>
+			There are at least two execution modes:
+			<ul>
+				<li>Execution mode - fetch instructions pointed by instruction pointer register</li>
+				<li>Service mode - fetch instructions from service port</li>
+			</ul>
+		</p>
+		<p>Device starts in service mode, and switches to execution mode after receiving &#x2400; instruction.</p>
+		<p>
+			Mind that service mode changes effects of some instructions due lack of flow control. E.g. :
+			<ul>
+				<li><code>&#x2400;</code> - enters execution mode</li>
+				<li><code>J</code> - will not jump</li>
+				<li><code>}</code> - will not repeat code</li>
+				<li><code>)</code> - will not jump</li>
+			</ul>
+		</p>
 		<h1>Registers</h1>
 		<p>Each register holds a 16 bits wide signed integer value in 2's complement representation.</p>
 	</body>
