@@ -47,15 +47,45 @@
 		<table>
 			<tr><th>punch tape encoding</th><th>ASCII code point</th><th>ASCII character/Unicode Control Picture</th><th>description</th><th>comments</th></tr>
 			<tr><td><code>        </code></td><td>0</td><td>&#x2400;</td><td>sets instruction pointer register to 0</td><td>loops code</td></tr>
+			<tr><td><code>       O</code></td><td>1</td><td>&#x2401;</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
+			<tr><td><code>      O </code></td><td>2</td><td>&#x2402;</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
+			<tr><td><code>      OO</code></td><td>3</td><td>&#x2403;</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
+			<tr><td><code>     O  </code></td><td>4</td><td>&#x2404;</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
+			<tr><td><code>     O O</code></td><td>5</td><td>&#x2405;</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
+			<tr><td><code>     OO </code></td><td>6</td><td>&#x2406;</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
+			<tr><td><code>     OOO</code></td><td>7</td><td>&#x2407;</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
+			<tr><td><code>    O   </code></td><td>8</td><td>&#x2408;</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
 			<tr><td><code>    O  O</code></td><td>9</td><td>&#x2409;</td><td>no operation</td><td>use for code formatting</td></tr>
 			<tr><td><code>    O O </code></td><td>10</td><td>&#x240A;</td><td>no operation</td><td>use for code formatting</td></tr>
+			<tr><td><code>    O OO</code></td><td>11</td><td>&#x240B;</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
+			<tr><td><code>    OO  </code></td><td>12</td><td>&#x240C;</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
 			<tr><td><code>    OO O</code></td><td>13</td><td>&#x240D;</td><td>no operation</td><td>use for code formatting</td></tr>
+			<tr><td><code>    OOO </code></td><td>14</td><td>&#x240E;</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
+			<tr><td><code>    OOOO</code></td><td>15</td><td>&#x240F;</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
+			<tr><td><code>   O    </code></td><td>16</td><td>&#x2410;</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
+			<tr><td><code>   O   O</code></td><td>17</td><td>&#x2411;</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
+			<tr><td><code>   O  O </code></td><td>18</td><td>&#x2412;</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
+			<tr><td><code>   O  OO</code></td><td>19</td><td>&#x2413;</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
+			<tr><td><code>   O O  </code></td><td>20</td><td>&#x2414;</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
+			<tr><td><code>   O O O</code></td><td>21</td><td>&#x2415;</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
+			<tr><td><code>   O OO </code></td><td>22</td><td>&#x2416;</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
+			<tr><td><code>   O OOO</code></td><td>23</td><td>&#x2417;</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
+			<tr><td><code>   OO   </code></td><td>24</td><td>&#x2418;</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
+			<tr><td><code>   OO  O</code></td><td>25</td><td>&#x2419;</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
+			<tr><td><code>   OO O </code></td><td>26</td><td>&#x241A;</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
+			<tr><td><code>   OO OO</code></td><td>27</td><td>&#x241B;</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
+			<tr><td><code>   OOO  </code></td><td>28</td><td>&#x241C;</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
+			<tr><td><code>   OOO O</code></td><td>29</td><td>&#x241D;</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
+			<tr><td><code>   OOOO </code></td><td>30</td><td>&#x241E;</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
+			<tr><td><code>   OOOOO</code></td><td>31</td><td>&#x241F;</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
 			<tr><td><code>  O     </code></td><td>32</td><td>&#x2420;</td><td>no operation</td><td>use for code formatting</td></tr>
 			<tr><td><code>  O    O</code></td><td>33</td><td>!</td><td>writes to accumulator 1 if its previous value was not 0</td><td>accumulator=!accumulator</td></tr>
+			<tr><td><code>  O   O </code></td><td>34</td><td>"</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
 			<tr><td><code>  O   OO</code></td><td>35</td><td>#</td><td>writes to accumulator numbers of set bits of accumulator</td><td>accumulator = for (int count = 0; accumulator>0; accumulator >>= 1) count += accumulator & 1;</td></tr>
 			<tr><td><code>  O  O  </code></td><td>36</td><td>$</td><td>writes accumulator low byte to memory pointed by data address register</td><td>memory[data_address_register]=accumulator</td></tr>
 			<tr><td><code>  O  O O</code></td><td>37</td><td>%</td><td>modulo (basing on floored division; x % 0 == 0) accumulator by register A value</td><td>accumulator%=A</td></tr>
 			<tr><td><code>  O  OO </code></td><td>38</td><td>&amp;</td><td>ANDs corresponding accumulator bits with register A bits</td><td>accumulator&=A</td></tr>
+			<tr><td><code>  O  OOO</code></td><td>39</td><td>'</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
 			<tr><td><code>  O O   </code></td><td>40</td><td>(</td><td>swaps data address and stack pointer registers values</td><td>data_address_register,stack_pointer_register=stack_pointer_register,data_address_register</td></tr>
 			<tr><td><code>  O O  O</code></td><td>41</td><td>)</td><td>decreases data address register, then writes address of next instruction to memory pointed by data address register and sets instruction pointer register to accumulator value</td><td>memory[--data_address_register]=instruction_pointer_register<br/>instruction_pointer_register=accumulator</td></tr>
 			<tr><td><code>  O O O </code></td><td>42</td><td>*</td><td>multiplies accumulator by register A value</td><td>accumulator*=A</td></tr>
@@ -100,6 +130,7 @@
 			<tr><td><code> O O   O</code></td><td>81</td><td>Q</td><td>copies accumulator value into register Q</td><td>Q=accumulator</td></tr>
 			<tr><td><code> O O  O </code></td><td>82</td><td>R</td><td>copies accumulator value into register R</td><td>R=accumulator</td></tr>
 			<tr><td><code> O O  OO</code></td><td>83</td><td>S</td><td>copies 8th bit into each higher bit in accumulator</td><td>use to convert 8bit signed number to 16bit signed number</td></tr>
+			<tr><td><code> O O O  </code></td><td>84</td><td>T</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
 			<tr><td><code> O O O O</code></td><td>85</td><td>U</td><td>copies accumulator value into register U</td><td>U=accumulator</td></tr>
 			<tr><td><code> O O OO </code></td><td>86</td><td>V</td><td>copies accumulator value into register V</td><td>V=accumulator</td></tr>
 			<tr><td><code> O O OOO</code></td><td>87</td><td>W</td><td>copies accumulator value into register W</td><td>W=accumulator</td></tr>
@@ -131,6 +162,7 @@
 			<tr><td><code> OOO   O</code></td><td>113</td><td>q</td><td>copies register Q value into accumulator</td><td>accumulator=Q</td></tr>
 			<tr><td><code> OOO  O </code></td><td>114</td><td>r</td><td>copies register R value into accumulator</td><td>accumulator=R</td></tr>
 			<tr><td><code> OOO  OO</code></td><td>115</td><td>s</td><td>calculates sinus of angle in accumulator, where 0 means 0&deg;, 32767 means 90&deg;, and stores result reinterpreted as integer in accumulator</td><td>accumulator=round(sin(accumulator/65534*&pi;)*32767)</td></tr>
+			<tr><td><code> OOO O  </code></td><td>116</td><td>t</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
 			<tr><td><code> OOO O O</code></td><td>117</td><td>u</td><td>copies register U value into accumulator</td><td>accumulator=U</td></tr>
 			<tr><td><code> OOO OO </code></td><td>118</td><td>v</td><td>copies register V value into accumulator</td><td>accumulator=V</td></tr>
 			<tr><td><code> OOO OOO</code></td><td>119</td><td>w</td><td>copies register W value into accumulator</td><td>accumulator=W</td></tr>
@@ -141,6 +173,7 @@
 			<tr><td><code> OOOOO  </code></td><td>124</td><td>|</td><td>ORes corresponding accumulator bits with register A bits</td><td>accumulator|=A</td></tr>
 			<tr><td><code> OOOOO O</code></td><td>125</td><td>}</td><td>if accumulator is not 0, goes to corresponding {</td><td><span class="rest">do{code</span>}while(accumulator!=0)</td></tr>
 			<tr><td><code> OOOOOO </code></td><td>126</td><td>~</td><td>negates accumulator bits</td><td>accumulator=~accumulator</td></tr>
+			<tr><td><code> OOOOOOO</code></td><td>127</td><td>&#x2421;</td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
 			<tr><td><code>========</code></td><td></td><td></td><td>adhesive tape sticking ends of punched tapes</td><td></td></tr>
 			<tr><td><code>~~~~~~~~</code></td><td></td><td></td><td>glue for sticking ends of punched tapes</td><td></td></tr>
 		</table>
