@@ -31,6 +31,9 @@ class Screen
 			}
 		}
 
+		ctx.strokeStyle = color.off;
+		ctx.strokeRect(this.x - 0.5, this.y - 0.5, this.hitBox.width+1, this.hitBox.height+1);
+
 		this.hitBox = hitBox;
 	}
 }

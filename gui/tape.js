@@ -11,10 +11,10 @@ class Tape
 	static holeCenterEdgeDistance = Tape.holeRadius + Tape.holeMargin;
 	static width = 8*2*Tape.holeRadius + 7*Tape.holeGap + 2*Tape.holeMargin;
 
-	holeColor = 'black';
-	potentialHoleColor = 'gray';
-	glueColor = 'black'; 
-	potentialGlueColor = 'gray';
+	holeColor = color.off;
+	potentialHoleColor = color.pointed;
+	glueColor = color.off; 
+	potentialGlueColor = color.pointed;
 
 
 	constructor(source, x)
@@ -78,6 +78,7 @@ class Tape
 	{
 		const ctx = canvas.getContext?canvas.getContext`2d`:canvas;
 		ctx.clearRect(x,0, Tape.width,ctx.canvas.height);
+		ctx.strokeStyle = color.off;
 		ctx.strokeRect(x+0.5,0.5, Tape.width-1,ctx.canvas.height-1);
 		if(loop){
 			this.glueCovering(ctx, x,0);

@@ -47,7 +47,7 @@ class Computer
 			width: Computer.width,
 			height: this.button.hitBox.y - this.y + this.button.hitBox.height + Computer.buttonEdgeGap
 		}
-		ctx.fillStyle = 'black';
+		ctx.strokeStyle = color.off;
 		ctx.strokeRect(this.x + 0.5, this.y + 0.5, this.hitBox.width, this.hitBox.height);
 	
 	}

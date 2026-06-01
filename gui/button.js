@@ -1,8 +1,8 @@
 class Button
 {
 	font = '50px sans-serif';
-	textColor = 'white';
-	buttonColor = 'black';
+	textColor = color.on;
+	buttonColor = color.off;
 	constructor(x,y,content,action)
 	{
 		this.x = x;

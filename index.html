@@ -5,6 +5,7 @@
 		<link rel="icon" href="favicon.png" />
 		<script src="logic/machine.js"></script>
 		<script src="logic/tape.js"></script>
+		<script src="gui/colors.js"></script>
 		<script src="gui/render.js"></script>
 		<script src="gui/button.js"></script>
 		<script src="gui/screen.js"></script>
@@ -12,11 +13,27 @@
 		<script src="gui/tape.js"></script>
 		<script src="gui/interface.js"></script>
 		<style>
-			code{white-space: pre}
+			:root{
+				--light: #22B14C;
+				--background: black;
+			}
 
-			.rest{color: gray}
+			body{
+				background-color: var(--background);
+				color: var(--light);
+			}
 
-			p+ul,p:has(+ul){margin:0}
+			code{
+				white-space: pre
+			}
+
+			.rest{
+				color: gray
+			}
+
+			p+ul, p:has(+ul){
+				margin:0
+			}
 		</style>
 	</head>
 	<body style="margin: 0">
