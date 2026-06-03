@@ -21,6 +21,13 @@
 			body{
 				background-color: var(--background);
 				color: var(--light);
+				text-shadow: 0 0 15px var(--light);
+			}
+
+			*:hover:not(:empty):not(:has(:not(:is(
+				i, u, code, span, br, img
+			)))){
+				text-shadow: none;
 			}
 
 			.logo{
@@ -34,7 +41,8 @@
 			}
 
 			.rest{
-				color: gray
+				color: gray;
+				text-shadow: 0 0 15px gray;
 			}
 
 			p+ul, p:has(+ul){
