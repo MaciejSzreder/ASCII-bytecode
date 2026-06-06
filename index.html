@@ -15,6 +15,7 @@
 		<style>
 			:root{
 				--light: #22B14C;
+				--slight: #010A05;
 				--background: black;
 			}
 
@@ -47,6 +48,33 @@
 
 			p+ul, p:has(+ul){
 				margin:0
+			}
+
+			table{
+				border-collapse: collapse;
+			}
+
+			th{
+				background-color: var(--light);
+				color: var(--background);
+				text-shadow: 0 0 2px var(--background);
+				font-weight: normal;
+			}
+
+			th:not(:first-child){
+				border-left: 1px solid
+			}
+
+			table tr:nth-child(odd){
+				background-color: var(--slight);
+			}
+
+			td{
+				padding: 0 0.5em;
+			}
+
+			td:not(:first-child){
+				border-left: 1px solid var(--light);
 			}
 		</style>
 	</head>
