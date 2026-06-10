@@ -330,6 +330,7 @@
 			<li><code>m</code> - min</li>
 		</ul>
 		<p>+, -, * wraps around if result overflows 16bit two's complement register. E.g. 32767+1=-32768, 0-(-32768)=-32768, (-1)*(-32768)=-32768.</p>
+		<p>If divisor is 0 for %, the result is 0.</p>
 		<h2>Unary Operators</h2>
 		<p>Unary operators operate only on the accumulator register, it is the operand and the result is stored in it.</p>
 		<p>Unary operator instructions:</p>
