@@ -15,6 +15,10 @@
 		<style>
 			:root{
 				--light: #22B14C;
+				--strong1: #1D8938;
+				--strong2: #209D42;
+				--slight2: #031E0F;
+				--slight1: #02140A;
 				--slight: #010A05;
 				--background: black;
 			}
@@ -38,7 +42,35 @@
 			}
 
 			code{
-				white-space: pre
+				white-space: pre;
+				display: inline-block;
+
+				line-height:1;
+				background-size: 2ch 2em;
+				background-repeat: repeat;
+
+				background-image: conic-gradient(
+					var(--slight1) 90deg, 
+					var(--slight2) 90deg 180deg, 
+					var(--slight1) 180deg 270deg, 
+					var(--slight2) 270deg
+				);
+			}
+
+			tr:hover code{
+				white-space: pre;
+				display: inline-block;
+
+				line-height:1;
+				background-size: 2ch 2em;
+				background-repeat: repeat;
+
+				background-image: conic-gradient(
+					var(--strong1) 90deg, 
+					var(--strong2) 90deg 180deg, 
+					var(--strong1) 180deg 270deg, 
+					var(--strong2) 270deg
+				);
 			}
 
 			.rest{
