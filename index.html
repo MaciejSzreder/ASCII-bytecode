@@ -464,5 +464,19 @@
 			<tr><td>X Coordinate</td><td>X</td><td>stores x coordinate of pixel to paint</td></tr>
 			<tr><td>Y Coordinate</td><td>Z</td><td>stores y coordinate of pixel to paint</td></tr>
 		</table>
+		<h1>Memory</h1>
+		<p>
+			Memory is array of 8 bits (1 byte) wide cells. Each cell have address, if memory have less cells than possible addressable, some
+			cells can have multiple addresses. Addressable space is determined by Data Address register and Instruction Pointer register,
+			so there is 2<sup>16</sup>=65536 addresses. First cell have address 0, second - 1, last - -1, penult - -2.
+		</p>
+		<p>Instructions operating on memory</p>
+		<ul>
+			<li><code>@</code> - store</li>
+			<li><code>$</code> - load</li>
+			<li><code>,</code> - push</li>
+			<li><code>`</code> - pop</li>
+			<li><code>)</code> - call (pushes return address)</li>
+		</ul>
 	</body>
 </html>
