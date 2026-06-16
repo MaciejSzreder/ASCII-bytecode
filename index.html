@@ -207,7 +207,7 @@
 			<tr><td><code>  O O   </code></td><td>40</td><td>(</td><td>stack swap</td><td>swaps data address and stack pointer registers values</td><td>data_address_register,stack_pointer_register=stack_pointer_register,data_address_register</td></tr>
 			<tr><td><code>  O O  O</code></td><td>41</td><td>)</td><td>call</td><td>decreases data address register, then writes address of next instruction to memory pointed by data address register and sets instruction pointer register to accumulator value</td><td>memory[--data_address_register]=instruction_pointer_register<br/>instruction_pointer_register=accumulator</td></tr>
 			<tr><td><code>  O O O </code></td><td>42</td><td>*</td><td>multiplication</td><td>multiplies accumulator by register A value</td><td>accumulator*=A</td></tr>
-			<tr><td><code>  O O OO</code></td><td>43</td><td>+</td><td>sum</td><td>increases accumulator by register A value</td><td>accumulator+=A</td></tr>
+			<tr><td><code>  O O OO</code></td><td>43</td><td>+</td><td>addition</td><td>increases accumulator by register A value</td><td>accumulator+=A</td></tr>
 			<tr><td><code>  O OO  </code></td><td>44</td><td>,</td><td>push</td><td>decreases data address register, then writes accumulator low byte to memory pointed by data address register</td><td>memory[--data_address_register]=accumulator&255</td></tr>
 			<tr><td><code>  O OO O</code></td><td>45</td><td>-</td><td>subtraction</td><td>decreases accumulator by register A value</td><td>accumulator-=A</td></tr>
 			<tr><td><code>  O OOO </code></td><td>46</td><td>.</td><td>set pixel</td><td>sets pixel pointed by X and Z registers to color coded in registers R, G, B (the younger byte encodes TrueColor, or is compatible)</td><td>screen[X][Z]=[R,G,B]</td></tr>
@@ -247,7 +247,7 @@
 			<tr><td><code> O O    </code></td><td>80</td><td>P</td><td>write P</td><td>copies accumulator value into <u>p</u>ort index register</td><td>use for I/O service</td></tr>
 			<tr><td><code> O O   O</code></td><td>81</td><td>Q</td><td>write Q</td><td>copies accumulator value into register Q</td><td>Q=accumulator</td></tr>
 			<tr><td><code> O O  O </code></td><td>82</td><td>R</td><td>write R</td><td>copies accumulator value into register R</td><td>R=accumulator</td></tr>
-			<tr><td><code> O O  OO</code></td><td>83</td><td>S</td><td>sign extend</td><td>copies 8th bit into each higher bit in accumulator</td><td>use to convert 8bit signed number to 16bit signed number</td></tr>
+			<tr><td><code> O O  OO</code></td><td>83</td><td>S</td><td>sign extension</td><td>copies 8th bit into each higher bit in accumulator</td><td>use to convert 8bit signed number to 16bit signed number</td></tr>
 			<tr class="reserved"><td><code> O O O  </code></td><td>84</td><td>T</td><td></td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
 			<tr><td><code> O O O O</code></td><td>85</td><td>U</td><td>write U</td><td>copies accumulator value into register U</td><td>U=accumulator</td></tr>
 			<tr><td><code> O O OO </code></td><td>86</td><td>V</td><td>write V</td><td>copies accumulator value into register V</td><td>V=accumulator</td></tr>
@@ -297,7 +297,7 @@
 		</table>
 		<h2>Literals</h2>
 		<p>
-			In order to load a constant value into accumulator register, use the <code>_</code> and digits presenting the value. You can
+			In order to load a constant value into accumulator register, use the <code>_</code> clear instruction and digits presenting the value. You can
 			use decimal digits <code>0123456789</code>, or binary digits <code>OI</code> (big letter O and big letter I). Eg. <code>_123</code>
 			stores 123 in the accumulator register, and <code>_IOI</code> stores 5 in the accumulator register.
 		</p>
@@ -311,7 +311,7 @@
 			Coping values happens between the register and the accumulator register, exception is stack register. To copy register value
 			to accumulator register use small letter instruction being single letter name of the register. To copy accumulator value
 			to register use capital letter instruction being single letter name of the register. To assign value to stack register
-			is possible only by swapping its value with data address value by <code>(</code>.
+			is possible only by swapping its value with data address value by <code>(</code>stack swap instruction.
 		</p>
 		<table>
 			<tr><th>Single letter register name</th><th>Long register name</th><th>write instruction</th><th>read instruction</th></tr>
@@ -341,7 +341,7 @@
 		<p>
 			Binary operators operate on two registers: argument register and accumulator register. Result is stored in the accumulator
 			register. For most binary operator instruction left operand is the accumulator register and right operand is the argument
-			register. Exception is <code>\</code> (inverted division), where the operator is traditional division and operands are swapped.
+			register. Exception is <code>\</code> inverted division instruction, where the operator is traditional division and operands are swapped.
 		</p>
 		<p>Binary operator instructions:</p>
 		<ul>
@@ -354,12 +354,12 @@
 			<li><code>&amp;</code> - bitwise AND</li>
 			<li><code>|</code> - bitwise OR</li>
 			<li><code>^</code> - bitwise XOR</li>
-			<li><code>&lt;</code> - less than</li>
-			<li><code>=</code> - equals</li>
-			<li><code>&gt;</code> - greater than</li>
+			<li><code>&lt;</code> - less</li>
+			<li><code>=</code> - equal</li>
+			<li><code>&gt;</code> - greater</li>
 			<li><code>?</code> - random</li>
-			<li><code>M</code> - max</li>
-			<li><code>m</code> - min</li>
+			<li><code>M</code> - maximum</li>
+			<li><code>m</code> - minimum</li>
 		</ul>
 		<p>+, -, * wraps around if result overflows 16bit two's complement register. E.g. 32767+1=-32768, 0-(-32768)=-32768, (-1)*(-32768)=-32768.</p>
 		<p>If divisor is 0 for %, the result is 0.</p>
@@ -383,47 +383,47 @@
 		</p>
 		<ul>
 			<li>
-				<code>␀</code> (not printable character ending the code) - sets the instruction pointer to 0, so the program executes from
+				<code>␀</code> main loop instruction (not printable character ending the code) - sets the instruction pointer to 0, so the program executes from
 				beginning. It makes the program works in main loop.
 			</li>
 			<li>
-				<code>;</code> - unconditional skip code until next <code>;</code>. Useful for commenting code. 
+				<code>;</code> ignore instruction - unconditional skip code until next <code>;</code> ignore instruction. Useful for commenting code. 
 			</li>
 			<li>
-				<code>[</code> - skips code until corresponding <code>]</code>, if accumulator value is 0. <code>]</code> inside
-				<code>;</code> are ignored. Each <code>[</code> have to have corresponding <code>]</code> in sequential order,
-				and contained code have to jump back (if jumps) before closing <code>]</code>, otherwise the behavior is undefined. Useful
+				<code>[</code> conditional ignore instruction - skips code until corresponding <code>]</code> end conditional instruction, if accumulator value is 0. <code>]</code> end conditional instruction inside
+				<code>;</code> ignore instruction are ignored. Each <code>[</code> conditional ignore instruction have to have corresponding <code>]</code> end conditional instruction in sequential order,
+				and contained code have to jump back (if jumps) before closing <code>]</code> end conditional instruction, otherwise the behavior is undefined. Useful
 				for if statement.
 			</li>
 			<li>
-				<code>]</code> - marks end of skipped code by <code>[</code>. Useful for if statement.
+				<code>]</code> end conditional instruction - marks end of skipped code by <code>[</code> conditional ignore instruction. Useful for if statement.
 			</li>
 			<li>
-				<code>}</code> - repeats code since corresponding <code>{</code> until accumulator value is 0. <code>{</code> inside
-				<code>;</code> are ignored. Each <code>}</code> have to have corresponding <code>{</code> in sequential order,
-				and contained code have to jump back (if jumps) after opening <code>{</code>, otherwise the behavior is undefined.
+				<code>}</code> conditional repeat - repeats code since corresponding <code>{</code> repeat begin instruction until accumulator value is 0. <code>{</code> conditional repeat instruction inside
+				<code>;</code> ignore instruction are ignored. Each <code>}</code> conditional repeat instruction have to have corresponding <code>{</code> begin repeat instruction in sequential order,
+				and contained code have to jump back (if jumps) after opening <code>{</code> begin repeat instruction, otherwise the behavior is undefined.
 			</li>
 			<li>
-				<code>{</code> - marks beginning of code repeated by <code>}</code>. Useful for loops.
+				<code>{</code> begin repeat instruction - marks beginning of code repeated by <code>}</code> conditional repeat instruction. Useful for loops.
 			</li>
 			<li>
-				<code>J</code> - Jumps to instruction pointed by accumulator register by coping its value to instruction pointer register.
+				<code>J</code> jump instruction - Jumps to instruction pointed by accumulator register by coping its value to instruction pointer register.
 			</li>
 			<li>
-				<code>j</code> - do not modify execution flow, but can used to control flow by coping instruction pointer value into
+				<code>j</code> read J instruction - do not modify execution flow, but can used to control flow by coping instruction pointer value into
 				accumulator register, modify it and copy back to instruction pointer register. Useful for relative jumps.
 			</li>
 			<li>
-				<code>)</code> - push return address to stack pointed by data address register, then jumps to instruction pointed by
+				<code>)</code> call instruction - push return address to stack pointed by data address register, then jumps to instruction pointed by
 				accumulator register. Useful for function calls.
 			</li>
 			<li>
-				<code>Y</code> - creates new hardware thread by coping current core state to new hardware context (eg. free hardware core,
+				<code>Y</code> fork instruction - creates new hardware thread by coping current core state to new hardware context (eg. free hardware core,
 				free logic core, new entry in register file), but instruction pinter register of new hardware thread is set to accumulator
 				value. Useful for code forking.
 			</li>
 			<li>
-				<code>y</code> - deletes current hardware thread execution.
+				<code>y</code> exit instruction - deletes current hardware thread execution.
 			</li>
 		</ul>
 		<h2>Memory</h2>
@@ -433,10 +433,10 @@
 			Memory instructions:
 		</p>
 		<ul>
-			<li><code>@</code> - loads value from memory</li>
-			<li><code>$</code> - writes value to memory</li>
-			<li><code>,</code> - pushes value to end of stack; it decrements data address register before writing</li>
-			<li><code>`</code> - pops value from end of stack; it increments data address register after reading</li>
+			<li><code>@</code> load instruction</li>
+			<li><code>$</code> store instruction</li>
+			<li><code>,</code> push instruction</li>
+			<li><code>`</code> pop instruction</li>
 		</ul>
 		<h2>Input/Output</h2>
 		<p>
@@ -445,12 +445,12 @@
 			of data. Input/output instructions:
 		</p>
 		<ul>
-			<li><code>i</code> - loads value from port</li>
-			<li><code>o</code> - writes value into port</li>
+			<li><code>i</code> read input instruction</li>
+			<li><code>o</code> write output instruction</li>
 		</ul>
 		<h2>Screen</h2>
 		<p>
-			There is only one instruction to manipulate screen: <code>.</code>. It uses 5 registers: X, Z, R, G, B. Registers X and Z
+			There is only one instruction to manipulate screen: <code>.</code> set pixel instruction. It uses 5 registers: X, Z, R, G, B. Registers X and Z
 			holds coordinates of pixel, and registers R, G, B stores new color of pixel. Register X stores x coordinate, Register Z stores
 			y coordinate, lower byte of register R stores red channel, lower byte of register G stores green channel, lower byte
 			of register B stores blue channel. Color is encoded in TrueColor format.
@@ -464,10 +464,10 @@
 		<p>Device starts in service mode, and switches to execution mode after receiving &#x2400; instruction.</p>
 		<p>Mind that service mode changes effects of some instructions due lack of flow control. E.g. :</p>
 		<ul>
-			<li><code>&#x2400;</code> - enters execution mode</li>
-			<li><code>J</code> - will not jump</li>
-			<li><code>}</code> - will not repeat code</li>
-			<li><code>)</code> - will not jump</li>
+			<li><code>&#x2400;</code> main loop instruction - enters execution mode</li>
+			<li><code>J</code> jump instruction - will not jump</li>
+			<li><code>}</code> conditional repeat instruction - will not repeat code</li>
+			<li><code>)</code> call instruction - will not jump</li>
 		</ul>
 		<h1>Registers</h1>
 		<p>Each register holds a 16 bits wide signed integer value in 2's complement representation.</p>
@@ -504,11 +504,11 @@
 		</p>
 		<p>Instructions operating on memory</p>
 		<ul>
-			<li><code>@</code> - store</li>
-			<li><code>$</code> - load</li>
-			<li><code>,</code> - push</li>
-			<li><code>`</code> - pop</li>
-			<li><code>)</code> - call (pushes return address)</li>
+			<li><code>@</code> store instruction</li>
+			<li><code>$</code> load instruction</li>
+			<li><code>,</code> push instruction</li>
+			<li><code>`</code> pop instruction</li>
+			<li><code>)</code> call instruction (pushes return address)</li>
 		</ul>
 	</body>
 </html>
