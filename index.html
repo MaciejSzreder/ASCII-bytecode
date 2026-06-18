@@ -398,7 +398,7 @@
 				<code>]</code> end conditional instruction - marks end of skipped code by <code>[</code> conditional ignore instruction. Useful for if statement.
 			</li>
 			<li>
-				<code>}</code> conditional repeat - repeats code since corresponding <code>{</code> repeat begin instruction until accumulator value is 0. <code>{</code> conditional repeat instruction inside
+				<code>}</code> conditional repeat - repeats code since corresponding <code>{</code> repeat begin instruction until accumulator value is 0. <code>{</code> repeat begin instruction inside
 				<code>;</code> ignore instruction are ignored. Each <code>}</code> conditional repeat instruction have to have corresponding <code>{</code> begin repeat instruction in sequential order,
 				and contained code have to jump back (if jumps) after opening <code>{</code> begin repeat instruction, otherwise the behavior is undefined.
 			</li>
