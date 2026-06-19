@@ -164,7 +164,7 @@
 		<label for="show-reserved">show <i>reserved - not used</i></label> 
 		<table>
 			<tr><th>punch tape encoding</th><th>ASCII code point</th><th>ASCII character/Unicode Control Picture</th><th>name</th><th>description</th><th>comments</th></tr>
-			<tr><td><code>        </code></td><td>0</td><td>&#x2400;</td><td>main loop</td><td>sets instruction pointer register to 0</td><td>loops code</td></tr>
+			<tr><td><code>        </code></td><td>0</td><td>&#x2400;</td><td>main loop</td><td>sets the instruction pointer register to 0</td><td>loops code</td></tr>
 			<tr class="reserved"><td><code>       O</code></td><td>1</td><td>&#x2401;</td><td></td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
 			<tr class="reserved"><td><code>      O </code></td><td>2</td><td>&#x2402;</td><td></td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
 			<tr class="reserved"><td><code>      OO</code></td><td>3</td><td>&#x2403;</td><td></td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
@@ -173,11 +173,11 @@
 			<tr class="reserved"><td><code>     OO </code></td><td>6</td><td>&#x2406;</td><td></td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
 			<tr class="reserved"><td><code>     OOO</code></td><td>7</td><td>&#x2407;</td><td></td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
 			<tr class="reserved"><td><code>    O   </code></td><td>8</td><td>&#x2408;</td><td></td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
-			<tr><td><code>    O  O</code></td><td>9</td><td>&#x2409;</td><td>tabulator</td><td>no operation</td><td>use for code formatting</td></tr>
-			<tr><td><code>    O O </code></td><td>10</td><td>&#x240A;</td><td>line feed</td><td>no operation</td><td>use for code formatting</td></tr>
+			<tr><td><code>    O  O</code></td><td>9</td><td>&#x2409;</td><td>tabulator</td><td>no operation</td><td>used for code formatting</td></tr>
+			<tr><td><code>    O O </code></td><td>10</td><td>&#x240A;</td><td>line feed</td><td>no operation</td><td>used for code formatting</td></tr>
 			<tr class="reserved"><td><code>    O OO</code></td><td>11</td><td>&#x240B;</td><td></td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
 			<tr class="reserved"><td><code>    OO  </code></td><td>12</td><td>&#x240C;</td><td></td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
-			<tr><td><code>    OO O</code></td><td>13</td><td>&#x240D;</td><td>carriage return</td><td>no operation</td><td>use for code formatting</td></tr>
+			<tr><td><code>    OO O</code></td><td>13</td><td>&#x240D;</td><td>carriage return</td><td>no operation</td><td>used for code formatting</td></tr>
 			<tr class="reserved"><td><code>    OOO </code></td><td>14</td><td>&#x240E;</td><td></td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
 			<tr class="reserved"><td><code>    OOOO</code></td><td>15</td><td>&#x240F;</td><td></td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
 			<tr class="reserved"><td><code>   O    </code></td><td>16</td><td>&#x2410;</td><td></td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
@@ -196,122 +196,122 @@
 			<tr class="reserved"><td><code>   OOO O</code></td><td>29</td><td>&#x241D;</td><td></td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
 			<tr class="reserved"><td><code>   OOOO </code></td><td>30</td><td>&#x241E;</td><td></td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
 			<tr class="reserved"><td><code>   OOOOO</code></td><td>31</td><td>&#x241F;</td><td></td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
-			<tr><td><code>  O     </code></td><td>32</td><td>&#x2420;</td><td>space</td><td>no operation</td><td>use for code formatting</td></tr>
-			<tr><td><code>  O    O</code></td><td>33</td><td>!</td><td>logical not</td><td>writes to accumulator 1 if its previous value was not 0</td><td>accumulator=!accumulator</td></tr>
+			<tr><td><code>  O     </code></td><td>32</td><td>&#x2420;</td><td>space</td><td>no operation</td><td>used for code formatting</td></tr>
+			<tr><td><code>  O    O</code></td><td>33</td><td>!</td><td>logical not</td><td>writes to the accumulator 1 if its previous value was not 0</td><td>accumulator=!accumulator</td></tr>
 			<tr class="reserved"><td><code>  O   O </code></td><td>34</td><td>"</td><td></td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
-			<tr><td><code>  O   OO</code></td><td>35</td><td>#</td><td>popcount</td><td>writes to accumulator numbers of set bits of accumulator</td><td>accumulator = for (int count = 0; accumulator>0; accumulator >>= 1) count += accumulator & 1;</td></tr>
-			<tr><td><code>  O  O  </code></td><td>36</td><td>$</td><td>store</td><td>writes accumulator low byte to memory pointed by data address register</td><td>memory[data_address_register]=accumulator</td></tr>
-			<tr><td><code>  O  O O</code></td><td>37</td><td>%</td><td>modulo</td><td>modulo (basing on floored division; x % 0 == 0) accumulator by register A value</td><td>accumulator%=A</td></tr>
-			<tr><td><code>  O  OO </code></td><td>38</td><td>&amp;</td><td>bitwise and</td><td>ANDs corresponding accumulator bits with register A bits</td><td>accumulator&=A</td></tr>
+			<tr><td><code>  O   OO</code></td><td>35</td><td>#</td><td>popcount</td><td>writes to the accumulator the number of set bits in the accumulator</td><td>accumulator = for (int count = 0; accumulator>0; accumulator >>= 1) count += accumulator & 1;</td></tr>
+			<tr><td><code>  O  O  </code></td><td>36</td><td>$</td><td>store</td><td>writes the accumulator's low byte to the memory pointed to by the data address register</td><td>memory[data_address_register]=accumulator</td></tr>
+			<tr><td><code>  O  O O</code></td><td>37</td><td>%</td><td>modulo</td><td>modulo (based on floored division; x % 0 == 0) the accumulator by the register A's value</td><td>accumulator%=A</td></tr>
+			<tr><td><code>  O  OO </code></td><td>38</td><td>&amp;</td><td>bitwise and</td><td>ANDs the corresponding accumulator bits with the register A's bits</td><td>accumulator&=A</td></tr>
 			<tr class="reserved"><td><code>  O  OOO</code></td><td>39</td><td>'</td><td></td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
-			<tr><td><code>  O O   </code></td><td>40</td><td>(</td><td>stack swap</td><td>swaps data address and stack pointer registers values</td><td>data_address_register,stack_pointer_register=stack_pointer_register,data_address_register</td></tr>
-			<tr><td><code>  O O  O</code></td><td>41</td><td>)</td><td>call</td><td>decreases data address register, then writes address of next instruction to memory pointed by data address register and sets instruction pointer register to accumulator value</td><td>memory[--data_address_register]=instruction_pointer_register<br/>instruction_pointer_register=accumulator</td></tr>
-			<tr><td><code>  O O O </code></td><td>42</td><td>*</td><td>multiplication</td><td>multiplies accumulator by register A value</td><td>accumulator*=A</td></tr>
-			<tr><td><code>  O O OO</code></td><td>43</td><td>+</td><td>addition</td><td>increases accumulator by register A value</td><td>accumulator+=A</td></tr>
-			<tr><td><code>  O OO  </code></td><td>44</td><td>,</td><td>push</td><td>decreases data address register, then writes accumulator low byte to memory pointed by data address register</td><td>memory[--data_address_register]=accumulator&255</td></tr>
-			<tr><td><code>  O OO O</code></td><td>45</td><td>-</td><td>subtraction</td><td>decreases accumulator by register A value</td><td>accumulator-=A</td></tr>
-			<tr><td><code>  O OOO </code></td><td>46</td><td>.</td><td>set pixel</td><td>sets pixel pointed by X and Z registers to color coded in registers R, G, B (the younger byte encodes TrueColor, or is compatible)</td><td>screen[X][Z]=[R,G,B]</td></tr>
-			<tr><td><code>  O OOOO</code></td><td>47</td><td>/</td><td>division</td><td>divides accumulator by register A value</td><td>accumulator/=A</td></tr>
-			<tr><td><code>  OO    </code></td><td>48</td><td>0</td><td>decimal 0</td><td>appends 0 into decimal accumulator value</td><td>accumulator=accumulator*10</td></tr>
-			<tr><td><code>  OO   O</code></td><td>49</td><td>1</td><td>decimal 1</td><td>appends 1 into decimal accumulator value</td><td>accumulator=accumulator*10+1</td></tr>
-			<tr><td><code>  OO  O </code></td><td>50</td><td>2</td><td>decimal 2</td><td>appends 2 into decimal accumulator value</td><td>accumulator=accumulator*10+2</td></tr>
-			<tr><td><code>  OO  OO</code></td><td>51</td><td>3</td><td>decimal 3</td><td>appends 3 into decimal accumulator value</td><td>accumulator=accumulator*10+3</td></tr>
-			<tr><td><code>  OO O  </code></td><td>52</td><td>4</td><td>decimal 4</td><td>appends 4 into decimal accumulator value</td><td>accumulator=accumulator*10+4</td></tr>
-			<tr><td><code>  OO O O</code></td><td>53</td><td>5</td><td>decimal 5</td><td>appends 5 into decimal accumulator value</td><td>accumulator=accumulator*10+5</td></tr>
-			<tr><td><code>  OO OO </code></td><td>54</td><td>6</td><td>decimal 6</td><td>appends 6 into decimal accumulator value</td><td>accumulator=accumulator*10+6</td></tr>
-			<tr><td><code>  OO OOO</code></td><td>55</td><td>7</td><td>decimal 7</td><td>appends 7 into decimal accumulator value</td><td>accumulator=accumulator*10+7</td></tr>
-			<tr><td><code>  OOO   </code></td><td>56</td><td>8</td><td>decimal 8</td><td>appends 8 into decimal accumulator value</td><td>accumulator=accumulator*10+8</td></tr>
-			<tr><td><code>  OOO  O</code></td><td>57</td><td>9</td><td>decimal 9</td><td>appends 9 into decimal accumulator value</td><td>accumulator=accumulator*10+9</td></tr>
-			<tr><td><code>  OOO O </code></td><td>58</td><td>:</td><td>byte swap</td><td>swaps accumulator higher byte with lower byte</td><td>accumulator=accumulator>>8|accumulator&lt;&lt;8</td></tr>
-			<tr><td><code>  OOO OO</code></td><td>59</td><td>;</td><td>ignore</td><td>enters comment mode: ignores instructions until next ;</td><td>use for commenting</td></tr>
-			<tr><td><code>  OOOO  </code></td><td>60</td><td>&lt;</td><td>less</td><td>if accumulator value is less than register A value, sets accumulator to 1, otherwise to 0</td><td>accumulator=accumulator&lt;A</td></tr>
-			<tr><td><code>  OOOO O</code></td><td>61</td><td>=</td><td>equal</td><td>if accumulator value is equal to register A value, sets accumulator to 1, otherwise to 0</td><td>accumulator=accumulator==A</td></tr>
-			<tr><td><code>  OOOOO </code></td><td>62</td><td>&gt;</td><td>greater</td><td>if accumulator value is greater than register A value, sets accumulator to 1, otherwise to 0</td><td>accumulator=accumulator&gt;A</td></tr>
-			<tr><td><code>  OOOOOO</code></td><td>63</td><td>?</td><td>random</td><td>assigns to accumulator random number between (inclusive) old accumulator value and argument register value</td><td>accumulator=rand(accumulator, A)</td></tr>
-			<tr><td><code> O      </code></td><td>64</td><td>@</td><td>load</td><td>copies to accumulator value from memory pointed by data address register </td><td>accumulator=memory[data_address_register]</td></tr>
-			<tr><td><code> O     O</code></td><td>65</td><td>A</td><td>write A</td><td>copies accumulator value into register A</td><td>A=accumulator</td></tr>
-			<tr><td><code> O    O </code></td><td>66</td><td>B</td><td>write B</td><td>copies accumulator value into register B</td><td>B=accumulator</td></tr>
-			<tr><td><code> O    OO</code></td><td>67</td><td>C</td><td>write C</td><td>copies accumulator value into register C</td><td>C=accumulator</td></tr>
-			<tr><td><code> O   O  </code></td><td>68</td><td>D</td><td>write D</td><td>copies accumulator value into <u>d</u>ata address register</td><td>data_address_register=accumulator</td></tr>
-			<tr><td><code> O   O O</code></td><td>69</td><td>E</td><td>write E</td><td>copies accumulator value into register E</td><td>E=accumulator</td></tr>
-			<tr><td><code> O   OO </code></td><td>70</td><td>F</td><td>write F</td><td>copies accumulator value into register F</td><td>F=accumulator</td></tr>
-			<tr><td><code> O   OOO</code></td><td>71</td><td>G</td><td>write G</td><td>copies accumulator value into register G</td><td>G=accumulator</td></tr>
-			<tr><td><code> O  O   </code></td><td>72</td><td>H</td><td>write H</td><td>copies accumulator value into register H</td><td>H=accumulator</td></tr>
-			<tr><td><code> O  O  O</code></td><td>73</td><td>I</td><td>binary 1</td><td>appends <u>1</u> into binary accumulator value</td><td>accumulator=accumulator*2+1</td></tr>
-			<tr><td><code> O  O O </code></td><td>74</td><td>J</td><td>jump</td><td>copies accumulator value into instruction pointer register</td><td>use for <u>j</u>umps</td></tr>
-			<tr><td><code> O  O OO</code></td><td>75</td><td>K</td><td>write K</td><td>copies accumulator value into register K</td><td>K=accumulator</td></tr>
-			<tr><td><code> O  OO  </code></td><td>76</td><td>L</td><td>write L</td><td>copies accumulator value into register L</td><td>L=accumulator</td></tr>
-			<tr><td><code> O  OO O</code></td><td>77</td><td>M</td><td>maximum</td><td>copies <u>m</u>ax value of register A and accumulator into accumulator</td><td>accumulator=max(accumulator,A)</td></tr>
-			<tr><td><code> O  OOO </code></td><td>78</td><td>N</td><td>write N</td><td>copies accumulator value into register N</td><td>N=accumulator</td></tr>
-			<tr><td><code> O  OOOO</code></td><td>79</td><td>O</td><td>binary 0</td><td>appends <u>0</u> into binary accumulator value</td><td>accumulator=accumulator*2</td></tr>
-			<tr><td><code> O O    </code></td><td>80</td><td>P</td><td>write P</td><td>copies accumulator value into <u>p</u>ort index register</td><td>use for I/O service</td></tr>
-			<tr><td><code> O O   O</code></td><td>81</td><td>Q</td><td>write Q</td><td>copies accumulator value into register Q</td><td>Q=accumulator</td></tr>
-			<tr><td><code> O O  O </code></td><td>82</td><td>R</td><td>write R</td><td>copies accumulator value into register R</td><td>R=accumulator</td></tr>
-			<tr><td><code> O O  OO</code></td><td>83</td><td>S</td><td>sign extension</td><td>copies 8th bit into each higher bit in accumulator</td><td>use to convert 8bit signed number to 16bit signed number</td></tr>
+			<tr><td><code>  O O   </code></td><td>40</td><td>(</td><td>stack swap</td><td>swaps the data address and the stack pointer registers' values</td><td>data_address_register,stack_pointer_register=stack_pointer_register,data_address_register</td></tr>
+			<tr><td><code>  O O  O</code></td><td>41</td><td>)</td><td>call</td><td>decreases the data address register, then writes the address of the next instruction to the memory pointed to by the data address register and sets the instruction pointer register to the accumulator value</td><td>memory[--data_address_register]=instruction_pointer_register<br/>instruction_pointer_register=accumulator</td></tr>
+			<tr><td><code>  O O O </code></td><td>42</td><td>*</td><td>multiplication</td><td>multiplies the accumulator by the register A's value</td><td>accumulator*=A</td></tr>
+			<tr><td><code>  O O OO</code></td><td>43</td><td>+</td><td>addition</td><td>increases the accumulator by the register A's value</td><td>accumulator+=A</td></tr>
+			<tr><td><code>  O OO  </code></td><td>44</td><td>,</td><td>push</td><td>decreases the data address register, then writes the accumulator's low byte to the memory pointed to by the data address register</td><td>memory[--data_address_register]=accumulator&255</td></tr>
+			<tr><td><code>  O OO O</code></td><td>45</td><td>-</td><td>subtraction</td><td>decreases the accumulator by the register A's value</td><td>accumulator-=A</td></tr>
+			<tr><td><code>  O OOO </code></td><td>46</td><td>.</td><td>set pixel</td><td>sets the pixel pointed to by the X and Z registers to the color coded in registers R, G, B (the lower byte encodes TrueColor, or is compatible)</td><td>screen[X][Z]=[R,G,B]</td></tr>
+			<tr><td><code>  O OOOO</code></td><td>47</td><td>/</td><td>division</td><td>divides the accumulator by the register A's value</td><td>accumulator/=A</td></tr>
+			<tr><td><code>  OO    </code></td><td>48</td><td>0</td><td>decimal 0</td><td>appends 0 to the decimal accumulator value</td><td>accumulator=accumulator*10</td></tr>
+			<tr><td><code>  OO   O</code></td><td>49</td><td>1</td><td>decimal 1</td><td>appends 1 to the decimal accumulator value</td><td>accumulator=accumulator*10+1</td></tr>
+			<tr><td><code>  OO  O </code></td><td>50</td><td>2</td><td>decimal 2</td><td>appends 2 to the decimal accumulator value</td><td>accumulator=accumulator*10+2</td></tr>
+			<tr><td><code>  OO  OO</code></td><td>51</td><td>3</td><td>decimal 3</td><td>appends 3 to the decimal accumulator value</td><td>accumulator=accumulator*10+3</td></tr>
+			<tr><td><code>  OO O  </code></td><td>52</td><td>4</td><td>decimal 4</td><td>appends 4 to the decimal accumulator value</td><td>accumulator=accumulator*10+4</td></tr>
+			<tr><td><code>  OO O O</code></td><td>53</td><td>5</td><td>decimal 5</td><td>appends 5 to the decimal accumulator value</td><td>accumulator=accumulator*10+5</td></tr>
+			<tr><td><code>  OO OO </code></td><td>54</td><td>6</td><td>decimal 6</td><td>appends 6 to the decimal accumulator value</td><td>accumulator=accumulator*10+6</td></tr>
+			<tr><td><code>  OO OOO</code></td><td>55</td><td>7</td><td>decimal 7</td><td>appends 7 to the decimal accumulator value</td><td>accumulator=accumulator*10+7</td></tr>
+			<tr><td><code>  OOO   </code></td><td>56</td><td>8</td><td>decimal 8</td><td>appends 8 to the decimal accumulator value</td><td>accumulator=accumulator*10+8</td></tr>
+			<tr><td><code>  OOO  O</code></td><td>57</td><td>9</td><td>decimal 9</td><td>appends 9 to the decimal accumulator value</td><td>accumulator=accumulator*10+9</td></tr>
+			<tr><td><code>  OOO O </code></td><td>58</td><td>:</td><td>byte swap</td><td>swaps the accumulator higher byte with the lower byte</td><td>accumulator=accumulator>>8|accumulator&lt;&lt;8</td></tr>
+			<tr><td><code>  OOO OO</code></td><td>59</td><td>;</td><td>ignore</td><td>enters comment mode: ignores instructions until the next ;</td><td>used for commenting</td></tr>
+			<tr><td><code>  OOOO  </code></td><td>60</td><td>&lt;</td><td>less</td><td>if the accumulator value is less than the register A's value, sets the accumulator to 1, otherwise to 0</td><td>accumulator=accumulator&lt;A</td></tr>
+			<tr><td><code>  OOOO O</code></td><td>61</td><td>=</td><td>equal</td><td>if the accumulator value is equal to the register A's value, sets the accumulator to 1, otherwise to 0</td><td>accumulator=accumulator==A</td></tr>
+			<tr><td><code>  OOOOO </code></td><td>62</td><td>&gt;</td><td>greater</td><td>if the accumulator value is greater than the register A's value, sets the accumulator to 1, otherwise to 0</td><td>accumulator=accumulator&gt;A</td></tr>
+			<tr><td><code>  OOOOOO</code></td><td>63</td><td>?</td><td>random</td><td>assigns to the accumulator a random number between (inclusive) the old accumulator value and the argument register's value</td><td>accumulator=rand(accumulator, A)</td></tr>
+			<tr><td><code> O      </code></td><td>64</td><td>@</td><td>load</td><td>copies to the accumulator the value from the memory pointed to by the data address register</td><td>accumulator=memory[data_address_register]</td></tr>
+			<tr><td><code> O     O</code></td><td>65</td><td>A</td><td>write A</td><td>copies the accumulator value into register A</td><td>A=accumulator</td></tr>
+			<tr><td><code> O    O </code></td><td>66</td><td>B</td><td>write B</td><td>copies the accumulator value into register B</td><td>B=accumulator</td></tr>
+			<tr><td><code> O    OO</code></td><td>67</td><td>C</td><td>write C</td><td>copies the accumulator value into register C</td><td>C=accumulator</td></tr>
+			<tr><td><code> O   O  </code></td><td>68</td><td>D</td><td>write D</td><td>copies the accumulator value into the <u>d</u>ata address register</td><td>data_address_register=accumulator</td></tr>
+			<tr><td><code> O   O O</code></td><td>69</td><td>E</td><td>write E</td><td>copies the accumulator value into register E</td><td>E=accumulator</td></tr>
+			<tr><td><code> O   OO </code></td><td>70</td><td>F</td><td>write F</td><td>copies the accumulator value into register F</td><td>F=accumulator</td></tr>
+			<tr><td><code> O   OOO</code></td><td>71</td><td>G</td><td>write G</td><td>copies the accumulator value into register G</td><td>G=accumulator</td></tr>
+			<tr><td><code> O  O   </code></td><td>72</td><td>H</td><td>write H</td><td>copies the accumulator value into register H</td><td>H=accumulator</td></tr>
+			<tr><td><code> O  O  O</code></td><td>73</td><td>I</td><td>binary 1</td><td>appends <u>1</u> into the binary accumulator value</td><td>accumulator=accumulator*2+1</td></tr>
+			<tr><td><code> O  O O </code></td><td>74</td><td>J</td><td>jump</td><td>copies the accumulator value into the instruction pointer register</td><td>used for <u>j</u>umps</td></tr>
+			<tr><td><code> O  O OO</code></td><td>75</td><td>K</td><td>write K</td><td>copies the accumulator value into register K</td><td>K=accumulator</td></tr>
+			<tr><td><code> O  OO  </code></td><td>76</td><td>L</td><td>write L</td><td>copies the accumulator value into register L</td><td>L=accumulator</td></tr>
+			<tr><td><code> O  OO O</code></td><td>77</td><td>M</td><td>maximum</td><td>copies the <u>m</u>ax value of the register A and the accumulator into the accumulator</td><td>accumulator=max(accumulator,A)</td></tr>
+			<tr><td><code> O  OOO </code></td><td>78</td><td>N</td><td>write N</td><td>copies the accumulator value into register N</td><td>N=accumulator</td></tr>
+			<tr><td><code> O  OOOO</code></td><td>79</td><td>O</td><td>binary 0</td><td>appends <u>0</u> into the binary accumulator value</td><td>accumulator=accumulator*2</td></tr>
+			<tr><td><code> O O    </code></td><td>80</td><td>P</td><td>write P</td><td>copies the accumulator value into the <u>p</u>ort index register</td><td>used for I/O service</td></tr>
+			<tr><td><code> O O   O</code></td><td>81</td><td>Q</td><td>write Q</td><td>copies the accumulator value into register Q</td><td>Q=accumulator</td></tr>
+			<tr><td><code> O O  O </code></td><td>82</td><td>R</td><td>write R</td><td>copies the accumulator value into register R</td><td>R=accumulator</td></tr>
+			<tr><td><code> O O  OO</code></td><td>83</td><td>S</td><td>sign extension</td><td>copies the 8th bit into each higher bit in the accumulator</td><td>used to convert an 8-bit signed number to a 16-bit signed number</td></tr>
 			<tr class="reserved"><td><code> O O O  </code></td><td>84</td><td>T</td><td></td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
-			<tr><td><code> O O O O</code></td><td>85</td><td>U</td><td>write U</td><td>copies accumulator value into register U</td><td>U=accumulator</td></tr>
-			<tr><td><code> O O OO </code></td><td>86</td><td>V</td><td>write V</td><td>copies accumulator value into register V</td><td>V=accumulator</td></tr>
-			<tr><td><code> O O OOO</code></td><td>87</td><td>W</td><td>write W</td><td>copies accumulator value into register W</td><td>W=accumulator</td></tr>
-			<tr><td><code> O OO   </code></td><td>88</td><td>X</td><td>write X</td><td>copies accumulator value into register X</td><td>X=accumulator</td></tr>
-			<tr><td><code> O OO  O</code></td><td>89</td><td>Y</td><td>fork</td><td>copies core state to free core, except instruction pointer register, which have assigned accumulator value. Core starts processing.</td><td>works like fork with callback</td></tr>
-			<tr><td><code> O OO O </code></td><td>90</td><td>Z</td><td>write Z</td><td>copies accumulator value into register Z</td><td>Z=accumulator</td></tr>
-			<tr><td><code> O OO OO</code></td><td>91</td><td>[</td><td>conditional ignore</td><td>if accumulator is 0 ignores instruction until meeting corresponding ]</td><td>if(accumulator){<span class="rest">code}</span></td></tr>
-			<tr><td><code> O OOO  </code></td><td>92</td><td>\</td><td>inverted division</td><td>divides register A value by accumulator value and stores it in accumulator</td><td>accumulator=A/accumulator</td></tr>
-			<tr><td><code> O OOO O</code></td><td>93</td><td>]</td><td>end conditional</td><td>closes if body opened by [</td><td><span class="rest">if(accumulator){code</span>}</td></tr>
-			<tr><td><code> O OOOO </code></td><td>94</td><td>^</td><td>bitwise xor</td><td>XORes corresponding accumulator bits with register A bits</td><td>accumulator^=A</td></tr>
-			<tr><td><code> O OOOOO</code></td><td>95</td><td>_</td><td>clear</td><td>sets accumulator register to zero</td><td>accumulator=0</td></tr>
-			<tr><td><code> OO     </code></td><td>96</td><td>`</td><td>pop</td><td>copies to accumulator value from memory pointed by data address register, then increases data address register</td><td>accumulator=memory[data_address_register++]</td></tr>
-			<tr><td><code> OO    O</code></td><td>97</td><td>a</td><td>read A</td><td>copies register A value into accumulator</td><td>accumulator=A</td></tr>
-			<tr><td><code> OO   O </code></td><td>98</td><td>b</td><td>read B</td><td>copies register B value into accumulator</td><td>accumulator=B</td></tr>
-			<tr><td><code> OO   OO</code></td><td>99</td><td>c</td><td>read C</td><td>copies register C value into accumulator</td><td>accumulator=C</td></tr>
-			<tr><td><code> OO  O  </code></td><td>100</td><td>d</td><td>read D</td><td>copies <u>d</u>ata address register value into accumulator</td><td>accumulator=data_address_register</td></tr>
-			<tr><td><code> OO  O O</code></td><td>101</td><td>e</td><td>read E</td><td>copies register E value into accumulator</td><td>accumulator=E</td></tr>
-			<tr><td><code> OO  OO </code></td><td>102</td><td>f</td><td>read F</td><td>copies register F value into accumulator</td><td>accumulator=F</td></tr>
-			<tr><td><code> OO  OOO</code></td><td>103</td><td>g</td><td>read G</td><td>copies register G value into accumulator</td><td>accumulator=G</td></tr>
-			<tr><td><code> OO O   </code></td><td>104</td><td>h</td><td>read H</td><td>copies register H value into accumulator</td><td>accumulator=H</td></tr>
-			<tr><td><code> OO O  O</code></td><td>105</td><td>i</td><td>read input</td><td>reads 8bit integer from <u>i</u>nput pointed by port register and stores it in the accumulator</td><td>accumulator=IO[P]&255</td></tr>
-			<tr><td><code> OO O O </code></td><td>106</td><td>j</td><td>read J</td><td>copies instruction pointer register value into accumulator</td><td>use for <u>j</u>umps</td></tr>
-			<tr><td><code> OO O OO</code></td><td>107</td><td>k</td><td>read K</td><td>copies register K value into accumulator</td><td>accumulator=K</td></tr>
-			<tr><td><code> OO OO  </code></td><td>108</td><td>l</td><td>read L</td><td>copies register L value into accumulator</td><td>accumulator=L</td></tr>
-			<tr><td><code> OO OO O</code></td><td>109</td><td>m</td><td>minimum</td><td>copies <u>m</u>in value of register A and accumulator into accumulator</td><td>accumulator=min(accumulator,A)</td></tr>
-			<tr><td><code> OO OOO </code></td><td>110</td><td>n</td><td>read N</td><td>copies register N value into accumulator</td><td>accumulator=N</td></tr>
-			<tr><td><code> OO OOOO</code></td><td>111</td><td>o</td><td>write output</td><td>writes accumulator low byte to <u>o</u>utput pointed by port register as unsigned integer</td><td>IO[P]=accumulator&255</td></tr>
-			<tr><td><code> OOO    </code></td><td>112</td><td>p</td><td>read P</td><td>copies <u>p</u>ort register value into accumulator</td><td>accumulator=P</td></tr>
-			<tr><td><code> OOO   O</code></td><td>113</td><td>q</td><td>read Q</td><td>copies register Q value into accumulator</td><td>accumulator=Q</td></tr>
-			<tr><td><code> OOO  O </code></td><td>114</td><td>r</td><td>read R</td><td>copies register R value into accumulator</td><td>accumulator=R</td></tr>
-			<tr><td><code> OOO  OO</code></td><td>115</td><td>s</td><td>sinus</td><td>calculates sinus of angle in accumulator, where 0 means 0&deg;, 32767 means 90&deg;, and stores result reinterpreted as integer in accumulator</td><td>accumulator=round(sin(accumulator/65534*&pi;)*32767)</td></tr>
+			<tr><td><code> O O O O</code></td><td>85</td><td>U</td><td>write U</td><td>copies the accumulator value into register U</td><td>U=accumulator</td></tr>
+			<tr><td><code> O O OO </code></td><td>86</td><td>V</td><td>write V</td><td>copies the accumulator value into register V</td><td>V=accumulator</td></tr>
+			<tr><td><code> O O OOO</code></td><td>87</td><td>W</td><td>write W</td><td>copies the accumulator value into register W</td><td>W=accumulator</td></tr>
+			<tr><td><code> O OO   </code></td><td>88</td><td>X</td><td>write X</td><td>copies the accumulator value into register X</td><td>X=accumulator</td></tr>
+			<tr><td><code> O OO  O</code></td><td>89</td><td>Y</td><td>fork</td><td>copies the core state to a free core, except the instruction pointer register, which is assigned the accumulator's value. Core starts processing.</td><td>works like a fork with a callback</td></tr>
+			<tr><td><code> O OO O </code></td><td>90</td><td>Z</td><td>write Z</td><td>copies the accumulator value into register Z</td><td>Z=accumulator</td></tr>
+			<tr><td><code> O OO OO</code></td><td>91</td><td>[</td><td>conditional ignore</td><td>if the accumulator is 0, ignores instructions until meeting the corresponding ]</td><td>if(accumulator){<span class="rest">code}</span></td></tr>
+			<tr><td><code> O OOO  </code></td><td>92</td><td>\</td><td>inverted division</td><td>divides the register A's value by the accumulator value and stores it in the accumulator</td><td>accumulator=A/accumulator</td></tr>
+			<tr><td><code> O OOO O</code></td><td>93</td><td>]</td><td>end conditional</td><td>closes the if body opened by [</td><td><span class="rest">if(accumulator){code</span>}</td></tr>
+			<tr><td><code> O OOOO </code></td><td>94</td><td>^</td><td>bitwise xor</td><td>XORs the corresponding accumulator bits with the register A's bits</td><td>accumulator^=A</td></tr>
+			<tr><td><code> O OOOOO</code></td><td>95</td><td>_</td><td>clear</td><td>sets the accumulator register to zero</td><td>accumulator=0</td></tr>
+			<tr><td><code> OO     </code></td><td>96</td><td>`</td><td>pop</td><td>copies to the accumulator the value from the memory pointed to by the data address register, then increases the data address register</td><td>accumulator=memory[data_address_register++]</td></tr>
+			<tr><td><code> OO    O</code></td><td>97</td><td>a</td><td>read A</td><td>copies the register A's value into the accumulator</td><td>accumulator=A</td></tr>
+			<tr><td><code> OO   O </code></td><td>98</td><td>b</td><td>read B</td><td>copies the register B's value into the accumulator</td><td>accumulator=B</td></tr>
+			<tr><td><code> OO   OO</code></td><td>99</td><td>c</td><td>read C</td><td>copies the register C's value into the accumulator</td><td>accumulator=C</td></tr>
+			<tr><td><code> OO  O  </code></td><td>100</td><td>d</td><td>read D</td><td>copies the <u>d</u>ata address register's value into the accumulator</td><td>accumulator=data_address_register</td></tr>
+			<tr><td><code> OO  O O</code></td><td>101</td><td>e</td><td>read E</td><td>copies the register E's value into the accumulator</td><td>accumulator=E</td></tr>
+			<tr><td><code> OO  OO </code></td><td>102</td><td>f</td><td>read F</td><td>copies the register F's value into the accumulator</td><td>accumulator=F</td></tr>
+			<tr><td><code> OO  OOO</code></td><td>103</td><td>g</td><td>read G</td><td>copies the register G's value into the accumulator</td><td>accumulator=G</td></tr>
+			<tr><td><code> OO O   </code></td><td>104</td><td>h</td><td>read H</td><td>copies the register H's value into the accumulator</td><td>accumulator=H</td></tr>
+			<tr><td><code> OO O  O</code></td><td>105</td><td>i</td><td>read input</td><td>reads an 8-bit integer from the <u>i</u>nput pointed to by the port register and stores it in the accumulator</td><td>accumulator=IO[P]&255</td></tr>
+			<tr><td><code> OO O O </code></td><td>106</td><td>j</td><td>read J</td><td>copies the instruction pointer register's value into the accumulator</td><td>used for <u>j</u>umps</td></tr>
+			<tr><td><code> OO O OO</code></td><td>107</td><td>k</td><td>read K</td><td>copies the register K's value into the accumulator</td><td>accumulator=K</td></tr>
+			<tr><td><code> OO OO  </code></td><td>108</td><td>l</td><td>read L</td><td>copies the register L's value into the accumulator</td><td>accumulator=L</td></tr>
+			<tr><td><code> OO OO O</code></td><td>109</td><td>m</td><td>minimum</td><td>copies the <u>m</u>in value of the register A and the accumulator into the accumulator</td><td>accumulator=min(accumulator,A)</td></tr>
+			<tr><td><code> OO OOO </code></td><td>110</td><td>n</td><td>read N</td><td>copies the register N's value into the accumulator</td><td>accumulator=N</td></tr>
+			<tr><td><code> OO OOOO</code></td><td>111</td><td>o</td><td>write output</td><td>writes the accumulator's low byte to the <u>o</u>utput pointed to by the port register as an unsigned integer</td><td>IO[P]=accumulator&255</td></tr>
+			<tr><td><code> OOO    </code></td><td>112</td><td>p</td><td>read P</td><td>copies the <u>p</u>ort register's value into the accumulator</td><td>accumulator=P</td></tr>
+			<tr><td><code> OOO   O</code></td><td>113</td><td>q</td><td>read Q</td><td>copies the register Q's value into the accumulator</td><td>accumulator=Q</td></tr>
+			<tr><td><code> OOO  O </code></td><td>114</td><td>r</td><td>read R</td><td>copies the register R's value into the accumulator</td><td>accumulator=R</td></tr>
+			<tr><td><code> OOO  OO</code></td><td>115</td><td>s</td><td>sine</td><td>calculates the sine of the angle in the accumulator, where 0 means 0&deg;, 32767 means 90&deg;, and stores the result reinterpreted as an integer in the accumulator</td><td>accumulator=round(sin(accumulator/65534*&pi;)*32767)</td></tr>
 			<tr class="reserved"><td><code> OOO O  </code></td><td>116</td><td>t</td><td></td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
-			<tr><td><code> OOO O O</code></td><td>117</td><td>u</td><td>read U</td><td>copies register U value into accumulator</td><td>accumulator=U</td></tr>
-			<tr><td><code> OOO OO </code></td><td>118</td><td>v</td><td>read V</td><td>copies register V value into accumulator</td><td>accumulator=V</td></tr>
-			<tr><td><code> OOO OOO</code></td><td>119</td><td>w</td><td>read W</td><td>copies register W value into accumulator</td><td>accumulator=W</td></tr>
-			<tr><td><code> OOOO   </code></td><td>120</td><td>x</td><td>read X</td><td>copies register x value into accumulator</td><td>accumulator=X</td></tr>
-			<tr><td><code> OOOO  O</code></td><td>121</td><td>y</td><td>exit</td><td>stops core execution</td><td></td></tr>
-			<tr><td><code> OOOO O </code></td><td>122</td><td>z</td><td>read Z</td><td>copies register Z value into accumulator</td><td>accumulator=Z</td></tr>
-			<tr><td><code> OOOO OO</code></td><td>123</td><td>{</td><td>repeat begin</td><td>opens loop body</td><td>do{ <span class="rest">code  }while(accumulator!=0)</span></td></tr>
-			<tr><td><code> OOOOO  </code></td><td>124</td><td>|</td><td>bitwise or</td><td>ORes corresponding accumulator bits with register A bits</td><td>accumulator|=A</td></tr>
-			<tr><td><code> OOOOO O</code></td><td>125</td><td>}</td><td>conditional repeat</td><td>if accumulator is not 0, goes to corresponding {</td><td><span class="rest">do{code</span>}while(accumulator!=0)</td></tr>
-			<tr><td><code> OOOOOO </code></td><td>126</td><td>~</td><td>bitwise not</td><td>negates accumulator bits</td><td>accumulator=~accumulator</td></tr>
+			<tr><td><code> OOO O O</code></td><td>117</td><td>u</td><td>read U</td><td>copies the register U's value into the accumulator</td><td>accumulator=U</td></tr>
+			<tr><td><code> OOO OO </code></td><td>118</td><td>v</td><td>read V</td><td>copies the register V's value into the accumulator</td><td>accumulator=V</td></tr>
+			<tr><td><code> OOO OOO</code></td><td>119</td><td>w</td><td>read W</td><td>copies the register W's value into the accumulator</td><td>accumulator=W</td></tr>
+			<tr><td><code> OOOO   </code></td><td>120</td><td>x</td><td>read X</td><td>copies the register X's value into the accumulator</td><td>accumulator=X</td></tr>
+			<tr><td><code> OOOO  O</code></td><td>121</td><td>y</td><td>exit</td><td>stops the core execution</td><td></td></tr>
+			<tr><td><code> OOOO O </code></td><td>122</td><td>z</td><td>read Z</td><td>copies the register Z's value into the accumulator</td><td>accumulator=Z</td></tr>
+			<tr><td><code> OOOO OO</code></td><td>123</td><td>{</td><td>repeat begin</td><td>opens the loop body</td><td>do{ <span class="rest">code }while(accumulator!=0)</span></td></tr>
+			<tr><td><code> OOOOO  </code></td><td>124</td><td>|</td><td>bitwise or</td><td>ORs the corresponding accumulator bits with the register A's bits</td><td>accumulator|=A</td></tr>
+			<tr><td><code> OOOOO O</code></td><td>125</td><td>}</td><td>conditional repeat</td><td>if the accumulator is not 0, goes to the corresponding {</td><td><span class="rest">do{code</span>}while(accumulator!=0)</td></tr>
+			<tr><td><code> OOOOOO </code></td><td>126</td><td>~</td><td>bitwise not</td><td>negates the accumulator's bits</td><td>accumulator=~accumulator</td></tr>
 			<tr class="reserved"><td><code> OOOOOOO</code></td><td>127</td><td>&#x2421;</td><td></td><td><i>reserved - not used</i></td><td><i>do not use</i></td></tr>
-			<tr><td><code>========</code></td><td></td><td></td><td></td><td>adhesive tape sticking ends of punched tapes</td><td></td></tr>
-			<tr><td><code>~~~~~~~~</code></td><td></td><td></td><td></td><td>glue for sticking ends of punched tapes</td><td></td></tr>
+			<tr><td><code>========</code></td><td></td><td></td><td></td><td>adhesive tape sticking the ends of punched tapes</td><td></td></tr>
+			<tr><td><code>~~~~~~~~</code></td><td></td><td></td><td></td><td>glue for sticking the ends of punched tapes</td><td></td></tr>
 		</table>
 		<h2>Literals</h2>
 		<p>
-			In order to load a constant value into accumulator register, use the <code>_</code> clear instruction and digits presenting the value. You can
-			use decimal digits <code>0123456789</code>, or binary digits <code>OI</code> (big letter O and big letter I). Eg. <code>_123</code>
+			In order to load a constant value into the accumulator register, use the <code>_</code> clear instruction and digits representing the value. You can
+			use decimal digits <code>0123456789</code>, or binary digits <code>OI</code> (uppercase O and uppercase I). E.g. <code>_123</code>
 			stores 123 in the accumulator register, and <code>_IOI</code> stores 5 in the accumulator register.
 		</p>
 		<h2>Code formatting</h2>
 		<p>
-			In order to allow for better code readability no operation instructions are whitespaces: space, horizontal tabulation, line
+			In order to allow for better code readability, no operation instructions are whitespace characters: space, horizontal tabulation, line
 			feed, carriage return.
 		</p>
 		<h2>Registers assignment</h2>
 		<p>
-			Coping values happens between the register and the accumulator register, exception is stack register. To copy register value
-			to accumulator register use small letter instruction being single letter name of the register. To copy accumulator value
-			to register use capital letter instruction being single letter name of the register. To assign value to stack register
-			is possible only by swapping its value with data address value by <code>(</code>stack swap instruction.
+			Copying values happens between a register and the accumulator register, an exception is the stack register. To copy a register's value
+			to the accumulator register, use a lowercase instruction being a single-letter name of the register. To copy the accumulator's value
+			to a register, use an uppercase instruction being a single-letter name of the register. Assigning a value to the stack register
+			is only possible by swapping its value with the data address register's value by the <code>(</code> stack swap instruction.
 		</p>
 		<table>
 			<tr><th>Single letter register name</th><th>Long register name</th><th>write instruction</th><th>read instruction</th></tr>
@@ -338,9 +338,9 @@
 		</table>
 		<h2>Binary Operators</h2>
 		<p>
-			Binary operators operate on two registers: argument register and accumulator register. Result is stored in the accumulator
-			register. For most binary operator instruction left operand is the accumulator register and right operand is the argument
-			register. Exception is <code>\</code> inverted division instruction, where the operator is traditional division and operands are swapped.
+			Binary operators operate on two registers: the argument register and the accumulator register. The result is stored in the accumulator
+			register. For most binary operator instructions, the left operand is the accumulator register, and the right operand is the argument
+			register. An exception is the <code>\</code> inverted division instruction, where the operator is traditional division and operands are swapped.
 		</p>
 		<p>Binary operator instructions:</p>
 		<ul>
@@ -360,75 +360,75 @@
 			<li><code>M</code> - maximum</li>
 			<li><code>m</code> - minimum</li>
 		</ul>
-		<p>+, -, * wraps around if result overflows 16bit two's complement register. E.g. 32767+1=-32768, 0-(-32768)=-32768, (-1)*(-32768)=-32768.</p>
-		<p>If divisor is 0 for %, the result is 0.</p>
-		<p>If divisor is 0 and dividend is positive (in / or \), the result is maximal positive value.</p>
-		<p>If divisor is 0 and dividend is negative (in / or \), the result is minimal negative value.</p>
-		<p>If divisor and dividend is 0 (in / or \), the result is 0.</p>
+		<p>+, -, * wraps around if the result overflows a 16-bit two's complement register. E.g. 32767+1=-32768, 0-(-32768)=-32768, (-1)*(-32768)=-32768.</p>
+		<p>If the divisor is 0 for %, the result is 0.</p>
+		<p>If the divisor is 0 and the dividend is positive (in / or \), the result is the maximal positive value.</p>
+		<p>If the divisor is 0 and the dividend is negative (in / or \), the result is the minimal negative value.</p>
+		<p>If the divisor and the dividend are 0 (in / or \), the result is 0.</p>
 		<h2>Unary Operators</h2>
-		<p>Unary operators operate only on the accumulator register, it is the operand and the result is stored in it.</p>
+		<p>Unary operators operate only on the accumulator register. It is the operand and the result is stored in it.</p>
 		<p>Unary operator instructions:</p>
 		<ul>
 			<li><code>!</code> - logical NOT</li>
 			<li><code>~</code> - bitwise NOT</li>
 			<li><code>#</code> - popcount</li>
 			<li><code>:</code> - byte swap</li>
-			<li><code>s</code> - sinus</li>
+			<li><code>s</code> - sine</li>
 			<li><code>S</code> - sign extension</li>
 		</ul>
 		<h2>Control Flow</h2>
 		<p>
-			Control flow instructions changes the default execution process by change instruction pointer register or changing execution mode.
+			Control flow instructions change the default execution process by changing the instruction pointer register or changing the execution mode.
 		</p>
 		<ul>
 			<li>
-				<code>␀</code> main loop instruction (not printable character ending the code) - sets the instruction pointer to 0, so the program executes from
-				beginning. It makes the program works in main loop.
+				<code>␀</code> main loop instruction (non-printable character ending the code) - sets the instruction pointer to 0, so the program executes from
+				the beginning. It makes the program work in a main loop.
 			</li>
 			<li>
-				<code>;</code> ignore instruction - unconditional skip code until next <code>;</code> ignore instruction. Useful for commenting code. 
+				<code>;</code> ignore instruction - unconditionally skips code execution until the next <code>;</code> ignore instruction. Useful for commenting code. 
 			</li>
 			<li>
-				<code>[</code> conditional ignore instruction - skips code until corresponding <code>]</code> end conditional instruction, if accumulator value is 0. <code>]</code> end conditional instruction inside
-				<code>;</code> ignore instruction are ignored. Each <code>[</code> conditional ignore instruction have to have corresponding <code>]</code> end conditional instruction in sequential order,
-				and contained code have to jump back (if jumps) before closing <code>]</code> end conditional instruction, otherwise the behavior is undefined. Useful
-				for if statement.
+				<code>[</code> conditional ignore instruction - skips code until the corresponding <code>]</code> end conditional instruction, if the accumulator value is 0. The <code>]</code> end conditional instruction between
+				<code>;</code> ignore instructions is ignored. Each <code>[</code> conditional ignore instruction must have a corresponding <code>]</code> end conditional instruction in sequential order,
+				and the contained code must jump back (if jumps) before the closing <code>]</code> end conditional instruction, otherwise the behavior is undefined. Useful
+				for an if statement.
 			</li>
 			<li>
-				<code>]</code> end conditional instruction - marks end of skipped code by <code>[</code> conditional ignore instruction. Useful for if statement.
+				<code>]</code> end conditional instruction - marks the end of skipped code by <code>[</code> conditional ignore instruction. Useful for an if statement.
 			</li>
 			<li>
-				<code>}</code> conditional repeat - repeats code since corresponding <code>{</code> repeat begin instruction until accumulator value is 0. <code>{</code> repeat begin instruction inside
-				<code>;</code> ignore instruction are ignored. Each <code>}</code> conditional repeat instruction have to have corresponding <code>{</code> begin repeat instruction in sequential order,
-				and contained code have to jump back (if jumps) after opening <code>{</code> begin repeat instruction, otherwise the behavior is undefined.
+				<code>}</code> conditional repeat - repeats code from the corresponding <code>{</code> repeat begin instruction until the accumulator value is 0. The <code>{</code> repeat begin instruction inside
+				<code>;</code> ignore instruction is ignored. Each <code>}</code> conditional repeat instruction must have a corresponding <code>{</code> begin repeat instruction in sequential order,
+				and contained code must jump back (if jumps) after opening <code>{</code> begin repeat instruction, otherwise the behavior is undefined.
 			</li>
 			<li>
-				<code>{</code> begin repeat instruction - marks beginning of code repeated by <code>}</code> conditional repeat instruction. Useful for loops.
+				<code>{</code> begin repeat instruction - marks the beginning of code repeated by the <code>}</code> conditional repeat instruction. Useful for loops.
 			</li>
 			<li>
-				<code>J</code> jump instruction - Jumps to instruction pointed by accumulator register by coping its value to instruction pointer register.
+				<code>J</code> jump instruction - Jumps to the instruction pointed to by the accumulator register by copying its value to the instruction pointer register.
 			</li>
 			<li>
-				<code>j</code> read J instruction - do not modify execution flow, but can used to control flow by coping instruction pointer value into
-				accumulator register, modify it and copy back to instruction pointer register. Useful for relative jumps.
+				<code>j</code> read J instruction - does not modify execution flow, but can be used to control flow by copying the instruction pointer value into
+				the accumulator register, modify it, and copy back to the instruction pointer register. Useful for relative jumps.
 			</li>
 			<li>
-				<code>)</code> call instruction - push return address to stack pointed by data address register, then jumps to instruction pointed by
-				accumulator register. Useful for function calls.
+				<code>)</code> call instruction - pushes the return address onto the stack pointed to by the data address register, then jumps to the instruction pointed to by
+				the accumulator register. Useful for function calls.
 			</li>
 			<li>
-				<code>Y</code> fork instruction - creates new hardware thread by coping current core state to new hardware context (eg. free hardware core,
-				free logic core, new entry in register file), but instruction pinter register of new hardware thread is set to accumulator
+				<code>Y</code> fork instruction - creates a new hardware thread by copying the current core state to a new hardware context (e.g. a free hardware core,
+				a free logic core, a new entry in the register file), but the instruction pointer register of the new hardware thread is set to the accumulator
 				value. Useful for code forking.
 			</li>
 			<li>
-				<code>y</code> exit instruction - deletes current hardware thread execution.
+				<code>y</code> exit instruction - deletes the current hardware thread.
 			</li>
 		</ul>
 		<h2>Memory</h2>
 		<p>
-			Memory is organized as a linear array of bytes. Instruction operating on memory uses 2 registers: data address register and
-			accumulator register. Data address register holds byte address. Accumulator register holds value to write or loaded value.
+			Memory is organized as a linear array of bytes. Instructions operating on memory use 2 registers: the data address register and
+			the accumulator register. The data address register holds a byte address. The accumulator register holds a value to write or a loaded value.
 			Memory instructions:
 		</p>
 		<ul>
@@ -439,8 +439,8 @@
 		</ul>
 		<h2>Input/Output</h2>
 		<p>
-			Input and output instructions uses 2 registers: port register and accumulator register. Port register holds index
-			of input/output register and accumulator register holds value to write or loaded value. Single port can store single byte
+			Input and output instructions use 2 registers: the port register and the accumulator register. The port register holds an index
+			of the input/output register, and the accumulator register holds a value to write or a loaded value. A single port can store a single byte
 			of data. Input/output instructions:
 		</p>
 		<ul>
@@ -449,19 +449,19 @@
 		</ul>
 		<h2>Screen</h2>
 		<p>
-			There is only one instruction to manipulate screen: <code>.</code> set pixel instruction. It uses 5 registers: X, Z, R, G, B. Registers X and Z
-			holds coordinates of pixel, and registers R, G, B stores new color of pixel. Register X stores x coordinate, Register Z stores
-			y coordinate, lower byte of register R stores red channel, lower byte of register G stores green channel, lower byte
-			of register B stores blue channel. Color is encoded in TrueColor format.
+			There is only one instruction to manipulate the screen: <code>.</code> set pixel instruction. It uses 5 registers: X, Z, R, G, B. Registers X and Z
+			hold coordinates of the pixel, and registers R, G, B store the new color of the pixel. Register X stores the x coordinate, register Z stores
+			the y coordinate, the lower byte of register R stores the red channel, the lower byte of register G stores the green channel, the lower byte
+			of register B stores the blue channel. Color is encoded in TrueColor format.
 		</p>
 		<h1>Execution modes</h1>
 		<p>There are at least two execution modes:</p>
 		<ul>
-			<li>Execution mode - fetch instructions pointed by instruction pointer register</li>
-			<li>Service mode - fetch instructions from service port</li>
+			<li>Execution mode - fetch instructions pointed to by the instruction pointer register</li>
+			<li>Service mode - fetch instructions from the service port</li>
 		</ul>
-		<p>Device starts in service mode, and switches to execution mode after receiving &#x2400; instruction.</p>
-		<p>Mind that service mode changes effects of some instructions due lack of flow control. E.g. :</p>
+		<p>A device starts in service mode, and switches to execution mode after receiving the &#x2400; main loop instruction.</p>
+		<p>Note that service mode changes the effects of some instructions due to lack of flow control. E.g.:</p>
 		<ul>
 			<li><code>&#x2400;</code> main loop instruction - enters execution mode</li>
 			<li><code>J</code> jump instruction - will not jump</li>
@@ -469,42 +469,42 @@
 			<li><code>)</code> call instruction - will not jump</li>
 		</ul>
 		<h1>Registers</h1>
-		<p>Each register holds a 16 bits wide signed integer value in 2's complement representation.</p>
+		<p>Each register holds a 16-bit wide signed integer value in 2's complement representation.</p>
 		<table>
-			<tr><th>Full Register Name</th><th>Single Letter Name</th><th>Usage</th></tr>
-			<tr><td>Accumulator</td><td></td><td>used as first argument and result storage for most instructions</td></tr>
-			<tr><td>Stack Pointer</td><td></td><td>can be used for fast saving stack pointer</td></tr>
-			<tr><td>Argument</td><td>A</td><td>used as second argument for binary operators</td></tr>
-			<tr><td>Blue</td><td>B</td><td>stores blue channel for pixel painting</td></tr>
+			<tr><th>Full Register Name</th><th>Single-Letter Name</th><th>Usage</th></tr>
+			<tr><td>Accumulator</td><td></td><td>used as the first argument and as the result storage for most instructions</td></tr>
+			<tr><td>Stack Pointer</td><td></td><td>can be used for quickly saving the stack pointer</td></tr>
+			<tr><td>Argument</td><td>A</td><td>used as the second argument for binary operators</td></tr>
+			<tr><td>Blue</td><td>B</td><td>stores the blue channel for pixel painting</td></tr>
 			<tr><td></td><td>C</td><td></td></tr>
-			<tr><td>Data Address</td><td>D</td><td>used for read from or write to memory</td></tr>
+			<tr><td>Data Address</td><td>D</td><td>used to read from or write to memory</td></tr>
 			<tr><td></td><td>E</td><td></td></tr>
 			<tr><td></td><td>F</td><td></td></tr>
-			<tr><td>Green</td><td>G</td><td>stores green channel for pixel painting</td></tr>
+			<tr><td>Green</td><td>G</td><td>stores the green channel for pixel painting</td></tr>
 			<tr><td></td><td>H</td><td></td></tr>
 			<tr><td>Instruction Pointer</td><td>J</td><td>can be used for jumps</td></tr>
 			<tr><td></td><td>K</td><td></td></tr>
 			<tr><td></td><td>L</td><td></td></tr>
 			<tr><td></td><td>N</td><td></td></tr>
-			<tr><td>Port Index</td><td>P</td><td>used for receiving or sending values to port</td></tr>
+			<tr><td>Port Index</td><td>P</td><td>used for receiving or sending values to a port</td></tr>
 			<tr><td></td><td>Q</td><td></td></tr>
-			<tr><td>Red</td><td>R</td><td>stores red channel for pixel painting</td></tr>
+			<tr><td>Red</td><td>R</td><td>stores the red channel for pixel painting</td></tr>
 			<tr><td></td><td>U</td><td></td></tr>
 			<tr><td></td><td>V</td><td></td></tr>
 			<tr><td></td><td>W</td><td></td></tr>
-			<tr><td>X Coordinate</td><td>X</td><td>stores x coordinate of pixel to paint</td></tr>
-			<tr><td>Y Coordinate</td><td>Z</td><td>stores y coordinate of pixel to paint</td></tr>
+			<tr><td>X Coordinate</td><td>X</td><td>stores the x coordinate of the pixel to paint</td></tr>
+			<tr><td>Y Coordinate</td><td>Z</td><td>stores the y coordinate of the pixel to paint</td></tr>
 		</table>
 		<h1>Memory</h1>
 		<p>
-			Memory is array of 8 bits (1 byte) wide cells. Each cell have address, if memory have less cells than possible addressable, some
-			cells can have multiple addresses. Addressable space is determined by Data Address register and Instruction Pointer register,
-			so there is 2<sup>16</sup>=65536 addresses. First cell have address 0, second - 1, last - -1, penult - -2.
+			Memory is an array of 8-bit (1 byte) wide cells. Each cell has an address, if the memory has fewer cells than possible addressable space, some
+			cells can have multiple addresses. The addressable space is determined by the Data Address register and the Instruction Pointer register,
+			so there are 2<sup>16</sup>=65536 addresses. The first cell has address 0, the second 1, the last -1, and the penultimate -2.
 		</p>
 		<p>Instructions operating on memory</p>
 		<ul>
-			<li><code>@</code> store instruction</li>
-			<li><code>$</code> load instruction</li>
+			<li><code>@</code> load instruction</li>
+			<li><code>$</code> store instruction</li>
 			<li><code>,</code> push instruction</li>
 			<li><code>`</code> pop instruction</li>
 			<li><code>)</code> call instruction (pushes return address)</li>
