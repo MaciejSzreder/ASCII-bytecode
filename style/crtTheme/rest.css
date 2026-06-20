@@ -1,0 +1,7 @@
+.rest{
+	color: gray;
+}
+
+tr:hover .rest{
+	color: #202020;
+}

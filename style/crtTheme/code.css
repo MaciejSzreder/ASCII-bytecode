@@ -1,0 +1,33 @@
+@import url(colors.css);
+
+code{
+	white-space: pre;
+	display: inline-block;
+
+	line-height:1;
+	background-size: 2ch 2em;
+	background-repeat: repeat;
+
+	background-image: conic-gradient(
+		var(--slight1) 90deg, 
+		var(--slight2) 90deg 180deg, 
+		var(--slight1) 180deg 270deg, 
+		var(--slight2) 270deg
+	);
+}
+
+tr:hover code{
+	white-space: pre;
+	display: inline-block;
+
+	line-height:1;
+	background-size: 2ch 2em;
+	background-repeat: repeat;
+
+	background-image: conic-gradient(
+		var(--strong1) 90deg, 
+		var(--strong2) 90deg 180deg, 
+		var(--strong1) 180deg 270deg, 
+		var(--strong2) 270deg
+	);
+}

@@ -1,0 +1,40 @@
+@import url(colors.css);
+
+table{
+	border-collapse: collapse;
+}
+
+th{
+	background-color: var(--light);
+	color: var(--background);
+	font-weight: normal;
+}
+
+th:not(:first-child){
+	border-left: 1px solid
+}
+
+table tr:nth-child(odd){
+	background-color: var(--slight);
+}
+
+td{
+	padding: 0 0.5em;
+}
+
+td:not(:first-child){
+	border-left: 1px solid var(--light);
+}
+
+tr:hover td{
+	background-color: var(--light);
+	color: var(--background);
+}
+
+tr:hover td:not(:first-child){
+	border-left: 1px solid var(--background);
+}
+
+input:not(:checked)#show-reserved ~ table .reserved{
+	display: none;
+}

@@ -1,0 +1,31 @@
+@import url(colors.css);
+
+body{
+	text-shadow: 0 0 15px var(--light);
+}
+
+*:hover:not(:empty):not(:has(:not(:is(
+	i, u, code, span, br, img
+)))){
+	text-shadow: none;
+}
+
+th{
+	text-shadow: 0 0 2px var(--background);
+}
+
+tr:hover td{
+	text-shadow: 0 0 2px var(--background);
+}
+
+td:hover{
+	text-shadow: none;
+}
+
+.rest{
+	text-shadow: 0 0 15px gray;
+}
+
+tr:hover .rest{
+	text-shadow: 0 0 2px #202020;
+}
