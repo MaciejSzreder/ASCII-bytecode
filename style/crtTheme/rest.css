@@ -1,7 +1,9 @@
+@import url(config/colors.css);
+
 .rest{
-	color: gray;
+	color: var(--light-gray-out);
 }
 
 tr:hover .rest{
-	color: #202020;
+	color: var(--dark-gray-out);
 }

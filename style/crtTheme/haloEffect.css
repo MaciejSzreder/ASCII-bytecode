@@ -24,9 +24,9 @@ td:hover{
 }
 
 .rest{
-	text-shadow: 0 0 var(--halo-bright-radius) gray;
+	text-shadow: 0 0 var(--halo-bright-radius) var(--light-gray-out);
 }
 
 tr:hover .rest{
-	text-shadow: 0 0 var(--halo-dark-radius) #202020;
+	text-shadow: 0 0 var(--halo-dark-radius) var(--dark-gray-out);
 }
