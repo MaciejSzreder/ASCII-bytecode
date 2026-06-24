@@ -11,11 +11,16 @@ th{
 }
 
 th:not(:first-child){
-	border-left: 1px solid
+	border-left: 3px solid var(--background-among-light);
 }
 
-table tr:nth-child(odd){
+table tr:nth-child(odd) td{
 	background-color: var(--slight);
+}
+
+table tr:nth-child(odd):hover td{
+
+	background: var(--light);
 }
 
 td{
@@ -27,12 +32,12 @@ td:not(:first-child){
 }
 
 tr:hover td{
-	background-color: var(--light);
+	background: var(--light);
 	color: var(--background);
 }
 
 tr:hover td:not(:first-child){
-	border-left: 1px solid var(--background);
+	border-left: 1px solid var(--background-among-light);
 }
 
 input:not(:checked)#show-reserved ~ table .reserved{

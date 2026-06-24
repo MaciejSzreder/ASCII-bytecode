@@ -34,3 +34,31 @@ tr:hover .rest{
 tr:hover *:hover>.rest{
 	text-shadow: none;
 }
+
+table tr:nth-child(odd) td:first-child{
+	background-image: linear-gradient(to left, var(--slight2), transparent var(--halo-bright-radius));
+}
+
+table tr:nth-child(odd) td:not(:first-child,:last-child){
+
+	background-image: 
+		linear-gradient(to right, var(--slight2), transparent var(--halo-bright-radius)),
+		linear-gradient(to left, var(--slight2), transparent var(--halo-bright-radius));
+}
+
+table tr:nth-child(odd) td:last-child{
+
+	background-image: linear-gradient(to right, var(--slight2), transparent var(--halo-bright-radius));
+}
+
+td:first-child{	
+	background-image: linear-gradient(to left, var(--slight2), transparent var(--halo-bright-radius));
+}
+td:not(:first-child,:last-child){	
+	background-image: 
+		linear-gradient(to right, var(--slight2), transparent var(--halo-bright-radius)),
+		linear-gradient(to left, var(--slight2), transparent var(--halo-bright-radius));
+}
+td:last-child{	
+	background-image: linear-gradient(to right, var(--slight2), transparent var(--halo-bright-radius));
+}

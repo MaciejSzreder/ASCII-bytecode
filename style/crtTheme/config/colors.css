@@ -6,6 +6,7 @@
 	--slight1: #02140A;
 	--slight: #010A05;
 	--background: black;
+	--background-among-light: var(--strong2);
 
 	--light-gray-out: gray;
 	--dark-gray-out: #202020;
