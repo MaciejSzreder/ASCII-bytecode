@@ -11,6 +11,10 @@ body{
 	text-shadow: none;
 }
 
+table tr:first-child{
+	box-shadow: 0px 0px var(--halo-bright-radius) var(--light);
+}
+
 th{
 	text-shadow: 0 0 var(--halo-dark-radius) var(--background);
 }
