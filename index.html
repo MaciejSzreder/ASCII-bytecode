@@ -16,6 +16,7 @@
 		<link rel="stylesheet" href="style/crtTheme/theme.css" />
 		<link rel="stylesheet" href="style/logo.css" />
 		<style>
+			#input, #serviceInput, #output {display:none}
 		</style>
 	</head>
 	<body style="margin: 0">
@@ -23,26 +24,17 @@
 		<p>The main idea is to use ASCII code points as bytecode.</p>
 		<h1>Interface</h1>
 		<canvas id="main"></canvas>
-		<div>
-			<label for="input">input:</label>
-			<textarea id="input" style="height: 310px">
+		<textarea id="input">
         
        O
       O 
       OO
 ========</textarea>
-		</div>
-		<div>
-			<label for="serviceInput">service input:</label>
-			<textarea id="serviceInput" style="height: 310px">
+		<textarea id="serviceInput">
  OO O  O
  OO OOOO
 ========</textarea>
-		</div>
-		<div>
-			<label for="output">output:</label>
-			<textarea disabled id="output" style="height: 310px"></textarea>
-		</div>
+		<textarea disabled id="output"></textarea>
 		<h1>Instructions</h1>
 		<h2>Table</h2>
 		<input type="checkbox" id="show-reserved" />
