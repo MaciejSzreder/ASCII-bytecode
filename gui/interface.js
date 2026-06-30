@@ -1,7 +1,7 @@
 ﻿const tapeGap = Tape.holeGap;
 const tapeComputerGap = tapeGap;
 
-let serviceTape, inputTape, outputTape;
+let serviceTape, inputTape, outputTape, computer;
 
 document.addEventListener('DOMContentLoaded', ()=>{
 	let view = document.getElementsByTagName`html`[0]
@@ -11,6 +11,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	
 	render(serviceTape = new Tape(document.getElementById`serviceInput`, 0));
 	render(inputTape = new Tape(document.getElementById`input`, Tape.width + tapeGap));
-	render(new Computer(2*Tape.width + 2*tapeGap,0, ()=>image));
+	render(computer = new Computer(2*Tape.width + 2*tapeGap,0, ()=>image));
 	render(outputTape = new Tape(document.getElementById`output`, 2*Tape.width + tapeGap + 2*tapeComputerGap + Computer.width));
+
+	computer.connectServiceInput(document.getElementById`serviceInput`);
+	computer.connectInput(document.getElementById`input`);
+	computer.connectOutput(document.getElementById`output`);
 });
