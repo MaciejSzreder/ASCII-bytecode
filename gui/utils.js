@@ -1,0 +1,1 @@
+HtmlId = id=>document.getElementById(id);

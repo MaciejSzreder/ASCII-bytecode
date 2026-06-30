@@ -1,7 +1,7 @@
 let objects = [];
 
 document.addEventListener('DOMContentLoaded', ()=>{
-	let canvas = document.getElementById`main`;
+	let canvas = HtmlId`main`;
 	let ctx = canvas.getContext`2d`;
 
 	let mouse = {};
