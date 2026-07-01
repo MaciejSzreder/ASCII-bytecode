@@ -5,12 +5,13 @@ class Computer
 	static buttonScreenGap = Computer.buttonEdgeGap;
 	static width = (new Machine).image().length + 2*Computer.screenEdgeGap;
 
-	image =  (new Machine).image()
-
 	constructor(x,y)
 	{
 		this.x = x;
 		this.y = y;
+		this.machine = new Machine();
+		this.image = this.machine.image();
+
 		render(this.screen = new Screen(x+Computer.screenEdgeGap,y+Computer.screenEdgeGap, ()=>this.image));
 		render(this.button = new Button(
 			x+Computer.buttonEdgeGap,
@@ -50,17 +51,23 @@ class Computer
 
 	start()
 	{
+		let serviceCode = tapeIterator(this.serviceCode.value);
 		let input = tapeIterator(this.input.value);
-		let {machine} = Machine.prepare('', (port)=>port==0?input():null, tapeIterator(this.serviceCode.value));
-		machine.outputs((port,value)=>{
+		
+		this.machine.inputs(Machine.makePortIterator((port)=>port==0?input():null));
+
+		this.machine.serviceMode();
+		this.machine.serviceInput(Machine.makeTapeIterator(serviceCode));
+
+		this.machine.outputs((port,value)=>{
 			if(port==0){
 				this.output.value = tapeEncode([[value]]) + '\n' + this.output.value;
 			}
 			console.log(`${port}: ${value}`);
 		});
 		
-		machine.restart();
+		this.machine.restart();
 
-		this.image = machine.image();
+		this.image = this.machine.image();
 	}
 }
