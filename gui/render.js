@@ -1,3 +1,5 @@
+import { HtmlId } from './utils.js';
+
 let objects = [];
 
 document.addEventListener('DOMContentLoaded', ()=>{
@@ -42,7 +44,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	});
 });
 
-function render(object)
+export default function render(object)
 {
 	objects.push(object);
 }

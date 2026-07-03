@@ -1,8 +1,8 @@
-	
-	
+import color from './colors.js';
 
+import { tapeDecode, tapeEncode } from "../logic/tape.js";
 
-class Tape
+export default class Tape
 {
 	static holeRadius = 10;
 	static holeGap = 10;

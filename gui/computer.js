@@ -1,4 +1,13 @@
-class Computer
+import color from './colors.js';
+
+import render from './render.js';
+import Screen from './screen.js';
+import Button from './button.js';
+
+import Machine from '../logic/machine.js';
+import { tapeIterator, tapeEncode } from '../logic/tape.js';
+
+export default class Computer
 {
 	static screenEdgeGap = 10;
 	static buttonEdgeGap = Computer.screenEdgeGap;

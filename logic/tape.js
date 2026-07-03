@@ -1,5 +1,4 @@
-
-function tapeDecode(encoded)
+export function tapeDecode(encoded)
 {
 	let loop = false;
 	if(encoded.startsWith('========\n') || encoded.startsWith('~~~~~~~~\n')){
@@ -16,7 +15,7 @@ function tapeDecode(encoded)
 	return [data, loop];
 }
 
-function tapeEncode(data, loop = false)
+export function tapeEncode(data, loop = false)
 {
 	return(
 		data[0].map((value)=>
@@ -30,9 +29,8 @@ function tapeEncode(data, loop = false)
 	);
 }
 
-function tapeIterator(encoded)
+export function tapeIterator(encoded)
 {
-
 	let [decoded, loop] = tapeDecode(encoded);
 
 	if(loop){

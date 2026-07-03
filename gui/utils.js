@@ -1,1 +1,4 @@
-HtmlId = id=>document.getElementById(id);
+export function HtmlId(id)
+{
+	return document.getElementById(id)
+};

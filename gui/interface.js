@@ -1,7 +1,12 @@
-﻿const tapeGap = Tape.holeGap;
+﻿import render from './render.js';
+import Computer from './computer.js';
+import Tape from './tape.js';
+import { HtmlId } from './utils.js';
+
+const tapeGap = Tape.holeGap;
 const tapeComputerGap = tapeGap;
 
-let serviceTape, inputTape, outputTape, computer;
+export let serviceTape, inputTape, outputTape, computer;
 
 document.addEventListener('DOMContentLoaded', ()=>{
 	let view = HtmlId`html`;

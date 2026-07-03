@@ -1,4 +1,6 @@
-class Button
+import color from './colors.js';
+
+export default class Button
 {
 	font = '50px sans-serif';
 	textColor = color.on;

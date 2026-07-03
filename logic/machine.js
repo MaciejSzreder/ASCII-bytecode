@@ -48,7 +48,7 @@ class Core{
 	}
 }
 
-class Machine{
+export default class Machine{
 	static makeTapeIterator(source)
 	{
 		if(typeof source === 'function'){

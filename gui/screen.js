@@ -1,4 +1,6 @@
-class Screen
+import color from './colors.js';
+
+export default class Screen
 {
 	constructor(x,y,source)
 	{

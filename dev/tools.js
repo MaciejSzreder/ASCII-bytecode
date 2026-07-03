@@ -1,3 +1,6 @@
+import * as gui from '../gui/interface.js';
+import {tapeDecode} from '../logic/tape.js';
+
 function serialize(tapeEncoded)
 {
 	const [content, loop] = tapeDecode(tapeEncoded);
@@ -6,15 +9,15 @@ function serialize(tapeEncoded)
 
 export function get_input_tape_content()
 {
-	return serialize(inputTape.source.value);
+	return serialize(gui.inputTape.source.value);
 }
 
 export function get_service_tape_content()
 {
-	return serialize(serviceTape.source.value);
+	return serialize(gui.serviceTape.source.value);
 }
 
 export function get_output_tape_content()
 {
-	return serialize(outputTape.source.value);
+	return serialize(gui.outputTape.source.value);
 }
