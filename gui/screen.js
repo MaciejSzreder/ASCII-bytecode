@@ -29,12 +29,12 @@ export default class Screen
 			for(let z=0; z<image[x].length; ++z){
 				const [r,g,b] = image[x][z];
 				ctx.fillStyle = `rgb(${r&255},${g&255},${b&255})`;
-				ctx.fillRect(hitBox.x+x,hitBox.y+z,1,1);
+				ctx.fillRect(x,z,1,1);
 			}
 		}
 
 		ctx.strokeStyle = color.off;
-		ctx.strokeRect(this.x - 0.5, this.y - 0.5, this.hitBox.width+1, this.hitBox.height+1);
+		ctx.strokeRect(-0.5, -0.5, this.hitBox.width+1, this.hitBox.height+1);
 
 		this.hitBox = hitBox;
 	}

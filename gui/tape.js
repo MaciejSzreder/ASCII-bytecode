@@ -32,7 +32,7 @@ export default class Tape
 	draw(ctx, {mouse})
 	{
 		let [data, loop] = tapeDecode(this.source.value);
-		this.punchTape(ctx, data.reverse(), loop, this.x);
+		this.punchTape(ctx, data.reverse(), loop, 0);
 
 		if(mouse.isOver){
 			const cell = {
@@ -40,13 +40,13 @@ export default class Tape
 				row: Math.floor(mouse.y / Tape.holeCenterDistance)
 			};
 			const hole = {
-				x: cell.column*Tape.holeCenterDistance + Tape.holeCenterEdgeDistance + this.x,
+				x: cell.column*Tape.holeCenterDistance + Tape.holeCenterEdgeDistance,
 				y: cell.row*Tape.holeCenterDistance + Tape.holeCenterEdgeDistance
 			}
 			const rowY = mouse.y % Tape.holeCenterDistance;
 
 			if(rowY <= Tape.holeGap){
-				this.glueCovering(ctx, this.x,mouse.y-rowY, true);
+				this.glueCovering(ctx, 0,mouse.y-rowY, true);
 			}else{
 				this.punchHole(ctx, hole.x, hole.y, true);
 			}

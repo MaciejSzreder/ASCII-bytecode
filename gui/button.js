@@ -33,9 +33,9 @@ export default class Button
 			height: actualBoundingBoxAscent+actualBoundingBoxDescent+2
 		};
 		ctx.fillStyle = this.buttonColor;
-		ctx.fillRect(hitBox.x,hitBox.y, hitBox.width,hitBox.height);
+		ctx.fillRect(0,0, hitBox.width,hitBox.height);
 		ctx.fillStyle = this.textColor;
-		ctx.fillText(this.content, hitBox.x,hitBox.y+hitBox.height-3);
+		ctx.fillText(this.content, 0,hitBox.height-3);
 
 		this.hitBox = hitBox;
 	}

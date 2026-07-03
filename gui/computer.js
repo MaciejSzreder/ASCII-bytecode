@@ -39,7 +39,7 @@ export default class Computer
 			height: this.button.hitBox.y - this.y + this.button.hitBox.height + Computer.buttonEdgeGap
 		}
 		ctx.strokeStyle = color.off;
-		ctx.strokeRect(this.x + 0.5, this.y + 0.5, this.hitBox.width, this.hitBox.height);
+		ctx.strokeRect(0.5, 0.5, this.hitBox.width, this.hitBox.height);
 	
 	}
 
