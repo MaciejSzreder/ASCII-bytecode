@@ -36,7 +36,7 @@ export default class Tape
 
 		if(mouse.isOver){
 			const cell = {
-				column: Math.max(0,Math.min(Math.round((mouse.x-this.x-Tape.holeCenterEdgeDistance)/Tape.holeCenterDistance), 7)),
+				column: Math.max(0,Math.min(Math.round((mouse.x-Tape.holeCenterEdgeDistance)/Tape.holeCenterDistance), 7)),
 				row: Math.floor(mouse.y / Tape.holeCenterDistance)
 			};
 			const hole = {

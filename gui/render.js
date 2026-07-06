@@ -19,12 +19,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 	requestAnimationFrame(function drawObjects(){
 		for(let object of objects){
-			ctx.translate(
-				object?.hitBox?.x??0,
-				object?.hitBox?.y??0
-			);
-			mouse.isOver = inRectangle(mouse, object.hitBox);
-			object.draw?.(ctx, {mouse});
+			ctx.translate(object?.hitBox?.x??0, object?.hitBox?.y??0);
+			let localMouse = {
+				x: mouse.x - (object?.hitBox?.x??0),
+				y: mouse.y - (object?.hitBox?.y??0),
+				isOver: inRectangle(mouse, object.hitBox)
+			}
+			object.draw?.(ctx, {mouse: localMouse});
 			ctx.resetTransform();
 		}
 		requestAnimationFrame(drawObjects);
