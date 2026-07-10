@@ -82,6 +82,42 @@ document.addEventListener('DOMContentLoaded', ()=>{
 			}
 		}
 	});
+
+	canvas.addEventListener('touchstart', (event)=>{
+		const rect = canvas.getBoundingClientRect();
+		const mouse = {
+			x: event.touches[0].clientX - rect.left,
+			y: event.touches[0].clientY - rect.top
+		};
+		start = mouse;
+		
+		for(let object of objects){
+			if(inRectangle(mouse, object.hitBox)){
+				draggedObject = object;
+			}
+		}
+	});
+	
+
+	canvas.addEventListener('touchmove', (event)=>{
+		const rect = canvas.getBoundingClientRect();
+		const mouse = {
+			x: event.touches[0].clientX - rect.left,
+			y: event.touches[0].clientY - rect.top
+		};
+		
+		if(start?.x !== mouse.x && start?.y !== mouse.y){
+			if(draggedObject?.drag){
+				event.preventDefault();
+				draggedObject?.drag?.({absoluteMouse: mouse});
+			}
+		}
+	});
+	
+	canvas.addEventListener('touchend', (event)=>{
+		draggedObject = null;
+		start = null;
+	});
 });
 
 export default function render(object)
