@@ -1,6 +1,7 @@
 ﻿import render from './render.js';
 import Computer from './computer.js';
 import Tape from './tape.js';
+import Cable from './cable.js';
 import { HtmlId } from './utils.js';
 
 const tapeGap = Tape.holeGap;
@@ -22,4 +23,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	computer.connectServiceInput(HtmlId`serviceInput`);
 	computer.connectInput(HtmlId`input`);
 	computer.connectOutput(HtmlId`output`);
+
+	render(new Cable(serviceTape, computer));
+	render(new Cable(inputTape, computer));
+	render(new Cable(outputTape, computer));
 });

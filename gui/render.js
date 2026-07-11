@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 				y: mouse.y - (object?.hitBox?.y??0),
 				isOver: inRectangle(mouse, object.hitBox)
 			}
+			ctx.lineWidth = 1;
 			object.draw?.(ctx, {mouse: localMouse});
 			ctx.resetTransform();
 		}
