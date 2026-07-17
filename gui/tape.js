@@ -17,9 +17,9 @@ export default class Tape
 	potentialGlueColor = color.pointed;
 
 
-	constructor(source, x)
+	constructor(content, x)
 	{
-		this.source = source;
+		this.source = {value: content};
 		this.x = x;
 		this.hitBox = {
 			x: this.x,

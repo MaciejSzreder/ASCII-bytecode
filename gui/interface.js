@@ -25,14 +25,25 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	main.style.height = main.height = view.clientHeight;
 	let width = main.style.width = main.width = view.clientWidth;
 	
-	render(serviceTape = new Tape(HtmlId`serviceInput`, 0));
-	render(inputTape = new Tape(HtmlId`input`, positionClamp( Tape.width + tapeGap, Tape.width, width)));
+	render(serviceTape = new Tape(
+		" OO O  O\n"+
+		" OO OOOO\n"+
+		"========",
+		0
+	));
+	render(inputTape = new Tape(
+		"       O\n"+
+		"      O \n"+
+		"      OO\n"+
+		"========",
+		positionClamp( Tape.width + tapeGap, Tape.width, width)
+	));
 	render(computer = new Computer(positionClamp(2*Tape.width + 2*tapeGap, Computer.width, width), 0, ()=>image));
-	render(outputTape = new Tape(HtmlId`output`, positionClamp(2*Tape.width + tapeGap + 2*tapeComputerGap + Computer.width, Tape.width, width)));
+	render(outputTape = new Tape("", positionClamp(2*Tape.width + tapeGap + 2*tapeComputerGap + Computer.width, Tape.width, width)));
 
-	computer.connectServiceInput(HtmlId`serviceInput`);
-	computer.connectInput(HtmlId`input`);
-	computer.connectOutput(HtmlId`output`);
+	computer.connectServiceInput(serviceTape.source);
+	computer.connectInput(inputTape.source);
+	computer.connectOutput(outputTape.source);
 
 	render(new Cable(serviceTape, computer));
 	render(new Cable(inputTape, computer));
