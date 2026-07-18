@@ -1,5 +1,7 @@
-const expect = chai.expect;
-chai.config.truncateThreshold = 0;
+import { expect, config } from 'https://cdn.jsdelivr.net/npm/chai@5.1.1/+esm';
+config.truncateThreshold = 0;
+
+import Machine from './logic/machine.js';
 
 function map(object, f)
 {
